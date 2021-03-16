@@ -35,7 +35,7 @@ namespace DataAccess
             get
             {
                 return Path.GetFullPath(
-                    Path.Combine(FlightLogsDataFolderPath, @".\SampleLog.txt"));
+                    Path.Combine(FlightLogsDataFolderPath, @".\SampleLog.xml"));
             }
         }
     }

@@ -17,6 +17,7 @@ using System.ComponentModel;
 using DataAccess;
 using DataAccess.Serialization;
 using AppFeatures.Models;
+using System.Text.RegularExpressions;
 
 namespace ControlTowerWPF
 {
@@ -40,6 +41,7 @@ namespace ControlTowerWPF
 
         public FlightLogger FlightLogger { get; set; } = new FlightLogger();
 
+        public FlightLogWindow FlightLogWindow { get; set; }
 
 
 
@@ -50,9 +52,17 @@ namespace ControlTowerWPF
         {
             InitializeComponent();
 
-            List<string> lines = DataAccess.Utility.TextFileUtility.GetAllLines(FilePaths.SampleFlightLogFilePath);
+            List<FlightLogInfo> flights = XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.SampleFlightLogFilePath);
 
-            MessageBox.Show(lines.Count.ToString());
+            flights.Add(new FlightLogInfo() { FlightCode = "SAS 52", Status = "Landed", DateTime = DateTime.Now });
+
+            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.SampleFlightLogFilePath, flights);
+
+            //List<string> lines = DataAccess.Utility.TextFileUtility.GetAllLines(FilePaths.SampleFlightLogFilePath);
+
+            //string parsed = Regex.Replace(lines[0], @"\s+", " ");
+
+            //MessageBox.Show(parsed);
 
             //MessageBox.Show(FilePaths.SampleFlightLogFilePath);
 
@@ -203,6 +213,12 @@ namespace ControlTowerWPF
             listViewFlights.Items.Add(flightInfo);
         }
 
+        private void OpenFlightLogWindow_EventHandler()
+        {
+            FlightLogWindow = new FlightLogWindow();
+            FlightLogWindow.Show();
+        }
+
         private void WindowClosing_EventHandler(CancelEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show(
@@ -240,6 +256,11 @@ namespace ControlTowerWPF
         private void OnLanded(object source, LandEventArgs e)
         {
             OnLanded_EventHandler(source, e);
+        }
+
+        private void btnViewFlightLog_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFlightLogWindow_EventHandler();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

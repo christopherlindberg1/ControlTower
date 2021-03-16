@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DataAccess;
+using DataAccess.Utility;
 
 namespace ControlTowerWPF
 {
@@ -22,6 +24,22 @@ namespace ControlTowerWPF
         public FlightLogWindow()
         {
             InitializeComponent();
+            InitializeWindow();
         }
+
+        private void InitializeWindow()
+        {
+            InitializeGUI();
+        }
+
+        private void InitializeGUI()
+        {
+            List<string> logLines = TextFileUtility.GetAllLines(FilePaths.SampleFlightLogFilePath);
+
+            for (int i = 0; i < logLines.Count; i++)
+            {
+                listBoxLogLines.Items.Add(logLines[i]);
+            }
+        }   
     }
 }

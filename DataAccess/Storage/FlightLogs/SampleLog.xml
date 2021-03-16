@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfFlightLogInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FlightLogInfo>
+    <FlightCode>KML 52</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-16T23:28:10.8601555+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>SAS 52</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-16T23:31:03.1160582+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>SAS 52</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-16T23:42:49.7032727+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>efra</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-16T23:42:56.4911217+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>efra</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-16T23:43:46.0186487+01:00</DateTime>
+  </FlightLogInfo>
+</ArrayOfFlightLogInfo>

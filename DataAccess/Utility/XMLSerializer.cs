@@ -20,7 +20,6 @@ namespace DataAccess.Serialization
                 {
                     serializer.Serialize(streamWriter, obj);
                 }
-                // Catch more specific exception than this
                 catch (Exception ex)
                 {
                     throw;
@@ -38,7 +37,6 @@ namespace DataAccess.Serialization
                 {
                     return (T)serializer.Deserialize(streamReader);
                 }
-                // Catch more specific exception than this
                 catch (Exception ex)
                 {
                     throw new InvalidOperationException();

@@ -14,30 +14,56 @@ namespace AppFeatures
     {
         public void OnTakeOff(object source, TakeOffEventArgs e)
         {
-            TextFileUtility.AppendLineToTextFile(
-                FilePaths.SampleFlightLogFilePath, FormatTakeOffLogMessage(e));
+            FlightLogInfo flightLogInfo = new FlightLogInfo()
+            {
+                FlightCode = e.FlightCode,
+                Status = e.Status,
+                DateTime = e.DateTime
+            };
+
+            AddFlightLogInfoItemToLog(flightLogInfo);
         }
 
         public void OnLanded(object source, LandEventArgs e)
         {
-            TextFileUtility.AppendLineToTextFile(
-                FilePaths.SampleFlightLogFilePath, FormatLandingLogMessage(e));
+            FlightLogInfo flightLogInfo = new FlightLogInfo()
+            {
+                FlightCode = e.FlightCode,
+                Status = e.Status,
+                DateTime = e.DateTime
+            };
+
+            AddFlightLogInfoItemToLog(flightLogInfo);
         }
 
-        private string FormatTakeOffLogMessage(TakeOffEventArgs e)
+        private void AddFlightLogInfoItemToLog(FlightLogInfo flightLogInfo)
         {
-            string flightCodeFormatted = e.FlightCode.PadRight(13);
-            string takeOffLabelFormatted = "took off".PadRight(11);
+            List<FlightLogInfo> flightLogInfoItems = XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.SampleFlightLogFilePath);
+
+            flightLogInfoItems.Add(flightLogInfo);
+
+            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.SampleFlightLogFilePath, flightLogInfoItems);
+        }
+
+        private List<FlightLogInfo> GetFlightLogInfoItems()
+        {
+            return XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.SampleFlightLogFilePath);
+        }
+
+        //private string FormatTakeOffLogMessage(TakeOffEventArgs e)
+        //{
+        //    string flightCodeFormatted = e.FlightCode;
+        //    string takeOffLabelFormatted = "took off";
             
-            return $"Flight: { flightCodeFormatted } { takeOffLabelFormatted } { e.DateTime.ToString() }";
-        }
+        //    return $"Flight: { flightCodeFormatted } { takeOffLabelFormatted } { e.DateTime.ToString() }";
+        //}
 
-        private string FormatLandingLogMessage(LandEventArgs e)
-        {
-            string flightCodeFormatted = e.FlightCode.PadRight(13);
-            string landedLabelFormatted = "landed".PadRight(11);
+        //private string FormatLandingLogMessage(LandEventArgs e)
+        //{
+        //    string flightCodeFormatted = e.FlightCode;
+        //    string landedLabelFormatted = "landed";
 
-            return $"Flight: { flightCodeFormatted } { landedLabelFormatted } { e.DateTime.ToString() }";
-        }
+        //    return $"Flight: { flightCodeFormatted } { landedLabelFormatted } { e.DateTime.ToString() }";
+        //}
     }
 }

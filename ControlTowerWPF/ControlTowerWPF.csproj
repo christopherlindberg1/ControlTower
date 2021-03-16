@@ -70,6 +70,10 @@
       <DependentUpon>ControlTowerWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="FlightLogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FlightWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -77,6 +81,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ErrorMessageHandler.cs" />
+    <Compile Include="FlightLogWindow.xaml.cs">
+      <DependentUpon>FlightLogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FlightWindow.xaml.cs">
       <DependentUpon>FlightWindow.xaml</DependentUpon>
     </Compile>
