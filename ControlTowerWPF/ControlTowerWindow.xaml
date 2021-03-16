@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Control Tower"
         Height="600"
-        Width="520"
-        Margin="0">
+        Width="550"
+        >
     <Grid Margin="15 10">
         
         <Grid.RowDefinitions>
@@ -26,7 +26,7 @@
                 <GridView>
                     <GridViewColumn Header="Flight Code" Width="112" DisplayMemberBinding="{Binding FlightCode}" />
                     <GridViewColumn Header="Status" Width="240" DisplayMemberBinding="{Binding Status}" />
-                    <GridViewColumn Header="Time" Width="112" DisplayMemberBinding="{Binding Time}" />
+                    <GridViewColumn Header="Time" Width="142" DisplayMemberBinding="{Binding DisplayDateTime}" />
                 </GridView>
             </ListView.View>
         </ListView>
@@ -43,9 +43,11 @@
             </WrapPanel>
 
             <Button
+                x:Name="btnSendAirplaneToRunway"
                 Grid.Column="1"
                 Content="Send next airplane to runway"
                 Height="40"
+                Click="btnSendAirplaneToRunway_Click"
             />
         </Grid>
     </Grid>

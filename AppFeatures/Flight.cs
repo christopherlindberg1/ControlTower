@@ -10,7 +10,11 @@ namespace AppFeatures
     {
         public string FlightCode { get; set; }
         public string Status { get; set; }
-        public string Time { get; set; }
+        public DateTime DateTime { get; set; }
 
+        public string DisplayDateTime
+        {
+            get => $"{ DateTime.ToLongTimeString() } - { DateTime.ToShortDateString() }";
+        }
     }
 }
