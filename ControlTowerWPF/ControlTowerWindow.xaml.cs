@@ -13,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
+using DataAccess;
+using DataAccess.Serialization;
+using AppFeatures.Models;
 
 namespace ControlTowerWPF
 {
@@ -34,7 +38,8 @@ namespace ControlTowerWPF
             get => _errorMessageHandler;
         }
 
-        //public List<Flight> Flights { get; set; } = new List<Flight>();
+        public FlightLogger FlightLogger { get; set; } = new FlightLogger();
+
 
 
 
@@ -45,45 +50,14 @@ namespace ControlTowerWPF
         {
             InitializeComponent();
 
-            //InitializeSampleFlights();
+            List<string> lines = DataAccess.Utility.TextFileUtility.GetAllLines(FilePaths.SampleFlightLogFilePath);
+
+            MessageBox.Show(lines.Count.ToString());
+
+            //MessageBox.Show(FilePaths.SampleFlightLogFilePath);
+
+            //Close();
         }
-
-        private void InitializeFlightsListView()
-        {
-
-        }
-
-        //private void InitializeSampleFlights()
-        //{
-            
-
-        //    listViewFlights.ItemsSource = Flights;
-
-        //    Flights.Add(new Flight()
-        //    {
-        //        FlightCode = "KLM 298",
-        //        Status = "Sent to runway",
-        //        DateTime = new DateTime(2021, 3, 10, 7, 43, 9)
-        //    });
-        //    Flights.Add(new Flight()
-        //    {
-        //        FlightCode = "CA 86",
-        //        Status = "Landed",
-        //        DateTime = new DateTime(2021, 3, 10, 7, 42, 12)
-        //    });
-        //    Flights.Add(new Flight()
-        //    {
-        //        FlightCode = "SAS 59P",
-        //        Status = "Now heading 200 deg",
-        //        DateTime = new DateTime(2021, 3, 10, 7, 40, 5)
-        //    });
-        //    Flights.Add(new Flight()
-        //    {
-        //        FlightCode = "BK 842",
-        //        Status = "Now heading 125 dev",
-        //        DateTime = new DateTime(2021, 3, 10, 7, 36, 52)
-        //    });
-        //}
 
         public bool ValidateInput()
         {
@@ -114,14 +88,39 @@ namespace ControlTowerWPF
 
         private void SendAirplaneToRunway()
         {
-            FlightWindow window = new FlightWindow(textBoxFlightCode.Text);
+            string flightCode = textBoxFlightCode.Text;
+            
+            AddAirplaneToGuiWhenSent(flightCode);
+
+            FlightWindow window = new FlightWindow(flightCode);
             window.Show();
 
-            // Subscribing to events in FlightWindow object
-            window.TakenOff += OnTakeOff;
-            window.RouteChanged += OnRouteChange;
-            window.Landed += OnLand;
+            // This object (MainWindow) subscribing to events in FlightWindow instance
+            window.TakenOff += OnTakenOff;
+            window.RouteChanged += OnRouteChanged;
+            window.Landed += OnLanded;
+
+            // FlightLogger subscribing to events in the FlightWindow instance
+            window.TakenOff += FlightLogger.OnTakeOff;
+            window.Landed += FlightLogger.OnLanded;
         }
+
+        /// <summary>
+        /// Adds a row in the listview for airplane statuses and shows that the
+        /// airplane has been sent to the runway.
+        /// </summary>
+        private void AddAirplaneToGuiWhenSent(string flightCode)
+        {
+            FlightInfo flightInfo = new FlightInfo()
+            {
+                FlightCode = flightCode,
+                Status = "Sent to runway"
+            };
+
+            listViewFlights.Items.Add(flightInfo);
+        }
+
+        
 
         
 
@@ -131,6 +130,11 @@ namespace ControlTowerWPF
 
         // ===================== Event handler methods ===================== //
 
+        /// <summary>
+        /// The event for sending airplanes to the runway calls this method.
+        /// It validates the user input and sends the airplane to the runway if the
+        /// input is ok.
+        /// </summary>
         private void SendAirplaneToRunway_EventHandler()
         {
             if (ValidateInput() == false)
@@ -151,40 +155,66 @@ namespace ControlTowerWPF
             }
         }
 
-        private void OnTakeOff_EventHandler(object source, TakeOffEventArgs args)
+        /// <summary>
+        /// The event for responding to FlightWindows's event 'TakenOff' calls this method.
+        /// </summary>
+        /// <param name="source">Object that sent out the event message.</param>
+        /// <param name="e">Object containing data for the TakenOff event.</param>
+        private void OnTakenOff_EventHandler(object source, TakeOffEventArgs e)
         {
             FlightInfo flightInfo = new FlightInfo()
             {
-                FlightCode = args.FlightCode,
+                FlightCode = e.FlightCode,
                 Status = "Took off",
-                DateTime = DateTime.Now,
             };
 
             listViewFlights.Items.Add(flightInfo);
         }
 
-        private void OnRouteChange_EventHandler(object source, ChangeRouteEventArgs args)
+        /// <summary>
+        /// The event for responding to FlightWindows's event 'RouteChanged' calls this method.
+        /// </summary>
+        /// <param name="source">Object that sent out the event message.</param>
+        /// <param name="e">>Object containing data for the RouteChange event.</param>
+        private void OnRouteChanged_EventHandler(object source, ChangeRouteEventArgs e)
         {
             FlightInfo flightInfo = new FlightInfo()
             {
-                FlightCode = args.FlightCode,
-                Status = args.Route,
-                DateTime = DateTime.Now,
+                FlightCode = e.FlightCode,
+                Status = e.Route,
             };
 
             listViewFlights.Items.Add(flightInfo);
         }
 
-        private void OnLand_EventHandler(object source, LandEventArgs args)
+        /// <summary>
+        /// The event for responding to FlightWindows's event 'Landed' calls this method.
+        /// </summary>
+        /// <param name="source">Object that sent out the event message.</param>
+        /// <param name="e">>Object containing data for the RouteChange event.</param>
+        private void OnLanded_EventHandler(object source, LandEventArgs e)
         {
             FlightInfo flightInfo = new FlightInfo()
             {
-                FlightCode = args.FlightCode,
-                Status = args.Status,
-                DateTime = DateTime.Now,
+                FlightCode = e.FlightCode,
+                Status = e.Status,
             };
 
             listViewFlights.Items.Add(flightInfo);
+        }
+
+        private void WindowClosing_EventHandler(CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to close the program?",
+                "Information",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
         }
 
 
@@ -197,21 +227,24 @@ namespace ControlTowerWPF
             SendAirplaneToRunway_EventHandler();
         }
 
-        private void OnTakeOff(object source, TakeOffEventArgs args)
+        private void OnTakenOff(object source, TakeOffEventArgs e)
         {
-            OnTakeOff_EventHandler(source, args);
+            OnTakenOff_EventHandler(source, e);
         }
 
-        private void OnRouteChange(object source, ChangeRouteEventArgs args)
+        private void OnRouteChanged(object source, ChangeRouteEventArgs e)
         {
-            OnRouteChange_EventHandler(source, args);
+            OnRouteChanged_EventHandler(source, e);
         }
 
-        private void OnLand(object source, LandEventArgs args)
+        private void OnLanded(object source, LandEventArgs e)
         {
-            OnLand_EventHandler(source, args);
+            OnLanded_EventHandler(source, e);
         }
 
-
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            WindowClosing_EventHandler(e);
+        }
     }
 }

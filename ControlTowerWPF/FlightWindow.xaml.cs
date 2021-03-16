@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,13 +23,13 @@ namespace ControlTowerWPF
     {
         private string _flightCode;
 
-        public delegate void TakeOffEventHandler(object source, TakeOffEventArgs args);
+        public delegate void TakeOffEventHandler(object source, TakeOffEventArgs e);
         public event TakeOffEventHandler TakenOff;
 
-        public delegate void ChangeRouteEventHandler(object source, ChangeRouteEventArgs args);
+        public delegate void ChangeRouteEventHandler(object source, ChangeRouteEventArgs eventArgs);
         public event ChangeRouteEventHandler RouteChanged;
 
-        public delegate void LandEventHandler(object source, LandEventArgs args);
+        public delegate void LandEventHandler(object source, LandEventArgs e);
         public event LandEventHandler Landed;
 
 
@@ -94,10 +95,10 @@ namespace ControlTowerWPF
             btnStartFlight.IsEnabled = false;
             comboBoxChangeRoute.IsEnabled = true;
             btnLand.IsEnabled = true;
-            OnTakeOff();
+            OnTakenOff();
         }
 
-        protected virtual void OnTakeOff()
+        protected virtual void OnTakenOff()
         {
             if (TakenOff != null)
             {
@@ -112,10 +113,10 @@ namespace ControlTowerWPF
                 return;
             }
 
-            OnChangeRoute();
+            OnChangedRoute();
         }
 
-        protected virtual void OnChangeRoute()
+        protected virtual void OnChangedRoute()
         {
             if (RouteChanged != null)
             {
@@ -132,10 +133,10 @@ namespace ControlTowerWPF
             btnStartFlight.IsEnabled = false;
             comboBoxChangeRoute.IsEnabled = false;
             btnLand.IsEnabled = false;
-            OnLand();
+            OnLanded();
         }
 
-        protected virtual void OnLand()
+        protected virtual void OnLanded()
         {
             if (Landed != null)
             {

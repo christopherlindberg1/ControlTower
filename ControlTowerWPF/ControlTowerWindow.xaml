@@ -8,10 +8,12 @@
         Title="Control Tower"
         Height="600"
         Width="550"
+        Closing="Window_Closing"
         >
     <Grid Margin="15 10">
         
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -21,7 +23,19 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.ColumnSpan="2" Name="listViewFlights">
+        <!--Row 1-->
+        <Button
+            x:Name="btnViewFlightLog"
+            Grid.Column="1"
+            Content="View Flight Log"
+            Width="100"
+            Height="25"
+            Margin="0 15 0 15"
+            HorizontalAlignment="Right"
+        />
+
+        <!--Row 2-->
+        <ListView Grid.Row="1" Grid.ColumnSpan="2" Name="listViewFlights">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Flight Code" Width="112" DisplayMemberBinding="{Binding FlightCode}" />
@@ -31,7 +45,8 @@
             </ListView.View>
         </ListView>
 
-        <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0 20 0 10">
+        <!--Row 3-->
+        <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="0 20 0 10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

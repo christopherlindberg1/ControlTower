@@ -1,0 +1,6 @@
+Flight: sdf           took off    2021-03-16 22:06:29
+Flight: sdf           landed      2021-03-16 22:06:29
+Flight: klm 566666    took off    2021-03-16 22:06:38
+Flight: klm 566666    landed      2021-03-16 22:06:40
+Flight: sas 465       took off    2021-03-16 22:07:14
+Flight: sas 465       landed      2021-03-16 22:07:15

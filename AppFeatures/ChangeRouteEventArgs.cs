@@ -11,9 +11,9 @@ namespace AppFeatures
         private string _flightCode;
         private string _route;
 
-
-
-
+        
+        
+        
         public string FlightCode
         {
             get => _flightCode;
@@ -21,7 +21,6 @@ namespace AppFeatures
             set => _flightCode = value ??
                 throw new ArgumentNullException("FlightCode", "FlightCode cannot be null");
         }
-
 
         public string Route
         {
@@ -35,27 +34,6 @@ namespace AppFeatures
                 }
 
                 _route = value;
-
-
-                //int heading;
-
-                //if (int.TryParse(value, out heading) == false)
-                //{
-                //    throw new ArgumentException("Route must be digits only", "Route");
-                //}
-
-                //if (heading < 0 || heading > 350)
-                //{
-                //    throw new ArgumentOutOfRangeException("Route", "Route must be between 0-350");
-                //}
-
-                //if (heading % 10 != 0)
-                //{
-                //    throw new ArgumentException(
-                //        "Route must be a multiple of 10 in the range 0-350 (e.g 0, 70, 240)",
-                //        "Route");
-                //}
-
             }
         }
     }

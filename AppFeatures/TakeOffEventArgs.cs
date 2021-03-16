@@ -27,5 +27,7 @@ namespace AppFeatures
         /// the take off event occurs.
         /// </summary>
         public string Status { get; } = "Took off";
+
+        public DateTime DateTime { get; } = DateTime.Now;
     }
 }

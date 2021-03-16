@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D2406E68-D5EF-43F8-9E0E-6B1413D4049D}</ProjectGuid>
+    <ProjectGuid>{FA80383F-ADD7-4310-8BB7-79873A292AAA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AppFeatures</RootNamespace>
-    <AssemblyName>AppFeatures</AssemblyName>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,19 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChangeRouteEventArgs.cs" />
-    <Compile Include="FlightLogger.cs" />
-    <Compile Include="Models\FlightInfo.cs" />
-    <Compile Include="LandEventArgs.cs" />
-    <Compile Include="Models\FlightLogInfo.cs" />
+    <Compile Include="FilePaths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TakeOffEventArgs.cs" />
+    <Compile Include="Utility\TextFileUtility.cs" />
+    <Compile Include="Utility\XMLSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{fa80383f-add7-4310-8bb7-79873a292aaa}</Project>
-      <Name>DataAccess</Name>
-    </ProjectReference>
+    <Folder Include="Storage\FlightLogs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

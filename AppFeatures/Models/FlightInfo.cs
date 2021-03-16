@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppFeatures
+namespace AppFeatures.Models
 {
     public class FlightInfo
     {
         public string FlightCode { get; set; }
         public string Status { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; } = DateTime.Now;
 
         public string DisplayDateTime
         {

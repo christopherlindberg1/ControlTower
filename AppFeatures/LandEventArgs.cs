@@ -8,7 +8,7 @@ namespace AppFeatures
 {
     public class LandEventArgs : EventArgs 
     {
-        public string _flightCode;
+        private string _flightCode;
 
 
         /// <summary>
@@ -27,5 +27,8 @@ namespace AppFeatures
         /// the landing event occurs.
         /// </summary>
         public string Status { get; } = "Landed";
+
+        public DateTime DateTime { get; } = DateTime.Now;
+
     }
 }

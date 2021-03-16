@@ -110,6 +110,10 @@
       <Project>{d2406e68-d5ef-43f8-9e0e-6b1413d4049d}</Project>
       <Name>AppFeatures</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{fa80383f-add7-4310-8bb7-79873a292aaa}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
