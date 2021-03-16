@@ -22,6 +22,27 @@ namespace ControlTowerWPF
         public FlightWindow()
         {
             InitializeComponent();
+            InitializeWindow();
+        }
+
+        private void InitializeWindow()
+        {
+            InitializeGUI();
+        }
+
+        private void InitializeGUI()
+        {
+            InitializeChangeRouteComboBox();
+        }
+
+        private void InitializeChangeRouteComboBox()
+        {
+            comboBoxChangeRoute.Items.Add("");
+
+            for (int i = 10; i < 361; i += 10)
+            {
+                comboBoxChangeRoute.Items.Add($"Heading { i } deg");
+            }
         }
     }
 }

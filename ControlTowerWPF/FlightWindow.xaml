@@ -18,7 +18,9 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <!-- Row 1 -->
+        <!--
+        Row 1
+        -->
         <Border Grid.Column="0" Grid.ColumnSpan="3"
                 BorderThickness="4" BorderBrush="#ccc"
                 Margin="0 0 0 25">
@@ -26,13 +28,12 @@
                 Source="https://upload.wikimedia.org/wikipedia/commons/3/30/Googlelogo.png"
             />    
         </Border>
-
-        <!--Row 2-->
-        <Grid>
-            
-        </Grid>
-        <Button Grid.Row="1" Content="Start" IsEnabled="True" Height="30"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" Margin="15 0"/>
-        <Button Grid.Row="1" Grid.Column="2" Content="Land" IsEnabled="False" Height="30" />
+        
+        <!--
+        Row 2
+        -->
+        <Button x:Name="btnStartFlight" Grid.Row="1" Content="Start" IsEnabled="True" Height="30"/>
+        <ComboBox x:Name="comboBoxChangeRoute" Grid.Row="1" Grid.Column="1" Margin="15 0"/>
+        <Button x:Name="btnLand" Grid.Row="1" Grid.Column="2" Content="Land" IsEnabled="False" Height="30" />
     </Grid>
 </Window>
