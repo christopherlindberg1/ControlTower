@@ -44,10 +44,10 @@
 
             <Button
                 x:Name="btnSendAirplaneToRunway"
+                Click="btnSendAirplaneToRunway_Click"
                 Grid.Column="1"
                 Content="Send next airplane to runway"
                 Height="40"
-                Click="btnSendAirplaneToRunway_Click"
             />
         </Grid>
     </Grid>

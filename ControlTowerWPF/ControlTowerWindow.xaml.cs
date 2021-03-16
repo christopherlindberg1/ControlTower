@@ -34,7 +34,7 @@ namespace ControlTowerWPF
             get => _errorMessageHandler;
         }
 
-        public List<Flight> Flights { get; set; } = new List<Flight>();
+        //public List<Flight> Flights { get; set; } = new List<Flight>();
 
 
 
@@ -45,37 +45,45 @@ namespace ControlTowerWPF
         {
             InitializeComponent();
 
-            InitializeSampleFlights();
-
-            FlightWindow window = new FlightWindow();
-            window.Show();
+            //InitializeSampleFlights();
         }
 
-        private void InitializeSampleFlights()
+        private void InitializeFlightsListView()
         {
-            Flights.Add(new Flight() {
-                FlightCode = "KLM 298",
-                Status = "Sent to runway",
-                DateTime = new DateTime(2021, 3, 10, 7, 43, 9)
-            });
-            Flights.Add(new Flight() {
-                FlightCode = "CA 86",
-                Status = "Landed", 
-                DateTime = new DateTime(2021, 3, 10, 7, 42, 12)
-            });
-            Flights.Add(new Flight() { 
-                FlightCode = "SAS 59P", 
-                Status = "Now heading 200 deg", 
-                DateTime = new DateTime(2021, 3, 10, 7, 40, 5) 
-            });
-            Flights.Add(new Flight() {
-                FlightCode = "BK 842",
-                Status = "Now heading 125 dev",
-                DateTime = new DateTime(2021, 3, 10, 7, 36, 52) 
-            });
 
-            listViewFlights.ItemsSource = Flights;
         }
+
+        //private void InitializeSampleFlights()
+        //{
+            
+
+        //    listViewFlights.ItemsSource = Flights;
+
+        //    Flights.Add(new Flight()
+        //    {
+        //        FlightCode = "KLM 298",
+        //        Status = "Sent to runway",
+        //        DateTime = new DateTime(2021, 3, 10, 7, 43, 9)
+        //    });
+        //    Flights.Add(new Flight()
+        //    {
+        //        FlightCode = "CA 86",
+        //        Status = "Landed",
+        //        DateTime = new DateTime(2021, 3, 10, 7, 42, 12)
+        //    });
+        //    Flights.Add(new Flight()
+        //    {
+        //        FlightCode = "SAS 59P",
+        //        Status = "Now heading 200 deg",
+        //        DateTime = new DateTime(2021, 3, 10, 7, 40, 5)
+        //    });
+        //    Flights.Add(new Flight()
+        //    {
+        //        FlightCode = "BK 842",
+        //        Status = "Now heading 125 dev",
+        //        DateTime = new DateTime(2021, 3, 10, 7, 36, 52)
+        //    });
+        //}
 
         public bool ValidateInput()
         {
@@ -106,8 +114,16 @@ namespace ControlTowerWPF
 
         private void SendAirplaneToRunway()
         {
-            MessageBox.Show("Sending airplane to runway");
+            FlightWindow window = new FlightWindow(textBoxFlightCode.Text);
+            window.Show();
+
+            // Subscribing to events in FlightWindow object
+            window.TakenOff += OnTakeOff;
+            window.RouteChanged += OnRouteChange;
+            window.Landed += OnLand;
         }
+
+        
 
 
 
@@ -130,11 +146,45 @@ namespace ControlTowerWPF
 
             else
             {
-                // Open new window and send airplane to runway.
                 SendAirplaneToRunway();
-
                 ClearInputFields();
             }
+        }
+
+        private void OnTakeOff_EventHandler(object source, TakeOffEventArgs args)
+        {
+            FlightInfo flightInfo = new FlightInfo()
+            {
+                FlightCode = args.FlightCode,
+                Status = "Took off",
+                DateTime = DateTime.Now,
+            };
+
+            listViewFlights.Items.Add(flightInfo);
+        }
+
+        private void OnRouteChange_EventHandler(object source, ChangeRouteEventArgs args)
+        {
+            FlightInfo flightInfo = new FlightInfo()
+            {
+                FlightCode = args.FlightCode,
+                Status = args.Route,
+                DateTime = DateTime.Now,
+            };
+
+            listViewFlights.Items.Add(flightInfo);
+        }
+
+        private void OnLand_EventHandler(object source, LandEventArgs args)
+        {
+            FlightInfo flightInfo = new FlightInfo()
+            {
+                FlightCode = args.FlightCode,
+                Status = args.Status,
+                DateTime = DateTime.Now,
+            };
+
+            listViewFlights.Items.Add(flightInfo);
         }
 
 
@@ -145,7 +195,23 @@ namespace ControlTowerWPF
         private void btnSendAirplaneToRunway_Click(object source, RoutedEventArgs e)
         {
             SendAirplaneToRunway_EventHandler();
-            
         }
+
+        private void OnTakeOff(object source, TakeOffEventArgs args)
+        {
+            OnTakeOff_EventHandler(source, args);
+        }
+
+        private void OnRouteChange(object source, ChangeRouteEventArgs args)
+        {
+            OnRouteChange_EventHandler(source, args);
+        }
+
+        private void OnLand(object source, LandEventArgs args)
+        {
+            OnLand_EventHandler(source, args);
+        }
+
+
     }
 }

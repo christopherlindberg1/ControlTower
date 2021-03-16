@@ -32,8 +32,8 @@
         <!--
         Row 2
         -->
-        <Button x:Name="btnStartFlight" Grid.Row="1" Content="Start" IsEnabled="True" Height="30"/>
-        <ComboBox x:Name="comboBoxChangeRoute" Grid.Row="1" Grid.Column="1" Margin="15 0"/>
-        <Button x:Name="btnLand" Grid.Row="1" Grid.Column="2" Content="Land" IsEnabled="False" Height="30" />
+        <Button x:Name="btnStartFlight" Click="btnStartFlight_Click" Grid.Row="1" Content="Start" IsEnabled="True" Height="30"/>
+        <ComboBox x:Name="comboBoxChangeRoute" SelectionChanged="comboBoxChangeRoute_SelectionChanged" Grid.Row="1" Grid.Column="1" Margin="15 0"/>
+        <Button x:Name="btnLand" Click="btnLand_Click" Grid.Row="1" Grid.Column="2" Content="Land" IsEnabled="False" Height="30" />
     </Grid>
 </Window>

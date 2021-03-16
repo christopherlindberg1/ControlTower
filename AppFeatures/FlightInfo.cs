@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppFeatures
 {
-    public class Flight
+    public class FlightInfo
     {
         public string FlightCode { get; set; }
         public string Status { get; set; }
