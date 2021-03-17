@@ -15,7 +15,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using DataAccess;
-using DataAccess.Serialization;
 using AppFeatures.Models;
 using System.Text.RegularExpressions;
 
@@ -51,22 +50,6 @@ namespace ControlTowerWPF
         public MainWindow()
         {
             InitializeComponent();
-
-            List<FlightLogInfo> flights = XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.SampleFlightLogFilePath);
-
-            flights.Add(new FlightLogInfo() { FlightCode = "SAS 52", Status = "Landed", DateTime = DateTime.Now });
-
-            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.SampleFlightLogFilePath, flights);
-
-            //List<string> lines = DataAccess.Utility.TextFileUtility.GetAllLines(FilePaths.SampleFlightLogFilePath);
-
-            //string parsed = Regex.Replace(lines[0], @"\s+", " ");
-
-            //MessageBox.Show(parsed);
-
-            //MessageBox.Show(FilePaths.SampleFlightLogFilePath);
-
-            //Close();
         }
 
         public bool ValidateInput()

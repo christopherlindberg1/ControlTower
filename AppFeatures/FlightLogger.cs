@@ -1,6 +1,5 @@
 ﻿using AppFeatures.Models;
 using DataAccess;
-using DataAccess.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,25 +44,9 @@ namespace AppFeatures
             XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.SampleFlightLogFilePath, flightLogInfoItems);
         }
 
-        private List<FlightLogInfo> GetFlightLogInfoItems()
+        public static List<FlightLogInfo> GetFlightLogInfoItems()
         {
             return XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.SampleFlightLogFilePath);
         }
-
-        //private string FormatTakeOffLogMessage(TakeOffEventArgs e)
-        //{
-        //    string flightCodeFormatted = e.FlightCode;
-        //    string takeOffLabelFormatted = "took off";
-            
-        //    return $"Flight: { flightCodeFormatted } { takeOffLabelFormatted } { e.DateTime.ToString() }";
-        //}
-
-        //private string FormatLandingLogMessage(LandEventArgs e)
-        //{
-        //    string flightCodeFormatted = e.FlightCode;
-        //    string landedLabelFormatted = "landed";
-
-        //    return $"Flight: { flightCodeFormatted } { landedLabelFormatted } { e.DateTime.ToString() }";
-        //}
     }
 }

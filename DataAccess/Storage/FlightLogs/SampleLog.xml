@@ -25,4 +25,54 @@
     <Status>Landed</Status>
     <DateTime>2021-03-16T23:43:46.0186487+01:00</DateTime>
   </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>klm 453</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-16T23:49:04.1519774+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>klm 453</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-16T23:49:09.9493755+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>dsf</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-16T23:49:16.9782527+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 545</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-16T23:49:26.6882474+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>dsf</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-16T23:49:33.925943+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 545</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-16T23:49:42.1916338+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>Chris AL</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-17T00:09:16.6055057+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>Chris AL</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-17T00:09:19.0851556+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>SAS</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-17T12:09:51.1577714+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>SAS</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-17T12:10:05.7140554+01:00</DateTime>
+  </FlightLogInfo>
 </ArrayOfFlightLogInfo>

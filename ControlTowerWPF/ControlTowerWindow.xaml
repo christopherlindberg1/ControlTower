@@ -16,13 +16,14 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!--Row 1-->
+        <TextBlock Text="Control Tower" FontSize="30" />
         <Button
             x:Name="btnViewFlightLog"
             Click="btnViewFlightLog_Click"
@@ -51,7 +52,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
             <WrapPanel Grid.Column="0" VerticalAlignment="Center">
                 <TextBlock Text="Next Flight: " FontWeight="Bold" />
                 <TextBox x:Name="textBoxFlightCode" Width="120" />

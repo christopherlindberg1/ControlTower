@@ -5,17 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ControlTowerWPF"
         mc:Ignorable="d"
-        Title="FlightLogWindow" Height="450" Width="800">
-    <Grid Margin="15 10">
+        Title="FlightLogWindow" Height="600" MinHeight="300" Width="435" MinWidth="435">
+    <Grid Margin="15 15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <!--Row 1-->
-        <TextBlock Text="The complete flight log" FontSize="16"/>
+        <StackPanel Margin="0 0 0 5">
+            <TextBlock Text="Flight log" FontSize="24"/>
+            <TextBlock Text="This list shows all take offs and landings" FontSize="14" />
+            <StackPanel Margin="0 10 0 0">
+                <Separator />
+                <TextBlock Text="Filter flights" FontSize="16" />
+                <WrapPanel Margin="0 10">
+                    <TextBlock Text="Filter by Flight code" FontWeight="Bold" Margin="0 0 2 0"/>
+                    <TextBox x:Name="textBoxFilterByFlightCode" KeyUp="textBoxFilterByFlightCode_KeyUp" Width="100"/>
+                </WrapPanel>
+                <WrapPanel Margin="0 5" VerticalAlignment="Center">
+                    <TextBlock Text="From" FontWeight="Bold" Margin="0 0 5 0"/>
+                    <DatePicker x:Name="DatePickerStartDate" SelectedDateChanged="DatePickerStartDate_SelectedDateChanged"  Margin="0 0 5 0" />
+                    <TextBlock Text="To" FontWeight="Bold" Margin="0 0 5 0"/>
+                    <DatePicker x:Name="DatePickerEndDate" SelectedDateChanged="DatePickerEndDate_SelectedDateChanged" Margin="0 0 5 0" />
+                </WrapPanel>
+                <TextBlock x:Name="textBlockNumberOfLogLines" Margin="0 5 0 0" />
+            </StackPanel>
+            
+        </StackPanel>
 
         <!--Row 2-->
-        <ListBox x:Name="listBoxLogLines" Grid.Row="1"/>
+        <ListView x:Name="listViewLogLines" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Flight Code" Width="110" DisplayMemberBinding="{Binding FlightCode}" />
+                    <GridViewColumn Header="Status" Width="110" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="Time" Width="140" DisplayMemberBinding="{Binding DateTime}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
