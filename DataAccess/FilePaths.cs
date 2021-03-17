@@ -30,12 +30,12 @@ namespace DataAccess
             }
         }
 
-        public static string SampleFlightLogFilePath
+        public static string FlightLogFilePath
         {
             get
             {
                 return Path.GetFullPath(
-                    Path.Combine(FlightLogsDataFolderPath, @".\SampleLog.xml"));
+                    Path.Combine(FlightLogsDataFolderPath, @".\FlightLog.xml"));
             }
         }
     }

@@ -79,6 +79,9 @@ namespace ControlTowerWPF
             textBoxFlightCode.Text = "";
         }
 
+        /// <summary>
+        /// Sends airplane to runway and sets up subscribers to the airplane's events.
+        /// </summary>
         private void SendAirplaneToRunway()
         {
             string flightCode = textBoxFlightCode.Text;
@@ -110,16 +113,12 @@ namespace ControlTowerWPF
                 Status = "Sent to runway"
             };
 
-            listViewFlights.Items.Add(flightInfo);
+            listViewFlights.Items.Insert(0, flightInfo);
         }
 
         
 
         
-
-
-
-
 
         // ===================== Event handler methods ===================== //
 
@@ -161,7 +160,7 @@ namespace ControlTowerWPF
                 Status = "Took off",
             };
 
-            listViewFlights.Items.Add(flightInfo);
+            listViewFlights.Items.Insert(0, flightInfo);
         }
 
         /// <summary>
@@ -177,7 +176,7 @@ namespace ControlTowerWPF
                 Status = e.Route,
             };
 
-            listViewFlights.Items.Add(flightInfo);
+            listViewFlights.Items.Insert(0, flightInfo);
         }
 
         /// <summary>
@@ -193,7 +192,7 @@ namespace ControlTowerWPF
                 Status = e.Status,
             };
 
-            listViewFlights.Items.Add(flightInfo);
+            listViewFlights.Items.Insert(0, flightInfo);
         }
 
         private void OpenFlightLogWindow_EventHandler()

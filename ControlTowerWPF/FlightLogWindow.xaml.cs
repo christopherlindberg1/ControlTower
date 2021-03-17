@@ -51,6 +51,10 @@ namespace ControlTowerWPF
             InitializeGUI();
         }
 
+        /// <summary>
+        /// Loads data from the log file and sets the ItemSource property of the listview
+        /// so that data is displayed in the GUI.
+        /// </summary>
         private void InitializeData()
         {
             FlightLogInfoItems = FlightLogger.GetFlightLogInfoItems();
@@ -129,6 +133,7 @@ namespace ControlTowerWPF
                 DisplayFlightLogInfoItems = new List<FlightLogInfo>(FlightLogInfoItems);
             }
 
+            DateTime? startDate = DatePickerStartDate.SelectedDate;
             // Since default time is 00:00:00 I'll add 23:59:59 so that all flights on this date
             // gets included in the search, regardless of what time of day the event happened.
             DateTime? endDate = DatePickerEndDate.SelectedDate;
@@ -138,8 +143,9 @@ namespace ControlTowerWPF
 
             DisplayFlightLogInfoItems = FlightLogInfoItems.Where(
                 x => x.FlightCode.ToLower().Contains(searchTerm)).Where(
-                x => x.DateTime >= DatePickerStartDate.SelectedDate).Where(
-                x => x.DateTime <= endDate).ToList();
+                x => x.DateTime >= startDate).Where(
+                x => x.DateTime <= endDate).OrderByDescending (
+                x => x.DateTime).ToList();
 
             listViewLogLines.ItemsSource = DisplayFlightLogInfoItems;
 
