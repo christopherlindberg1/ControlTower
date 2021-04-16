@@ -38,37 +38,16 @@ namespace AppFeatures
         }
 
         /// <summary>
-        /// Event handler/listener for when an airplane has taken off.
+        /// Gets all records that were added to the flight log the past 7 dats.
         /// </summary>
-        /// <param name="source">Object that triggered the event</param>
-        /// <param name="e">TakeOffEventArgs object containing event data</param>
-        public void OnTakeOff(object source, TakeOffEventArgs e)
+        /// <returns></returns>
+        public List<FlightLogInfo> GetLastWeeksFlightLogData()
         {
-            FlightLogInfo flightLogInfo = new FlightLogInfo()
-            {
-                FlightCode = e.FlightCode,
-                Status = e.Status,
-                DateTime = e.DateTime
-            };
+            string searchTerm = "";
+            DateTime startDate = DateTime.Now.AddDays(-6);
+            DateTime endDate = DateTime.Now + new TimeSpan(23, 59, 59, 999);
 
-            AddFlightLogInfoItemToLog(flightLogInfo);
-        }
-
-        /// <summary>
-        /// Event handler/listener for when an airplane has landed
-        /// </summary>
-        /// <param name="source">Object that triggered the event</param>
-        /// <param name="e">LandEventArgs object containing event data</param>
-        public void OnLanded(object source, LandEventArgs e)
-        {
-            FlightLogInfo flightLogInfo = new FlightLogInfo()
-            {
-                FlightCode = e.FlightCode,
-                Status = e.Status,
-                DateTime = e.DateTime
-            };
-
-            AddFlightLogInfoItemToLog(flightLogInfo);
+            return FilterFlightLog(searchTerm, startDate, endDate);
         }
 
         /// <summary>
@@ -80,18 +59,6 @@ namespace AppFeatures
             _flightLogInfoItems.Add(flightLogInfo);
 
             XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, _flightLogInfoItems);
-        }
-
-        public List<FlightLogInfo> GetLastWeeksFlightLogData()
-        {
-            DateTime? startDate = DateTime.Now.AddDays(-6);
-            DateTime? endDate = DateTime.Now + new TimeSpan(23, 59, 59, 999);
-
-            return _flightLogInfoItems
-                .Where(x => x.DateTime >= startDate)
-                .Where(x => x.DateTime <= endDate)
-                .OrderByDescending(x => x.DateTime)
-                .ToList();
         }
 
         public List<FlightLogInfo> FilterFlightLog(
@@ -149,6 +116,40 @@ namespace AppFeatures
                 select flightLigItem;
 
             return query;
+        }
+
+        /// <summary>
+        /// Event handler/listener for when an airplane has taken off.
+        /// </summary>
+        /// <param name="source">Object that triggered the event</param>
+        /// <param name="e">TakeOffEventArgs object containing event data</param>
+        public void OnTakeOff(object source, TakeOffEventArgs e)
+        {
+            FlightLogInfo flightLogInfo = new FlightLogInfo()
+            {
+                FlightCode = e.FlightCode,
+                Status = e.Status,
+                DateTime = e.DateTime
+            };
+
+            AddFlightLogInfoItemToLog(flightLogInfo);
+        }
+
+        /// <summary>
+        /// Event handler/listener for when an airplane has landed
+        /// </summary>
+        /// <param name="source">Object that triggered the event</param>
+        /// <param name="e">LandEventArgs object containing event data</param>
+        public void OnLanded(object source, LandEventArgs e)
+        {
+            FlightLogInfo flightLogInfo = new FlightLogInfo()
+            {
+                FlightCode = e.FlightCode,
+                Status = e.Status,
+                DateTime = e.DateTime
+            };
+
+            AddFlightLogInfoItemToLog(flightLogInfo);
         }
     }
 }
