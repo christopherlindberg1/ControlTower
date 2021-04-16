@@ -72,9 +72,6 @@ namespace AppFeatures
         /// <param name="flightLogInfo">FlightLogInfo object</param>
         private void AddFlightLogInfoItemToLog(FlightLogInfo flightLogInfo)
         {
-            //List<FlightLogInfo> flightLogInfoItems = XMLSerializer.Deserialize<List<FlightLogInfo>>(
-            //    FilePaths.FlightLogFilePath);
-
             _flightLogInfoItems.Add(flightLogInfo);
 
             XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, _flightLogInfoItems);
@@ -100,8 +97,6 @@ namespace AppFeatures
                     from flightLogItem in query
                     where (flightLogItem.DateTime >= startDate)
                     select flightLogItem;
-
-                //    query.Where(x => x.DateTime >= startDate);
             }
 
             if (endDate != null)
@@ -116,8 +111,6 @@ namespace AppFeatures
                     from flightLogItem in query
                     where (flightLogItem.DateTime <= endDate)
                     select flightLogItem;
-
-                //query.Where(x => x.DateTime <= endDate);
             }
 
             return query.ToList();
