@@ -17,18 +17,6 @@ namespace AppFeatures
     {
         private readonly List<FlightLogInfo> _flightLogInfoItems;
 
-        /// <summary>
-        /// List with FlightLogInfo objects that is used to store the flight log data
-        /// that gets fetched from the storage.
-        /// </summary>
-        //private List<FlightLogInfo> FlightLogInfoItems { get; set; }
-
-        /// <summary>
-        /// List with FlightLogInfo objects that is based on FlightLogInfoItems.
-        /// This one is used for binding to the GUI. It is this list that is modified
-        /// when filtering.
-        /// </summary>
-        private List<FlightLogInfo> FilteredFlightLogInfoItems { get; set; }
 
         public FlightLogger()
         {
