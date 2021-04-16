@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace AppFeatures.Models
 {
+    /// <summary>
+    /// Model used to store flight data that will be stored in a log file.
+    /// </summary>
     public class FlightLogInfo
     {
         public string FlightCode { get; set; }
