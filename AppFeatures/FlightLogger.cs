@@ -61,6 +61,14 @@ namespace AppFeatures
             XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, _flightLogInfoItems);
         }
 
+        /// <summary>
+        /// Filters data in the flight log based on a search term
+        /// and a date interval
+        /// </summary>
+        /// <param name="searchTerm">Search term for the flight code.</param>
+        /// <param name="startDate">Start date for the date interval.</param>
+        /// <param name="endDate">End date for the date interval.</param>
+        /// <returns></returns>
         public List<FlightLogInfo> FilterFlightLog(
             string searchTerm,
             DateTime? startDate,
@@ -100,6 +108,11 @@ namespace AppFeatures
             return query.ToList();
         }
 
+        /// <summary>
+        /// Gets a search query for filtering the flight log by flight code.
+        /// </summary>
+        /// <param name="searchTerm">Search term for the flight code.</param>
+        /// <returns>A query that will filter the flight log based on the search term.</returns>
         private IEnumerable<FlightLogInfo> GetLinqQueryForFilteringFlightsByFlightCode(
             string searchTerm)
         {
