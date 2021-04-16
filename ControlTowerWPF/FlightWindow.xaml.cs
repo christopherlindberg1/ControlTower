@@ -66,13 +66,20 @@ namespace ControlTowerWPF
             InitializeWindow();
         }
 
+        /// <summary>
+        /// Initializes the window.
+        /// </summary>
         private void InitializeWindow()
         {
             InitializeGUI();
         }
 
+        /// <summary>
+        /// Initializes the GUI
+        /// </summary>
         private void InitializeGUI()
         {
+            SetAirlineImage();
             this.Title = $"Flight { FlightCode }";
             btnStartFlight.IsEnabled = true;
             comboBoxChangeRoute.IsEnabled = false;
@@ -80,6 +87,39 @@ namespace ControlTowerWPF
             InitializeChangeRouteComboBox();
         }
 
+        /// <summary>
+        /// Sets the image source for the airplane to an image that corresponds to the flight code.
+        /// </summary>
+        private void SetAirlineImage()
+        {
+            if (String.IsNullOrWhiteSpace(FlightCode))
+            {
+                throw new InvalidOperationException(
+                    "The flight code must be initialized before calling this method.");
+            }
+
+            Uri pathToImage = new Uri("/Images/Airline-unknown.jpg", UriKind.Relative);
+
+            if (FlightCode.ToLower().Contains("dlh"))
+            {
+                pathToImage = new Uri("/Images/Airline-dlh.jpg", UriKind.Relative);
+            }
+            else if (FlightCode.ToLower().Contains("rys"))
+            {
+                pathToImage = new Uri("/Images/Airline-rys.jpg", UriKind.Relative);
+            }
+            else if (FlightCode.ToLower().Contains("sas"))
+            {
+                pathToImage = new Uri("/Images/Airline-sas.jpg", UriKind.Relative);
+            }
+
+            imageAirline.Source = new BitmapImage(pathToImage);
+        }
+
+        /// <summary>
+        /// Initializes the ComboBox for route changes with values from 0 deg to 350 deg,
+        /// with 10 degrees between each step.
+        /// </summary>
         private void InitializeChangeRouteComboBox()
         {
             comboBoxChangeRoute.Items.Add("");
@@ -90,13 +130,19 @@ namespace ControlTowerWPF
             }
         }
 
+        /// <summary>
+        /// Updates the window to show that the airplane has taken off, and then triggers
+        /// the TakenOff event (if there are any subscribers).
+        /// </summary>
         private void TakeOff()
         {
             btnStartFlight.IsEnabled = false;
             comboBoxChangeRoute.IsEnabled = true;
             btnLand.IsEnabled = true;
+
             OnTakenOff();
         }
+
 
         protected virtual void OnTakenOff()
         {
@@ -133,6 +179,7 @@ namespace ControlTowerWPF
             btnStartFlight.IsEnabled = false;
             comboBoxChangeRoute.IsEnabled = false;
             btnLand.IsEnabled = false;
+
             OnLanded();
         }
 
@@ -143,13 +190,6 @@ namespace ControlTowerWPF
                 Landed(this, new LandEventArgs() { FlightCode = FlightCode });
             }
         }
-
-
-
-
-
-        // ===================== Event handler methods ===================== //
-
 
 
 

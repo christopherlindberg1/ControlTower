@@ -25,6 +25,8 @@ namespace ControlTowerWPF
     {
         private ErrorMessageHandler ErrorMessageHandler { get; } = new ErrorMessageHandler();
 
+        private FlightLogger FlightLogger { get; set; } = new FlightLogger();
+
         /// <summary>
         /// List with FlightLogInfo objects that is used to store the flight log data
         /// that gets fetched from the storage.
@@ -64,18 +66,28 @@ namespace ControlTowerWPF
             listViewLogLines.ItemsSource = DisplayFlightLogInfoItems;
         }
 
+        /// <summary>
+        /// Initializes the GUI.
+        /// </summary>
         private void InitializeGUI()
         {
             InitializeDatePickers();
             SetNrOfLogLines();
         }
 
+        /// <summary>
+        /// Initializes the datetime pickers to cover the last 7 days.
+        /// </summary>
         private void InitializeDatePickers()
         {
-            DatePickerStartDate.SelectedDate = DateTime.Now.AddDays(-7);
+            DatePickerStartDate.SelectedDate = DateTime.Now.AddDays(-6);
             DatePickerEndDate.SelectedDate = DateTime.Now;
         }
 
+        /// <summary>
+        /// Gives a short message showing how many records in the flight log is
+        /// currently being shown, and a message if no record is shown.
+        /// </summary>
         private void SetNrOfLogLines()
         {
             if (FlightLogInfoItems.Count == 0)
@@ -86,7 +98,7 @@ namespace ControlTowerWPF
 
             if (DisplayFlightLogInfoItems.Count == 0)
             {
-                textBlockNumberOfLogLines.Text = "No match";
+                textBlockNumberOfLogLines.Text = "No flight logs match the search filter";
             }
             else
             {
@@ -94,11 +106,19 @@ namespace ControlTowerWPF
             }
         }
 
+        /// <summary>
+        /// Validates the user input when filtering flight logs.
+        /// </summary>
+        /// <returns>True if everything validates correctly, false otherwise.</returns>
         private bool ValidateInput()
         {
             return ValidateDateTimes();
         }
 
+        /// <summary>
+        /// Validates that provided end date comes after the start date.
+        /// </summary>
+        /// <returns>True if dates are correct, false otherwise.</returns>
         private bool ValidateDateTimes()
         {
             if (DatePickerStartDate.SelectedDate > DatePickerEndDate.SelectedDate)
@@ -110,15 +130,16 @@ namespace ControlTowerWPF
             return true;
         }
 
-
-
-
-        private void FilterFlights_EventHandler()
+        /// <summary>
+        /// Filters away all flight log entries that do not match the search string
+        /// or the start- and end date.
+        /// </summary>
+        private void FilterFlights_Handler()
         {
             if (ValidateInput() == false)
             {
                 MessageBox.Show(
-                    ErrorMessageHandler.GetMessages(),"" +
+                    ErrorMessageHandler.GetMessages(),
                     "Information",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
@@ -134,18 +155,21 @@ namespace ControlTowerWPF
             }
 
             DateTime? startDate = DatePickerStartDate.SelectedDate;
-            // Since default time is 00:00:00 I'll add 23:59:59 so that all flights on this date
-            // gets included in the search, regardless of what time of day the event happened.
+
             DateTime? endDate = DatePickerEndDate.SelectedDate;
-            // Adds 1 day minus 1 millisecond
+
+            // Since default time is 00:00:00 I'll add 23:59:59:999 to endDate so that
+            // all flights on this date gets included in the search,
+            // regardless of what time of day the event happened.
             TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
             endDate += timeToAdd;
 
-            DisplayFlightLogInfoItems = FlightLogInfoItems.Where(
-                x => x.FlightCode.ToLower().Contains(searchTerm)).Where(
-                x => x.DateTime >= startDate).Where(
-                x => x.DateTime <= endDate).OrderByDescending (
-                x => x.DateTime).ToList();
+            DisplayFlightLogInfoItems = FlightLogInfoItems
+                .Where(x => x.FlightCode.ToLower().Contains(searchTerm))
+                .Where(x => x.DateTime >= startDate)
+                .Where(x => x.DateTime <= endDate)
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
 
             listViewLogLines.ItemsSource = DisplayFlightLogInfoItems;
 
@@ -159,17 +183,17 @@ namespace ControlTowerWPF
 
         private void textBoxFilterByFlightCode_KeyUp(object sender, KeyEventArgs e)
         {
-            FilterFlights_EventHandler();
-        }
-
-        private void DatePickerEndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterFlights_EventHandler();
+            FilterFlights_Handler();
         }
 
         private void DatePickerStartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            FilterFlights_EventHandler();
+            FilterFlights_Handler();
+        }
+
+        private void DatePickerEndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterFlights_Handler();
         }
     }
 }
