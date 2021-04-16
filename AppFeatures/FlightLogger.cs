@@ -19,7 +19,7 @@ namespace AppFeatures
         /// List with FlightLogInfo objects that is used to store the flight log data
         /// that gets fetched from the storage.
         /// </summary>
-        public List<FlightLogInfo> FlightLogInfoItems { get; set; }
+        private List<FlightLogInfo> FlightLogInfoItems { get; set; }
 
         /// <summary>
         /// List with FlightLogInfo objects that is based on FlightLogInfoItems.
@@ -28,6 +28,20 @@ namespace AppFeatures
         /// </summary>
         private List<FlightLogInfo> FilteredFlightLogInfoItems { get; set; }
 
+        public FlightLogger()
+        {
+            InitializeData();
+        }
+
+        private void InitializeData()
+        {
+            LoadDataFromStorage();
+        }
+
+        private void LoadDataFromStorage()
+        {
+            FlightLogInfoItems = GetFlightLogInfoItems();
+        }
         /// <summary>
         /// Event handler/listener for when an airplane has taken off.
         /// </summary>
@@ -68,12 +82,12 @@ namespace AppFeatures
         /// <param name="flightLogInfo">FlightLogInfo object</param>
         private void AddFlightLogInfoItemToLog(FlightLogInfo flightLogInfo)
         {
-            List<FlightLogInfo> flightLogInfoItems = XMLSerializer.Deserialize<List<FlightLogInfo>>(
-                FilePaths.FlightLogFilePath);
+            //List<FlightLogInfo> flightLogInfoItems = XMLSerializer.Deserialize<List<FlightLogInfo>>(
+            //    FilePaths.FlightLogFilePath);
 
-            flightLogInfoItems.Add(flightLogInfo);
+            FlightLogInfoItems.Add(flightLogInfo);
 
-            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, flightLogInfoItems);
+            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, FlightLogInfoItems);
         }
 
         /// <summary>
