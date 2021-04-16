@@ -148,32 +148,38 @@ namespace ControlTowerWPF
             }
 
             string searchTerm = textBoxFilterByFlightCode.Text.ToLower();
-
-            if (String.IsNullOrWhiteSpace(searchTerm))
-            {
-                DisplayFlightLogInfoItems = new List<FlightLogInfo>(FlightLogInfoItems);
-            }
-
             DateTime? startDate = DatePickerStartDate.SelectedDate;
-
             DateTime? endDate = DatePickerEndDate.SelectedDate;
 
-            // Since default time is 00:00:00 I'll add 23:59:59:999 to endDate so that
-            // all flights on this date gets included in the search,
-            // regardless of what time of day the event happened.
-            TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
-            endDate += timeToAdd;
+            List<FlightLogInfo> list = FlightLogger.FilterFlightLog(searchTerm, startDate, endDate);
 
-            DisplayFlightLogInfoItems = FlightLogInfoItems
-                .Where(x => x.FlightCode.ToLower().Contains(searchTerm))
-                .Where(x => x.DateTime >= startDate)
-                .Where(x => x.DateTime <= endDate)
-                .OrderByDescending(x => x.DateTime)
-                .ToList();
-
-            listViewLogLines.ItemsSource = DisplayFlightLogInfoItems;
+            listViewLogLines.ItemsSource = list;
 
             SetNrOfLogLines();
+
+            //if (String.IsNullOrWhiteSpace(searchTerm))
+            //{
+            //    DisplayFlightLogInfoItems = new List<FlightLogInfo>(FlightLogInfoItems);
+            //}
+
+            //DateTime? startDate = DatePickerStartDate.SelectedDate;
+
+            //DateTime? endDate = DatePickerEndDate.SelectedDate;
+
+            //// Since default time is 00:00:00 I'll add 23:59:59:999 to endDate so that
+            //// all flights on this date gets included in the search,
+            //// regardless of what time of day the event happened.
+            //TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
+            //endDate += timeToAdd;
+
+            //DisplayFlightLogInfoItems = FlightLogInfoItems
+            //    .Where(x => x.FlightCode.ToLower().Contains(searchTerm))
+            //    .Where(x => x.DateTime >= startDate)
+            //    .Where(x => x.DateTime <= endDate)
+            //    .OrderByDescending(x => x.DateTime)
+            //    .ToList();
+
+
         }
 
 
