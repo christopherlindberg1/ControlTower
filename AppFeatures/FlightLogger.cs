@@ -24,6 +24,15 @@ namespace AppFeatures
         }
 
         /// <summary>
+        /// Gets the entire flight log.
+        /// </summary>
+        /// <returns>List with FlightLogInfo items</returns>
+        public List<FlightLogInfo> GetFlightLogInfoItems()
+        {
+            return XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath);
+        }
+
+        /// <summary>
         /// Event handler/listener for when an airplane has taken off.
         /// </summary>
         /// <param name="source">Object that triggered the event</param>
@@ -71,13 +80,64 @@ namespace AppFeatures
             XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, _flightLogInfoItems);
         }
 
-        /// <summary>
-        /// Gets the entire flight log.
-        /// </summary>
-        /// <returns>List with FlightLogInfo items</returns>
-        public List<FlightLogInfo> GetFlightLogInfoItems()
+        public List<FlightLogInfo> FilterFlightLog(
+            string searchTerm,
+            DateTime? startDate,
+            DateTime? endDate)
         {
-            return XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath);
+            if (searchTerm == null)
+            {
+                throw new ArgumentNullException("searchTerm", "searchTerm cannot be null.");
+            }
+
+            string searchTermLower = searchTerm.ToLower();
+
+            IEnumerable<FlightLogInfo> query = FilterFlightLogByFlightCodeQuery(searchTermLower);
+
+            if (startDate != null)
+            {
+                query = 
+                    from flightLogItem in query
+                    where (flightLogItem.DateTime >= startDate)
+                    select flightLogItem;
+
+                //    query.Where(x => x.DateTime >= startDate);
+            }
+
+            if (endDate != null)
+            {
+                // Since default time is 00:00:00 I'll add 23:59:59:999 to endDate so that
+                // all flights on this date gets included in the search,
+                // regardless of what time of day the event happened.
+                TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
+                endDate += timeToAdd;
+
+                query =
+                    from flightLogItem in query
+                    where (flightLogItem.DateTime <= endDate)
+                    select flightLogItem;
+
+                //query.Where(x => x.DateTime <= endDate);
+            }
+
+            return query.ToList();
+        }
+
+        private IEnumerable<FlightLogInfo> FilterFlightLogByFlightCodeQuery(string searchTerm)
+        {
+            if (searchTerm == null)
+            {
+                throw new ArgumentNullException("searchTerm", "searchTerm cannot be null.");
+            }
+
+            string searchTermLower = searchTerm.ToLower();
+
+            IEnumerable<FlightLogInfo> query = 
+                from flightLigItem in _flightLogInfoItems
+                where (flightLigItem.FlightCode.ToLower().Contains(searchTermLower))
+                select flightLigItem;
+
+            return query;
         }
     }
 }
