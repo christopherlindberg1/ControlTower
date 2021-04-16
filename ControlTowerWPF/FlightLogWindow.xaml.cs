@@ -33,13 +33,6 @@ namespace ControlTowerWPF
         /// </summary>
         private List<FlightLogInfo> FlightLogInfoItems { get; set; }
 
-        /// <summary>
-        /// List with FlightLogInfo objects that is based on FlightLogInfoItems.
-        /// This one is used for binding to the GUI. It is this list that is modified
-        /// when filtering.
-        /// </summary>
-        private List<FlightLogInfo> DisplayFlightLogInfoItems { get; set; }
-
 
         public FlightLogWindow()
         {
@@ -59,11 +52,9 @@ namespace ControlTowerWPF
         /// </summary>
         private void InitializeData()
         {
-            FlightLogInfoItems = FlightLogger.GetFlightLogInfoItems();
-
-            DisplayFlightLogInfoItems = new List<FlightLogInfo>(FlightLogInfoItems);
-
-            listViewLogLines.ItemsSource = DisplayFlightLogInfoItems;
+            FlightLogInfoItems = FlightLogger.GetLastWeeksFlightLogData();
+            
+            listViewLogLines.ItemsSource = FlightLogInfoItems;
         }
 
         /// <summary>
@@ -72,7 +63,7 @@ namespace ControlTowerWPF
         private void InitializeGUI()
         {
             InitializeDatePickers();
-            SetNrOfLogLines();
+            SetNrOfLogLines(FlightLogInfoItems.Count);
         }
 
         /// <summary>
@@ -88,21 +79,19 @@ namespace ControlTowerWPF
         /// Gives a short message showing how many records in the flight log is
         /// currently being shown, and a message if no record is shown.
         /// </summary>
-        private void SetNrOfLogLines()
+        private void SetNrOfLogLines(int nrOfLines)
         {
-            if (FlightLogInfoItems.Count == 0)
+            if (FlightLogger.TotalNumberOfFlightLogRecords == 0)
             {
                 textBlockNumberOfLogLines.Text = "There are no flight logs yet";
-                return;
             }
-
-            if (DisplayFlightLogInfoItems.Count == 0)
+            else if (nrOfLines == 0)
             {
                 textBlockNumberOfLogLines.Text = "No flight logs match the search filter";
             }
             else
             {
-                textBlockNumberOfLogLines.Text = $"{ DisplayFlightLogInfoItems.Count } rows";
+                textBlockNumberOfLogLines.Text = $"{ nrOfLines } rows";
             }
         }
 
@@ -155,31 +144,7 @@ namespace ControlTowerWPF
 
             listViewLogLines.ItemsSource = list;
 
-            SetNrOfLogLines();
-
-            //if (String.IsNullOrWhiteSpace(searchTerm))
-            //{
-            //    DisplayFlightLogInfoItems = new List<FlightLogInfo>(FlightLogInfoItems);
-            //}
-
-            //DateTime? startDate = DatePickerStartDate.SelectedDate;
-
-            //DateTime? endDate = DatePickerEndDate.SelectedDate;
-
-            //// Since default time is 00:00:00 I'll add 23:59:59:999 to endDate so that
-            //// all flights on this date gets included in the search,
-            //// regardless of what time of day the event happened.
-            //TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
-            //endDate += timeToAdd;
-
-            //DisplayFlightLogInfoItems = FlightLogInfoItems
-            //    .Where(x => x.FlightCode.ToLower().Contains(searchTerm))
-            //    .Where(x => x.DateTime >= startDate)
-            //    .Where(x => x.DateTime <= endDate)
-            //    .OrderByDescending(x => x.DateTime)
-            //    .ToList();
-
-
+            SetNrOfLogLines(list.Count);
         }
 
 
