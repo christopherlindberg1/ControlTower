@@ -18,10 +18,15 @@ namespace AppFeatures
         private readonly List<FlightLogInfo> _flightLogInfoItems;
 
 
+        public int TotalNumberOfFlightLogRecords { get => _flightLogInfoItems.Count; }
+
+
         public FlightLogger()
         {
             _flightLogInfoItems = GetFlightLogInfoItems();
         }
+
+
 
         /// <summary>
         /// Gets the entire flight log.
@@ -77,6 +82,18 @@ namespace AppFeatures
             XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, _flightLogInfoItems);
         }
 
+        public List<FlightLogInfo> GetLastWeeksFlightLogData()
+        {
+            DateTime? startDate = DateTime.Now.AddDays(-6);
+            DateTime? endDate = DateTime.Now + new TimeSpan(23, 59, 59, 999);
+
+            return _flightLogInfoItems
+                .Where(x => x.DateTime >= startDate)
+                .Where(x => x.DateTime <= endDate)
+                .OrderByDescending(x => x.DateTime)
+                .ToList();
+        }
+
         public List<FlightLogInfo> FilterFlightLog(
             string searchTerm,
             DateTime? startDate,
@@ -89,7 +106,7 @@ namespace AppFeatures
 
             string searchTermLower = searchTerm.ToLower();
 
-            IEnumerable<FlightLogInfo> query = FilterFlightLogByFlightCodeQuery(searchTermLower);
+            IEnumerable<FlightLogInfo> query = GetLinqQueryForFilteringFlightsByFlightCode(searchTermLower);
 
             if (startDate != null)
             {
@@ -116,7 +133,8 @@ namespace AppFeatures
             return query.ToList();
         }
 
-        private IEnumerable<FlightLogInfo> FilterFlightLogByFlightCodeQuery(string searchTerm)
+        private IEnumerable<FlightLogInfo> GetLinqQueryForFilteringFlightsByFlightCode(
+            string searchTerm)
         {
             if (searchTerm == null)
             {
