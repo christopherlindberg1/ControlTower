@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AppFeatures
 {
+    /// <summary>
+    /// Manages data that is of interest for when an airplane takes off.
+    /// </summary>
     public class TakeOffEventArgs : EventArgs
     {
         public string _flightCode;

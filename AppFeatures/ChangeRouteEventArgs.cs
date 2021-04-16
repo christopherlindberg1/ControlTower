@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace AppFeatures
 {
+    /// <summary>
+    /// Manages data that is of interest for when an airplane changes route.
+    /// </summary>
     public class ChangeRouteEventArgs : EventArgs
     {
         private string _flightCode;
         private string _route;
 
         
-        
-        
+
         public string FlightCode
         {
             get => _flightCode;

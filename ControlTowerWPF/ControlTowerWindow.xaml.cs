@@ -91,7 +91,7 @@ namespace ControlTowerWPF
             FlightWindow window = new FlightWindow(flightCode);
             window.Show();
 
-            // This object (MainWindow) subscribing to events in FlightWindow instance
+            // This object (MainWindow) is subscribing to events in a FlightWindow instance
             window.TakenOff += OnTakenOff;
             window.RouteChanged += OnRouteChanged;
             window.Landed += OnLanded;
@@ -116,18 +116,12 @@ namespace ControlTowerWPF
             listViewFlights.Items.Insert(0, flightInfo);
         }
 
-        
-
-        
-
-        // ===================== Event handler methods ===================== //
-
         /// <summary>
         /// The event for sending airplanes to the runway calls this method.
         /// It validates the user input and sends the airplane to the runway if the
         /// input is ok.
         /// </summary>
-        private void SendAirplaneToRunway_EventHandler()
+        private void SendAirplaneToRunway_Handler()
         {
             if (ValidateInput() == false)
             {
@@ -139,7 +133,6 @@ namespace ControlTowerWPF
 
                 return;
             }
-
             else
             {
                 SendAirplaneToRunway();
@@ -148,11 +141,11 @@ namespace ControlTowerWPF
         }
 
         /// <summary>
-        /// The event for responding to FlightWindows's event 'TakenOff' calls this method.
+        /// Handles FlightWindows's event 'TakenOff'.
         /// </summary>
         /// <param name="source">Object that sent out the event message.</param>
         /// <param name="e">Object containing data for the TakenOff event.</param>
-        private void OnTakenOff_EventHandler(object source, TakeOffEventArgs e)
+        private void OnTakenOff_Handler(object source, TakeOffEventArgs e)
         {
             FlightInfo flightInfo = new FlightInfo()
             {
@@ -164,11 +157,11 @@ namespace ControlTowerWPF
         }
 
         /// <summary>
-        /// The event for responding to FlightWindows's event 'RouteChanged' calls this method.
+        /// Handles FlightWindows's event 'RouteChanged'.
         /// </summary>
         /// <param name="source">Object that sent out the event message.</param>
         /// <param name="e">>Object containing data for the RouteChange event.</param>
-        private void OnRouteChanged_EventHandler(object source, ChangeRouteEventArgs e)
+        private void OnRouteChanged_Handler(object source, ChangeRouteEventArgs e)
         {
             FlightInfo flightInfo = new FlightInfo()
             {
@@ -180,11 +173,11 @@ namespace ControlTowerWPF
         }
 
         /// <summary>
-        /// The event for responding to FlightWindows's event 'Landed' calls this method.
+        /// Handles FlightWindows's event 'Landed'.
         /// </summary>
         /// <param name="source">Object that sent out the event message.</param>
         /// <param name="e">>Object containing data for the RouteChange event.</param>
-        private void OnLanded_EventHandler(object source, LandEventArgs e)
+        private void OnLanded_Handler(object source, LandEventArgs e)
         {
             FlightInfo flightInfo = new FlightInfo()
             {
@@ -195,13 +188,14 @@ namespace ControlTowerWPF
             listViewFlights.Items.Insert(0, flightInfo);
         }
 
-        private void OpenFlightLogWindow_EventHandler()
+
+        private void OpenFlightLogWindow_Handler()
         {
             FlightLogWindow = new FlightLogWindow();
             FlightLogWindow.Show();
         }
 
-        private void WindowClosing_EventHandler(CancelEventArgs e)
+        private void WindowClosing_Handler(CancelEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show(
                 "Are you sure you want to close the program?",
@@ -222,32 +216,32 @@ namespace ControlTowerWPF
 
         private void btnSendAirplaneToRunway_Click(object source, RoutedEventArgs e)
         {
-            SendAirplaneToRunway_EventHandler();
+            SendAirplaneToRunway_Handler();
         }
 
         private void OnTakenOff(object source, TakeOffEventArgs e)
         {
-            OnTakenOff_EventHandler(source, e);
+            OnTakenOff_Handler(source, e);
         }
 
         private void OnRouteChanged(object source, ChangeRouteEventArgs e)
         {
-            OnRouteChanged_EventHandler(source, e);
+            OnRouteChanged_Handler(source, e);
         }
 
         private void OnLanded(object source, LandEventArgs e)
         {
-            OnLanded_EventHandler(source, e);
+            OnLanded_Handler(source, e);
         }
 
         private void btnViewFlightLog_Click(object sender, RoutedEventArgs e)
         {
-            OpenFlightLogWindow_EventHandler();
+            OpenFlightLogWindow_Handler();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            WindowClosing_EventHandler(e);
+            WindowClosing_Handler(e);
         }
     }
 }

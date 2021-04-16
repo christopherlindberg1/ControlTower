@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AppFeatures
 {
+    /// <summary>
+    /// Manages data that is of interest for when an airplane lands.
+    /// </summary>
     public class LandEventArgs : EventArgs 
     {
         private string _flightCode;
@@ -29,6 +32,5 @@ namespace AppFeatures
         public string Status { get; } = "Landed";
 
         public DateTime DateTime { get; } = DateTime.Now;
-
     }
 }

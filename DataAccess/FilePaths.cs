@@ -10,7 +10,7 @@ namespace DataAccess
     /// <summary>
     /// Class containing file paths that are used within the app.
     /// </summary>
-    public class FilePaths
+    public static class FilePaths
     {
         public static string DataStorageRootFolderPath
         {
