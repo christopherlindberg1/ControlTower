@@ -9,8 +9,26 @@ using DataAccess.Utility;
 
 namespace AppFeatures
 {
-    public class FlightLogger
+    /// <summary>
+    /// Class used for logging different actions related to flights in some type
+    /// of a permanent storage.
+    /// </summary>
+    public partial class FlightLogger
     {
+        /// <summary>
+        /// List with FlightLogInfo objects that is used to store the flight log data
+        /// that gets fetched from the storage.
+        /// </summary>
+        public List<FlightLogInfo> FlightLogInfoItems { get; set; }
+
+        /// <summary>
+        /// List with FlightLogInfo objects that is based on FlightLogInfoItems.
+        /// This one is used for binding to the GUI. It is this list that is modified
+        /// when filtering.
+        /// </summary>
+        private List<FlightLogInfo> FilteredFlightLogInfoItems { get; set; }
+
+
         /// <summary>
         /// Used to add bulk data to the log file so I can verifying that the app can
         /// handle a large number of records.
@@ -64,14 +82,15 @@ namespace AppFeatures
         /// </summary>
         public void ClearLog()
         {
-            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, new List<FlightLogInfo>());
+            XMLSerializer.Serialize<List<FlightLogInfo>>(
+                FilePaths.FlightLogFilePath, new List<FlightLogInfo>());
         }
 
         /// <summary>
         /// Event handler/listener for when an airplane has taken off.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e"></param>
+        /// <param name="source">Object that triggered the event</param>
+        /// <param name="e">TakeOffEventArgs object containing event data</param>
         public void OnTakeOff(object source, TakeOffEventArgs e)
         {
             FlightLogInfo flightLogInfo = new FlightLogInfo()
@@ -87,8 +106,8 @@ namespace AppFeatures
         /// <summary>
         /// Event handler/listener for when an airplane has landed
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e"></param>
+        /// <param name="source">Object that triggered the event</param>
+        /// <param name="e">LandEventArgs object containing event data</param>
         public void OnLanded(object source, LandEventArgs e)
         {
             FlightLogInfo flightLogInfo = new FlightLogInfo()
@@ -119,7 +138,7 @@ namespace AppFeatures
         /// Gets the entire flight log.
         /// </summary>
         /// <returns>List with FlightLogInfo items</returns>
-        public static List<FlightLogInfo> GetFlightLogInfoItems()
+        public List<FlightLogInfo> GetFlightLogInfoItems()
         {
             return XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath);
         }
