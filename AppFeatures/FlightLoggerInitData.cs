@@ -24,7 +24,7 @@ namespace AppFeatures
         /// the entire log gets deserialized, then I add an object, and then I serialize.
         /// So the file is opened 10800 times.
         /// 
-        /// The 5400 records corresponds to 27000 lines of XML and 880 kB of storage.s
+        /// The 5400 records corresponds to 27000 lines of XML and 880 kB of storage.
         /// The app can filter on all these records on multiple parameters without noticable lag.
         /// 
         /// In a real world app I would use multiple files (one for each month or week) or Sqlite 
