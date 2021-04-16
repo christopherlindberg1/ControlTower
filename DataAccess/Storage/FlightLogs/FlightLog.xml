@@ -27000,4 +27000,174 @@
     <Status>Landed</Status>
     <DateTime>2021-03-17T13:11:08.9518971+01:00</DateTime>
   </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>SAS 692</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-19T16:15:32.3924603+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>SAS 692</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-19T16:15:56.8121198+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>rys 542</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-19T16:16:06.5616928+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>rys 542</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-19T16:16:14.6302421+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>Dlh 5215</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-19T16:16:36.0308609+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>Dlh 5215</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-19T16:16:37.4729596+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>dlh 885</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-19T16:16:40.9418218+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>dlh 885</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-19T16:16:42.9204789+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 546</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-19T16:16:48.2268325+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 546</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-19T16:16:59.5480537+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>SAS 572</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-19T19:36:20.3770401+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>SAS 572</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-19T19:36:36.3199998+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>RYS 696</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-19T19:38:16.3607525+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>DLH 814</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-03-19T19:38:24.2704053+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>DLH 814</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-19T19:38:45.989361+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>RYS 696</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-03-19T19:38:49.5000033+01:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 894</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-04-09T19:08:53.8713576+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 894</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-04-09T19:09:19.6280525+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 928</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-04-09T19:10:14.1692718+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>dlh 75B</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-04-09T19:10:20.4753699+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>dlh 75B</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-04-09T19:10:53.7342169+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 928</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-04-09T19:10:55.4524478+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 782</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-04-12T12:56:47.4511767+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 782</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-04-12T12:57:14.8211148+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>rys 145</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-04-12T12:57:56.9809343+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>dlh 555</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-04-12T12:58:04.1675732+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>dlh 555</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-04-12T12:58:24.2119831+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>rys 145</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-04-12T12:58:27.3597671+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 723</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-04-12T14:29:46.0372562+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 723</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-04-12T14:30:07.7430253+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>rys 582</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-04-12T14:30:46.6764279+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 682</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-04-12T14:30:52.7668361+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>rys 582</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-04-12T14:30:58.570282+02:00</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>sas 682</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-04-12T14:31:12.594351+02:00</DateTime>
+  </FlightLogInfo>
 </ArrayOfFlightLogInfo>
