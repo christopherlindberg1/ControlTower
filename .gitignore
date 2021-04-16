@@ -261,3 +261,6 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# XML file for storing flight log data
+DataAccess/Storage/FlightLogs/FlightLog.xml
