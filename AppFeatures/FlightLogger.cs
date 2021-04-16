@@ -15,11 +15,13 @@ namespace AppFeatures
     /// </summary>
     public partial class FlightLogger
     {
+        private readonly List<FlightLogInfo> _flightLogInfoItems;
+
         /// <summary>
         /// List with FlightLogInfo objects that is used to store the flight log data
         /// that gets fetched from the storage.
         /// </summary>
-        private List<FlightLogInfo> FlightLogInfoItems { get; set; }
+        //private List<FlightLogInfo> FlightLogInfoItems { get; set; }
 
         /// <summary>
         /// List with FlightLogInfo objects that is based on FlightLogInfoItems.
@@ -30,18 +32,9 @@ namespace AppFeatures
 
         public FlightLogger()
         {
-            InitializeData();
+            _flightLogInfoItems = GetFlightLogInfoItems();
         }
 
-        private void InitializeData()
-        {
-            LoadDataFromStorage();
-        }
-
-        private void LoadDataFromStorage()
-        {
-            FlightLogInfoItems = GetFlightLogInfoItems();
-        }
         /// <summary>
         /// Event handler/listener for when an airplane has taken off.
         /// </summary>
@@ -85,9 +78,9 @@ namespace AppFeatures
             //List<FlightLogInfo> flightLogInfoItems = XMLSerializer.Deserialize<List<FlightLogInfo>>(
             //    FilePaths.FlightLogFilePath);
 
-            FlightLogInfoItems.Add(flightLogInfo);
+            _flightLogInfoItems.Add(flightLogInfo);
 
-            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, FlightLogInfoItems);
+            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, _flightLogInfoItems);
         }
 
         /// <summary>
