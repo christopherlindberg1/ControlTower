@@ -22,7 +22,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!--Row 1-->
+        <!-- Row 1 -->
         <TextBlock Text="Control Tower" FontSize="30" />
         <Button
             x:Name="btnViewFlightLog"
@@ -35,7 +35,7 @@
             HorizontalAlignment="Right"
         />
 
-        <!--Row 2-->
+        <!-- Row 2 -->
         <ListView Grid.Row="1" Grid.ColumnSpan="2" Name="listViewFlights">
             <ListView.View>
                 <GridView>
@@ -46,7 +46,7 @@
             </ListView.View>
         </ListView>
 
-        <!--Row 3-->
+        <!-- Row 3 -->
         <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="0 20 0 10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
