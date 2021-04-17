@@ -31,7 +31,6 @@ namespace ControlTowerWPF
 
 
 
-
         // ===================== Properties ===================== //
 
         public FlightLogger FlightLogger { get => _flightLogger; }
