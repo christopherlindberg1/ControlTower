@@ -33,11 +33,10 @@ namespace ControlTowerWPF
 
 
         // ===================== Properties ===================== //
-        
-        private ErrorMessageHandler ErrorMessageHandler
-        {
-            get => _errorMessageHandler;
-        }
+
+        public FlightLogger FlightLogger { get => _flightLogger; }
+
+        private ErrorMessageHandler ErrorMessageHandler { get => _errorMessageHandler; }
 
         public FlightLogWindow FlightLogWindow { get; set; }
 
@@ -98,8 +97,8 @@ namespace ControlTowerWPF
             window.Landed += OnLanded;
 
             // FlightLogger subscribing to events in the FlightWindow instance
-            window.TakenOff += _flightLogger.OnTakeOff;
-            window.Landed += _flightLogger.OnLanded;
+            window.TakenOff += FlightLogger.OnTakeOff;
+            window.Landed += FlightLogger.OnLanded;
         }
 
         /// <summary>
@@ -191,7 +190,7 @@ namespace ControlTowerWPF
 
         private void OpenFlightLogWindow_Handler()
         {
-            FlightLogWindow = new FlightLogWindow(_flightLogger);
+            FlightLogWindow = new FlightLogWindow(FlightLogger);
             FlightLogWindow.Show();
         }
 
