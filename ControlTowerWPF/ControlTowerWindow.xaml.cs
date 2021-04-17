@@ -25,6 +25,7 @@ namespace ControlTowerWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly FlightLogger _flightLogger;
         private readonly ErrorMessageHandler _errorMessageHandler = new ErrorMessageHandler();
 
 
@@ -38,8 +39,6 @@ namespace ControlTowerWPF
             get => _errorMessageHandler;
         }
 
-        public FlightLogger FlightLogger { get; set; } = new FlightLogger();
-
         public FlightLogWindow FlightLogWindow { get; set; }
 
 
@@ -47,9 +46,11 @@ namespace ControlTowerWPF
 
         // ===================== Methods ===================== //
 
-        public MainWindow()
+        public MainWindow(FlightLogger flightLogger)
         {
             InitializeComponent();
+
+            _flightLogger = flightLogger;
         }
 
         public bool ValidateInput()
@@ -97,8 +98,8 @@ namespace ControlTowerWPF
             window.Landed += OnLanded;
 
             // FlightLogger subscribing to events in the FlightWindow instance
-            window.TakenOff += FlightLogger.OnTakeOff;
-            window.Landed += FlightLogger.OnLanded;
+            window.TakenOff += _flightLogger.OnTakeOff;
+            window.Landed += _flightLogger.OnLanded;
         }
 
         /// <summary>
