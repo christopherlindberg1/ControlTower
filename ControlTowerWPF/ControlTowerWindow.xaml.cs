@@ -189,10 +189,9 @@ namespace ControlTowerWPF
             listViewFlights.Items.Insert(0, flightInfo);
         }
 
-
         private void OpenFlightLogWindow_Handler()
         {
-            FlightLogWindow = new FlightLogWindow();
+            FlightLogWindow = new FlightLogWindow(_flightLogger);
             FlightLogWindow.Show();
         }
 
