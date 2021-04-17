@@ -40,7 +40,7 @@ namespace AppFeatures
         /// <summary>
         /// Gets all records that were added to the flight log the past 7 dats.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List with all flight log entries for the past week</returns>
         public List<FlightLogInfo> GetLastWeeksFlightLogData()
         {
             string searchTerm = "";
@@ -68,7 +68,7 @@ namespace AppFeatures
         /// <param name="searchTerm">Search term for the flight code.</param>
         /// <param name="startDate">Start date for the date interval.</param>
         /// <param name="endDate">End date for the date interval.</param>
-        /// <returns></returns>
+        /// <returns>List with all flight log entries matching the method arguments.</returns>
         public List<FlightLogInfo> FilterFlightLog(
             string searchTerm,
             DateTime? startDate,
