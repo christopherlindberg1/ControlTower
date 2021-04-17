@@ -23,9 +23,9 @@ namespace ControlTowerWPF
     /// </summary>
     public partial class FlightLogWindow : Window
     {
-        private ErrorMessageHandler ErrorMessageHandler { get; } = new ErrorMessageHandler();
+        private readonly FlightLogger _flightLogger;
 
-        private FlightLogger FlightLogger { get; set; } = new FlightLogger();
+        private ErrorMessageHandler ErrorMessageHandler { get; } = new ErrorMessageHandler();
 
         /// <summary>
         /// List with FlightLogInfo objects that is used to store the flight log data
@@ -34,9 +34,12 @@ namespace ControlTowerWPF
         private List<FlightLogInfo> FlightLogInfoItems { get; set; }
 
 
-        public FlightLogWindow()
+        public FlightLogWindow(FlightLogger flightLogger)
         {
             InitializeComponent();
+
+            _flightLogger = flightLogger;
+
             InitializeWindow();
         }
 
@@ -52,7 +55,7 @@ namespace ControlTowerWPF
         /// </summary>
         private void InitializeData()
         {
-            FlightLogInfoItems = FlightLogger.GetLastWeeksFlightLogData();
+            FlightLogInfoItems = _flightLogger.GetLastWeeksFlightLogData();
             
             listViewLogLines.ItemsSource = FlightLogInfoItems;
         }
@@ -81,7 +84,7 @@ namespace ControlTowerWPF
         /// </summary>
         private void SetNrOfLogLines(int nrOfLines)
         {
-            if (FlightLogger.TotalNumberOfFlightLogRecords == 0)
+            if (_flightLogger.TotalNumberOfFlightLogRecords == 0)
             {
                 textBlockNumberOfLogLines.Text = "There are no flight logs yet";
             }
@@ -140,7 +143,7 @@ namespace ControlTowerWPF
             DateTime? startDate = DatePickerStartDate.SelectedDate;
             DateTime? endDate = DatePickerEndDate.SelectedDate;
 
-            List<FlightLogInfo> list = FlightLogger.FilterFlightLog(searchTerm, startDate, endDate);
+            List<FlightLogInfo> list = _flightLogger.FilterFlightLog(searchTerm, startDate, endDate);
 
             listViewLogLines.ItemsSource = list;
 
