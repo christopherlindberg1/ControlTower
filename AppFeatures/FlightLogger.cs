@@ -21,12 +21,18 @@ namespace AppFeatures
 
 
 
+        // ===================== Properties ===================== //
+
         public string XmlDataSourceFilePath { get => _xmlDataSourceFilePath; }
 
         private List<FlightLogInfo> FlightLogInfoItems { get => _flightLogInfoItems; }
 
         public int TotalNumberOfFlightLogRecords { get => _flightLogInfoItems.Count; }
 
+
+
+
+        // ===================== Methods ===================== //
 
         public FlightLogger(string storageFilePath)
         {
