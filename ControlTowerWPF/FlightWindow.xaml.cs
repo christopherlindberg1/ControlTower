@@ -35,17 +35,14 @@ namespace ControlTowerWPF
 
 
 
-
         // ===================== Properties ===================== //
 
-        public string FlightCode
+        private string FlightCode
         {
             get => _flightCode;
 
             set => _flightCode = value;
         }
-
-
 
 
 
@@ -131,8 +128,8 @@ namespace ControlTowerWPF
         }
 
         /// <summary>
-        /// Updates the window to show that the airplane has taken off, and then triggers
-        /// the TakenOff event (if there are any subscribers).
+        /// Updates the GUI to show that the airplane has taken off, and then calls
+        /// the method that raise the TakenOff event.
         /// </summary>
         private void TakeOff()
         {
@@ -143,7 +140,9 @@ namespace ControlTowerWPF
             OnTakenOff();
         }
 
-
+        /// <summary>
+        /// Raises the TakenOff event if there are any subscribers.
+        /// </summary>
         protected virtual void OnTakenOff()
         {
             if (TakenOff != null)
@@ -152,6 +151,10 @@ namespace ControlTowerWPF
             }
         }
 
+        /// <summary>
+        /// Updates the GUI as necessary when the airplane changes route, and then calls
+        /// the method that raise the RouteChanged event.
+        /// </summary>
         private void ChangeRoute()
         {
             if (String.IsNullOrWhiteSpace(comboBoxChangeRoute.SelectedItem.ToString()))
@@ -162,6 +165,9 @@ namespace ControlTowerWPF
             OnChangedRoute();
         }
 
+        /// <summary>
+        /// Raises the RouteChanged event if there are any subscribers.
+        /// </summary>
         protected virtual void OnChangedRoute()
         {
             if (RouteChanged != null)
@@ -174,6 +180,10 @@ namespace ControlTowerWPF
             }
         }
 
+        /// <summary>
+        /// Updates the the GUI as necessary when the airplane lands, and then calls
+        /// the method that raise the Landed event.
+        /// </summary>
         private void Land()
         {
             btnStartFlight.IsEnabled = false;
@@ -183,6 +193,9 @@ namespace ControlTowerWPF
             OnLanded();
         }
 
+        /// <summary>
+        /// Raises the Landed event if there are any subscribers.
+        /// </summary>
         protected virtual void OnLanded()
         {
             if (Landed != null)
@@ -190,7 +203,6 @@ namespace ControlTowerWPF
                 Landed(this, new LandEventArgs() { FlightCode = FlightCode });
             }
         }
-
 
 
 
