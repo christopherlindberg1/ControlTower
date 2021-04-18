@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using AppFeatures;
+using DataAccess;
 
 namespace ControlTowerWPF
 {
@@ -27,7 +28,8 @@ namespace ControlTowerWPF
         private void ConfigureServices(ServiceCollection services)
         {
             services.AddSingleton<MainWindow>();
-            services.AddSingleton<FlightLogger>();
+            //services.AddSingleton<FlightLogger>();
+            services.AddSingleton(new FlightLogger(FilePaths.FlightLogFilePath));
         }
 
         private void OnStartup(object sender, StartupEventArgs e)
