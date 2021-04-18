@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DataAccess
 {
     /// <summary>
-    /// Class containing file paths that used within the app at runtime.
+    /// Class containing file paths that used within the app.
     /// </summary>
     public static partial class FilePaths
     {
