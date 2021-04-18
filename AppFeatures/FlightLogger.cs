@@ -69,7 +69,7 @@ namespace AppFeatures
         {
             FlightLogInfoItems.Add(flightLogInfo);
 
-            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, FlightLogInfoItems);
+            XMLSerializer.Serialize<List<FlightLogInfo>>(XmlDataSourceFilePath, FlightLogInfoItems);
         }
 
         /// <summary>
