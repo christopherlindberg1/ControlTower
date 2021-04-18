@@ -16,7 +16,7 @@ namespace AppFeatures
     public partial class FlightLogger
     {
         private readonly string _xmlDataSourceFilePath;
-        private readonly List<FlightLogInfo> _flightLogInfoItems;
+        private List<FlightLogInfo> _flightLogInfoItems;
 
 
 
@@ -25,7 +25,18 @@ namespace AppFeatures
 
         public string XmlDataSourceFilePath { get => _xmlDataSourceFilePath; }
 
-        private List<FlightLogInfo> FlightLogInfoItems { get => _flightLogInfoItems; }
+        private List<FlightLogInfo> FlightLogInfoItems
+        {
+            get
+            {
+                if (_flightLogInfoItems == null)
+                {
+                    _flightLogInfoItems = GetFlightLogInfoItems();
+                }
+
+                return _flightLogInfoItems;
+            }
+        }
 
         public int TotalNumberOfFlightLogRecords { get => _flightLogInfoItems.Count; }
 
@@ -37,7 +48,6 @@ namespace AppFeatures
         public FlightLogger(string storageFilePath)
         {
             _xmlDataSourceFilePath = storageFilePath;
-            _flightLogInfoItems = GetFlightLogInfoItems();
         }
 
         /// <summary>
