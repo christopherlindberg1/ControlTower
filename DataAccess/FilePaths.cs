@@ -8,10 +8,19 @@ using System.Threading.Tasks;
 namespace DataAccess
 {
     /// <summary>
-    /// Class containing file paths that are used within the app.
+    /// Class containing file paths that used within the app at runtime.
     /// </summary>
-    public static class FilePaths
+    public static partial class FilePaths
     {
+        public static string SolutionRootFolder
+        {
+            get
+            {
+                return Path.GetFullPath(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\"));
+            }
+        }
+
         public static string DataStorageRootFolderPath
         {
             get
