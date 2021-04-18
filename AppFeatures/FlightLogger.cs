@@ -40,11 +40,6 @@ namespace AppFeatures
             _flightLogInfoItems = GetFlightLogInfoItems();
         }
 
-        public int Add(int a, int b)
-        {
-            return a + b;
-        }
-
         /// <summary>
         /// Gets the entire flight log.
         /// </summary>
