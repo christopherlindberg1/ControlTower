@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FilePaths.cs" />
+    <Compile Include="FilePathsForTesting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\XMLSerializer.cs" />
   </ItemGroup>
