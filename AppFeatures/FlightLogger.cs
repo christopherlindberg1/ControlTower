@@ -15,18 +15,29 @@ namespace AppFeatures
     /// </summary>
     public partial class FlightLogger
     {
+        private readonly string _xmlDataSourceFilePath;
         private readonly List<FlightLogInfo> _flightLogInfoItems;
 
+
+
+
+        public string XmlDataSourceFilePath { get => _xmlDataSourceFilePath; }
+
+        private List<FlightLogInfo> FlightLogInfoItems { get => _flightLogInfoItems; }
 
         public int TotalNumberOfFlightLogRecords { get => _flightLogInfoItems.Count; }
 
 
-        public FlightLogger()
+        public FlightLogger(string storageFilePath)
         {
+            _xmlDataSourceFilePath = storageFilePath;
             _flightLogInfoItems = GetFlightLogInfoItems();
         }
 
-
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
 
         /// <summary>
         /// Gets the entire flight log.
@@ -34,7 +45,7 @@ namespace AppFeatures
         /// <returns>List with FlightLogInfo items</returns>
         public List<FlightLogInfo> GetFlightLogInfoItems()
         {
-            return XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath);
+            return XMLSerializer.Deserialize<List<FlightLogInfo>>(XmlDataSourceFilePath);
         }
 
         /// <summary>
@@ -56,9 +67,9 @@ namespace AppFeatures
         /// <param name="flightLogInfo">FlightLogInfo object</param>
         private void AddFlightLogInfoItemToLog(FlightLogInfo flightLogInfo)
         {
-            _flightLogInfoItems.Add(flightLogInfo);
+            FlightLogInfoItems.Add(flightLogInfo);
 
-            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, _flightLogInfoItems);
+            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePaths.FlightLogFilePath, FlightLogInfoItems);
         }
 
         /// <summary>
@@ -105,7 +116,7 @@ namespace AppFeatures
                     select flightLogItem;
             }
 
-            return query.ToList();
+            return query.OrderByDescending(x => x.DateTime).ToList();
         }
 
         /// <summary>
@@ -124,7 +135,7 @@ namespace AppFeatures
             string searchTermLower = searchTerm.ToLower();
 
             IEnumerable<FlightLogInfo> query = 
-                from flightLigItem in _flightLogInfoItems
+                from flightLigItem in FlightLogInfoItems
                 where (flightLigItem.FlightCode.ToLower().Contains(searchTermLower))
                 select flightLigItem;
 
