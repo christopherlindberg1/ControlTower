@@ -61,8 +61,8 @@ namespace AppFeatures
         public List<FlightLogInfo> GetLastWeeksFlightLogData()
         {
             string searchTerm = "";
-            DateTime startDate = DateTime.Now.AddDays(-6);
-            DateTime endDate = DateTime.Now + new TimeSpan(23, 59, 59, 999);
+            DateTime startDate = DateTime.Now.AddDays(-6).Date;
+            DateTime endDate = DateTime.Now;
 
             return FilterFlightLog(searchTerm, startDate, endDate);
         }
