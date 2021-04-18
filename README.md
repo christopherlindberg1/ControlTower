@@ -11,7 +11,7 @@ First version (MVP):
 Second version:
 * Set up and use Dependency Injection instead of hard coding dependencies in classes.
 * Perform data access and other time consuming operations asyncronously in order to not lock the UI thread.
-* Write unit tests.
+* Write unit tests for most/all code.
 
 ## Features
 As compared to the real world, the only responsability of the Control tower is to send airplanes to the runway. Ones that is done, the airplane themselves decide when to take off, change heading and land. The "airplanes" have events for these actions, which the control tower is listening to. Once an event is triggered the control tower logs the information in a list. This list is empty every time the app is started.
