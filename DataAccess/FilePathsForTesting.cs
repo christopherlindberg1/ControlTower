@@ -21,7 +21,7 @@ namespace DataAccess
             }
         }
 
-        public static string FilePathForXmlTestFile
+        public static string FilePathForXmlTestFileWithData
         {
             get
             {
