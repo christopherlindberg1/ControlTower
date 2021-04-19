@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AppFeatures\AppFeatures.csproj" />
+    <ProjectReference Include="..\ControlTowerWPF\ControlTowerWPF.csproj" />
+  </ItemGroup>
+
 </Project>
