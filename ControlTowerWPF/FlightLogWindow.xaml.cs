@@ -41,6 +41,10 @@ namespace ControlTowerWPF
         /// </summary>
         private List<FlightLogInfo> FlightLogInfoItems { get; set; }
 
+        public DateTime? CurrentStartDate { get; set; }
+        public DateTime? CurrentEndDate { get; set; }
+
+
 
 
 
@@ -86,8 +90,14 @@ namespace ControlTowerWPF
         /// </summary>
         private void InitializeDatePickers()
         {
-            DatePickerStartDate.SelectedDate = DateTime.Now.AddDays(-6);
-            DatePickerEndDate.SelectedDate = DateTime.Now;
+            DateTime? currentStartDate = DateTime.Now.AddDays(-6);
+            DateTime? currentEndDate = DateTime.Now;
+
+            CurrentStartDate = currentStartDate;
+            CurrentEndDate = currentEndDate;
+
+            DatePickerStartDate.SelectedDate = currentStartDate;
+            DatePickerEndDate.SelectedDate = currentEndDate;
         }
 
         /// <summary>
@@ -140,6 +150,9 @@ namespace ControlTowerWPF
         /// </summary>
         private void FilterFlights_Handler()
         {
+            //DateTime? currentStartDate = DatePickerStartDate.SelectedDate;
+            //DateTime? currentEndDate = DatePickerEndDate.SelectedDate;
+
             if (ValidateInput() == false)
             {
                 MessageBox.Show(
@@ -147,6 +160,9 @@ namespace ControlTowerWPF
                     "Information",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
+
+                DatePickerStartDate.SelectedDate = CurrentStartDate;
+                DatePickerEndDate.SelectedDate = CurrentEndDate;
 
                 return;
             }
