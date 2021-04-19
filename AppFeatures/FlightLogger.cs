@@ -107,9 +107,13 @@ namespace AppFeatures
 
             if (startDate != null)
             {
+                // Update the date to only have the Date property to remove the time
+                DateTime date = (DateTime)startDate;
+                date = date.Date;
+
                 query = 
                     from flightLogItem in query
-                    where (flightLogItem.DateTime >= startDate)
+                    where (flightLogItem.DateTime >= date)
                     select flightLogItem;
             }
 
