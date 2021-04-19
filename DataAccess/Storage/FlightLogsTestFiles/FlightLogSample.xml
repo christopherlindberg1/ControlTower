@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfFlightLogInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FlightLogInfo>
+    <FlightCode>SAS 794</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2020-05-23T13:08:17</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>SAS 794</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2020-05-23T18:08:17</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>DLH 812</FlightCode>
+    <Status>Took off</Status>
+    <DateTime>2021-04-15T13:08:17</DateTime>
+  </FlightLogInfo>
+  <FlightLogInfo>
+    <FlightCode>DLH 812</FlightCode>
+    <Status>Landed</Status>
+    <DateTime>2021-04-15T17:08:17</DateTime>
+  </FlightLogInfo>
+</ArrayOfFlightLogInfo>
