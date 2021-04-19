@@ -11,17 +11,5 @@ namespace ControlTowerWPF.Tests
     public class ErrorMessageHandlerTests
     {
         private static readonly ErrorMessageHandler _errorMessageHandler = new ErrorMessageHandler();
-
-        [Fact]
-        public void AddMessage_ValidData_ShouldAddMessageToList()
-        {
-            // Arrange
-            
-
-            // Act
-
-
-            // Assert
-        }
     }
 }
