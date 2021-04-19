@@ -8,9 +8,11 @@
 
   <ItemGroup>
     <None Remove="Storage\FlightLogs\FlightLog.xml" />
+    <None Remove="Storage\FlightLogs\FlightLogForInsert.xml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Storage\FlightLogs\FlightLogForInsert.xml" />
     <Content Include="Storage\FlightLogs\FlightLog.xml" />
   </ItemGroup>
 
