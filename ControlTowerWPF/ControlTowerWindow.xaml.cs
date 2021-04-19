@@ -58,15 +58,15 @@ namespace ControlTowerWPF
 
         public bool ValidateFlightCode(string flightCode)
         {
-            if (flightCode.Length > 10)
-            {
-                ErrorMessageHandler.AddMessage("The flight code cannot be longer than 10 characters.");
-                return false;
-            }
-
             if (string.IsNullOrWhiteSpace(flightCode))
             {
                 ErrorMessageHandler.AddMessage("The flight code cannot be empty");
+                return false;
+            }
+
+            if (flightCode.Length > 10)
+            {
+                ErrorMessageHandler.AddMessage("The flight code cannot be longer than 10 characters.");
                 return false;
             }
 
