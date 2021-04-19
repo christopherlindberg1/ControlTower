@@ -17,7 +17,7 @@ namespace DataAccess
             get
             {
                 return Path.GetFullPath(
-                    Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\DataAccess\Storage\"));
+                    Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\DataAccess.Tests\Storage\"));
             }
         }
 
@@ -27,7 +27,7 @@ namespace DataAccess
             {
                 return Path.GetFullPath(
                     Path.Combine(DataStorageRootFolderPathForTesting,
-                        @".\FlightLogsTestFiles\FlightLogSample.xml"));
+                        @".\FlightLogs\FlightLog.xml"));
             }
         }
     }
