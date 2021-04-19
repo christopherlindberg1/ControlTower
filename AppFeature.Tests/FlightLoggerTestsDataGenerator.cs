@@ -36,28 +36,28 @@ namespace AppFeature.Tests
             {
                 FlightCode = "DLH 812",
                 Status = "Landed",
-                DateTime = new DateTime(2020, 5, 23, 14, 52, 15)
+                DateTime = new DateTime(2021, 4, 15, 15, 2, 9)
             };
             
             yield return new FlightLogInfo
             {
                 FlightCode = "SAS 794",
                 Status = "Took off",
-                DateTime = new DateTime(2020, 5, 23, 14, 52, 15)
+                DateTime = new DateTime(2021, 4, 15, 16, 52, 15)
             };
             
             yield return new FlightLogInfo
             {
                 FlightCode = "SAS 794",
-                Status = "Took off",
-                DateTime = new DateTime(2020, 5, 23, 14, 52, 15)
+                Status = "Landed",
+                DateTime = new DateTime(2021, 4, 15, 18, 18, 0)
             };
             
             yield return new FlightLogInfo
             {
-                FlightCode = "SAS 794",
+                FlightCode = "KLM 666",
                 Status = "Took off",
-                DateTime = new DateTime(2020, 5, 23, 14, 52, 15)
+                DateTime = new DateTime(2021, 4, 18, 23, 7, 8)
             };
         }
     }
