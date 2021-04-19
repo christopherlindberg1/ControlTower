@@ -41,6 +41,11 @@ namespace ControlTowerWPF
         /// <param name="message"></param>
         public void AddMessage(string message)
         {
+            if (String.IsNullOrWhiteSpace(message))
+            {
+                throw new ArgumentNullException("Message", "Message cannot be null or white space");
+            }
+
             if (this.HasSentMessage)
             {
                 this.Messages.Clear();
