@@ -17,6 +17,48 @@ namespace AppFeature.Tests
                 Status = "Took off",
                 DateTime = new DateTime(2020, 5, 23, 14, 52, 15)
             };
+
+            yield return new FlightLogInfo
+            {
+                FlightCode = "SAS 794",
+                Status = "Landed",
+                DateTime = new DateTime(2020, 5, 23, 18, 12, 34)
+            };
+            
+            yield return new FlightLogInfo
+            {
+                FlightCode = "DLH 812",
+                Status = "Took off",
+                DateTime = new DateTime(2021, 4, 15, 9, 52, 15)
+            };
+            
+            yield return new FlightLogInfo
+            {
+                FlightCode = "DLH 812",
+                Status = "Landed",
+                DateTime = new DateTime(2020, 5, 23, 14, 52, 15)
+            };
+            
+            yield return new FlightLogInfo
+            {
+                FlightCode = "SAS 794",
+                Status = "Took off",
+                DateTime = new DateTime(2020, 5, 23, 14, 52, 15)
+            };
+            
+            yield return new FlightLogInfo
+            {
+                FlightCode = "SAS 794",
+                Status = "Took off",
+                DateTime = new DateTime(2020, 5, 23, 14, 52, 15)
+            };
+            
+            yield return new FlightLogInfo
+            {
+                FlightCode = "SAS 794",
+                Status = "Took off",
+                DateTime = new DateTime(2020, 5, 23, 14, 52, 15)
+            };
         }
     }
 }
