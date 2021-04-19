@@ -30,5 +30,15 @@ namespace DataAccess
                         @".\FlightLogs\FlightLog.xml"));
             }
         }
+
+        public static string FilePathForXmlTestFileWithoutData
+        {
+            get
+            {
+                return Path.GetFullPath(
+                    Path.Combine(DataStorageRootFolderPathForTesting,
+                        @".\FlightLogs\FlightLogForInsert.xml"));
+            }
+        }
     }
 }
