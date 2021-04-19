@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Storage\FlightLogsTestFiles\FlightLogSample.xml" />
     <Content Include="Storage\FlightLogs\SampleFlightLog.xml" />
     <Content Include="Storage\FlightLogs\FlightLog.xml" />
     <Content Include="Storage\FlightLogs\SampleBulkFlightLog.xml" />
