@@ -39,7 +39,7 @@ namespace DataAccess.Tests.Utility
         public void Serialize_SaveCollectionOfItems_ShouldWork()
         {
             // Arrange
-            List<FlightLogInfo> flightLog = new List<FlightLogInfo>
+            List<FlightLogInfo> flightLogToIsert = new List<FlightLogInfo>
             {
                 new FlightLogInfo
                 {
@@ -50,9 +50,16 @@ namespace DataAccess.Tests.Utility
             };
 
             // Act
+            XMLSerializer.Serialize<List<FlightLogInfo>>(
+                FilePaths.FilePathForXmlTestFileWithoutData, flightLogToIsert);
 
+            List<FlightLogInfo> flightLogFromFile =
+                XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FilePathForXmlTestFileWithoutData);
 
             // Assert
+            Assert.Equal(flightLogToIsert[0].FlightCode, flightLogFromFile[0].FlightCode);
+            Assert.Equal(flightLogToIsert[0].Status, flightLogFromFile[0].Status);
+            Assert.Equal(flightLogToIsert[0].DateTime, flightLogFromFile[0].DateTime);
         }
     }
 }
