@@ -11,6 +11,6 @@ namespace AppFeatures.Tests
 {
     public class FlightLoggerTests
     {
-        private static FlightLogger _flightLogger = new FlightLogger(FilePaths.FilePathForXmlTestFile);
+        private static FlightLogger _flightLogger = new FlightLogger(null);
     }
 }
