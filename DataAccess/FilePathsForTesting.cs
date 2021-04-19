@@ -21,21 +21,13 @@ namespace DataAccess
             }
         }
 
-        public static string FlightLogsDataFolderPathForTesting
+        public static string FilePathForXmlTestFile
         {
             get
             {
                 return Path.GetFullPath(
-                    Path.Combine(DataStorageRootFolderPathForTesting, @".\FlightLogs\"));
-            }
-        }
-
-        public static string FlightLogFilePathForTesting
-        {
-            get
-            {
-                return Path.GetFullPath(
-                    Path.Combine(FlightLogsDataFolderPathForTesting, @".\FlightLog.xml"));
+                    Path.Combine(DataStorageRootFolderPathForTesting,
+                        @".\FlightLogsTestFiles\FlightLogSample.xml"));
             }
         }
     }
