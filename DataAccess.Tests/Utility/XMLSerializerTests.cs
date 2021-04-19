@@ -57,6 +57,8 @@ namespace DataAccess.Tests.Utility
                 XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FilePathForXmlTestFileWithoutData);
 
             // Assert
+            Assert.Single(flightLogToIsert);
+
             Assert.Equal(flightLogToIsert[0].FlightCode, flightLogFromFile[0].FlightCode);
             Assert.Equal(flightLogToIsert[0].Status, flightLogFromFile[0].Status);
             Assert.Equal(flightLogToIsert[0].DateTime, flightLogFromFile[0].DateTime);
