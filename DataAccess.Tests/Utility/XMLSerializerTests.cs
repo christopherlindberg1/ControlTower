@@ -14,15 +14,13 @@ namespace DataAccess.Tests.Utility
     public class XMLSerializerTests
     {
         [Fact]
-        public void Deserialize_GetEntireFlightLog_ShouldWork()
+        public void Deserialize_GetCollectionOfItems_ShouldWork()
         {
             // Arrange
 
-
             // Act
             List<FlightLogInfo> flightLog = 
-                XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FilePathForXmlTestFile);
-
+                XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FilePathForXmlTestFileWithData);
 
             // Assert
             // Checking that we get the correct amount of objects
@@ -35,6 +33,26 @@ namespace DataAccess.Tests.Utility
             Assert.Equal("DLH 812", flightLog[3].FlightCode);
             Assert.Equal("Landed", flightLog[3].Status);
             Assert.Equal(new DateTime(2021, 4, 15, 17, 8, 17), flightLog[3].DateTime);
+        }
+
+        [Fact]
+        public void Serialize_SaveCollectionOfItems_ShouldWork()
+        {
+            // Arrange
+            List<FlightLogInfo> flightLog = new List<FlightLogInfo>
+            {
+                new FlightLogInfo
+                {
+                    FlightCode = "SAS 794",
+                    Status = "Took off",
+                    DateTime = new DateTime(2021, 04, 18, 12, 00, 00)
+                }
+            };
+
+            // Act
+
+
+            // Assert
         }
     }
 }
