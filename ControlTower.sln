@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppFeatures", "AppFeatures\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{FA80383F-ADD7-4310-8BB7-79873A292AAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppFeature.Tests", "AppFeature.Tests\AppFeature.Tests.csproj", "{9F5B917E-D024-4224-B7BF-C6D62F3E2242}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppFeature.Tests", "AppFeature.Tests\AppFeature.Tests.csproj", "{9F5B917E-D024-4224-B7BF-C6D62F3E2242}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlTowerWPF.Tests", "ControlTowerWPF.Tests\ControlTowerWPF.Tests.csproj", "{44BF6B3C-17BD-4E8C-BCD8-BFACA4157918}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9F5B917E-D024-4224-B7BF-C6D62F3E2242}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F5B917E-D024-4224-B7BF-C6D62F3E2242}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F5B917E-D024-4224-B7BF-C6D62F3E2242}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44BF6B3C-17BD-4E8C-BCD8-BFACA4157918}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44BF6B3C-17BD-4E8C-BCD8-BFACA4157918}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44BF6B3C-17BD-4E8C-BCD8-BFACA4157918}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44BF6B3C-17BD-4E8C-BCD8-BFACA4157918}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
