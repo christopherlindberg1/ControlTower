@@ -70,7 +70,7 @@ namespace AppFeatures
         public void ClearLog()
         {
             XMLSerializer.Serialize<List<FlightLogInfo>>(
-                FilePaths.FlightLogFilePath, new List<FlightLogInfo>());
+                XmlDataSourceFilePath, new List<FlightLogInfo>());
         }
     }
 }
