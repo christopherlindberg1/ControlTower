@@ -152,6 +152,27 @@ namespace AppFeatures.Tests
                 null,
                 4
             };
+
+            // Start- and end date is null. Should include every entry
+            // in the log. Expects 6 entries.
+            yield return new object[]
+            {
+                null,
+                null,
+                6
+            };
+        }
+
+        public static IEnumerable<object[]> ArgumentsForFilteringWithSearchTermAndDateTimes()
+        {
+            // Filters for 'SAS' in the entire time interval. Expetcs 3 entries.
+            yield return new object[]
+            {
+                "SAS",
+                new DateTime(2020, 1, 1),
+                new DateTime(2021, 4, 20),
+                3
+            };
         }
     }
 }
