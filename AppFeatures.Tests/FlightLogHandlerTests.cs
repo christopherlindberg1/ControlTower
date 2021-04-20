@@ -50,6 +50,13 @@ namespace AppFeatures.Tests
         [Theory]
         [InlineData("SAS", 3)]
         [InlineData("sas", 3)]
+        [InlineData("s", 4)]
+        [InlineData("", 6)]
+        [InlineData(" ", 6)]
+        [InlineData("H ", 2)]
+        [InlineData("1", 3)]
+        [InlineData("11", 1)]
+        [InlineData(" 11", 1)]
         public void FilterFlightLog_OnlyProvidingSearchTerm_FiltersOutMismatches(string searchTerm, int expectedAmount)
         {
             // Arrange
