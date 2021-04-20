@@ -10,13 +10,6 @@ namespace AppFeatures.Tests
 {
     public class FlightLogHandlerTestData
     {
-        private static FlightLogInfo _sampleFlightLogInfoItem = new FlightLogInfo
-        {
-            FlightCode = "SAS 333",
-            Status = "Landed",
-            DateTime = new DateTime(2021, 4, 20, 14, 15, 15)
-        };
-
         private static List<FlightLogInfo> _sampleFlightLog = new List<FlightLogInfo>
         {
             new FlightLogInfo
@@ -58,8 +51,6 @@ namespace AppFeatures.Tests
         };
 
         public static List<FlightLogInfo> SampleFlightLog { get => _sampleFlightLog; }
-
-        public static FlightLogInfo SampleFlightLogInfoItem { get => _sampleFlightLogInfoItem; }
 
         public static IEnumerable<object[]> ArgumentsForFilteringWithDateTimes()
         {
