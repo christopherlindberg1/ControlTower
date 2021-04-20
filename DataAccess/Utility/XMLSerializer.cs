@@ -34,7 +34,10 @@ namespace DataAccess.Utility
                 {
                     serializer.Serialize(streamWriter, obj);
                 }
-                // Should catch and handle more specific exceptions
+                catch (InvalidOperationException ex)
+                {
+                    throw;
+                }
                 catch (Exception ex)
                 {
                     throw;
@@ -63,7 +66,10 @@ namespace DataAccess.Utility
                 {
                     return (T)serializer.Deserialize(streamReader);
                 }
-                // Should catch and handle more specific exceptions
+                catch (InvalidOperationException ex)
+                {
+                    throw;
+                }
                 catch (Exception ex)
                 {
                     throw;
