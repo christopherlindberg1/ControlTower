@@ -77,27 +77,27 @@ namespace AppFeatures.Tests
             }
         }
 
-        //[Theory]
-        //[MemberData(
-        //    nameof(FlightLogHandlerTestData.GetDateTimesForFiltering),
-        //    MemberType = typeof(FlightLogHandlerTestData))]
-        //public void FilterFlightLog_OnlyProvidingDateTimes_FiltersOutMismatches(
-        //    DateTime? startDate,
-        //    DateTime? endDate,
-        //    int expectedAmount)
-        //{
-        //    // Arrange
-        //    FlightLogHandler flightLogHandler = new FlightLogHandler();
-        //    List<FlightLogInfo> flightLog = FlightLogHandlerTestData.SampleFlightLog;
-        //    int nrOfItemsWithMatchingFlightCode =
-        //        Utility.CountFlightLogEntriesWithMatchingFlightCode(flightLog, "");
+        [Theory]
+        [MemberData(
+            nameof(FlightLogHandlerTestData.ArgumentsForFilteringWithDateTimes),
+            MemberType = typeof(FlightLogHandlerTestData))]
+        public void FilterFlightLog_OnlyProvidingDateTimes_FiltersOutMismatches(
+            DateTime? startDate,
+            DateTime? endDate,
+            int expectedAmount)
+        {
+            // Arrange
+            FlightLogHandler flightLogHandler = new FlightLogHandler();
+            List<FlightLogInfo> flightLog = FlightLogHandlerTestData.SampleFlightLog;
+            int nrOfItemsWithMatchingFlightCode =
+                Utility.CountFlightLogEntriesWithMatchingFlightCode(flightLog, "");
 
-        //    // Act
-        //    List<FlightLogInfo> filteredFlightLog = flightLogHandler.FilterFlightLog(
-        //        flightLog, "", startDate, endDate);
+            // Act
+            List<FlightLogInfo> filteredFlightLog = flightLogHandler.FilterFlightLog(
+                flightLog, "", startDate, endDate);
 
-        //    // Assert
-        //    Assert.Equal(expectedAmount, filteredFlightLog.Count);
-        //}
+            // Assert
+            Assert.Equal(expectedAmount, filteredFlightLog.Count);
+        }
     }
 }
