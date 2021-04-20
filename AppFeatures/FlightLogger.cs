@@ -25,7 +25,7 @@ namespace AppFeatures
 
         public string XmlDataSourceFilePath { get => _xmlDataSourceFilePath; }
 
-        private List<FlightLogInfo> FlightLogInfoItems
+        public List<FlightLogInfo> FlightLogInfoItems
         {
             get
             {
@@ -60,19 +60,6 @@ namespace AppFeatures
         }
 
         /// <summary>
-        /// Gets all records that were added to the flight log the past 7 dats.
-        /// </summary>
-        /// <returns>List with all flight log entries for the past week</returns>
-        //public List<FlightLogInfo> GetLastWeeksFlightLogData()
-        //{
-        //    string searchTerm = "";
-        //    DateTime startDate = DateTime.Now.AddDays(-6).Date;
-        //    DateTime endDate = DateTime.Now;
-
-        //    return FilterFlightLog(searchTerm, startDate, endDate);
-        //}
-
-        /// <summary>
         /// Adds a FlightLogItem to the log file.
         /// </summary>
         /// <param name="flightLogInfo">FlightLogInfo object</param>
@@ -81,80 +68,6 @@ namespace AppFeatures
             FlightLogInfoItems.Add(flightLogInfo);
 
             XMLSerializer.Serialize<List<FlightLogInfo>>(XmlDataSourceFilePath, FlightLogInfoItems);
-        }
-
-        /// <summary>
-        /// Filters data in the flight log based on a search term
-        /// and a date interval
-        /// </summary>
-        /// <param name="searchTerm">Search term for the flight code.</param>
-        /// <param name="startDate">Start date for the date interval.</param>
-        /// <param name="endDate">End date for the date interval.</param>
-        /// <returns>List with all flight log entries matching the method arguments.</returns>
-        public List<FlightLogInfo> FilterFlightLog(
-            string searchTerm,
-            DateTime? startDate,
-            DateTime? endDate)
-        {
-            if (searchTerm == null)
-            {
-                throw new ArgumentNullException("searchTerm", "searchTerm cannot be null.");
-            }
-
-            string searchTermLower = searchTerm.ToLower();
-
-            IEnumerable<FlightLogInfo> query = GetLinqQueryForFilteringFlightsByFlightCode(searchTermLower);
-
-            if (startDate != null)
-            {
-                // Update the date to only have the Date property to remove the time
-                DateTime date = (DateTime)startDate;
-                date = date.Date;
-
-                query = 
-                    from flightLogItem in query
-                    where (flightLogItem.DateTime >= date)
-                    select flightLogItem;
-            }
-
-            if (endDate != null)
-            {
-                // Since default time is 00:00:00 I'll add 23:59:59:999 to endDate so that
-                // all flights on this date gets included in the search,
-                // regardless of what time of day the event happened.
-                TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
-                endDate += timeToAdd;
-
-                query =
-                    from flightLogItem in query
-                    where (flightLogItem.DateTime <= endDate)
-                    select flightLogItem;
-            }
-
-            return query.OrderByDescending(x => x.DateTime).ToList();
-        }
-
-        /// <summary>
-        /// Gets a search query for filtering the flight log by flight code.
-        /// </summary>
-        /// <param name="searchTerm">Search term for the flight code.</param>
-        /// <returns>A query that will filter the flight log based on the search term.</returns>
-        private IEnumerable<FlightLogInfo> GetLinqQueryForFilteringFlightsByFlightCode(
-            string searchTerm)
-        {
-            if (searchTerm == null)
-            {
-                throw new ArgumentNullException("searchTerm", "searchTerm cannot be null.");
-            }
-
-            string searchTermLower = searchTerm.ToLower();
-
-            IEnumerable<FlightLogInfo> query = 
-                from flightLigItem in FlightLogInfoItems
-                where (flightLigItem.FlightCode.ToLower().Contains(searchTermLower))
-                select flightLigItem;
-
-            return query;
         }
 
         /// <summary>
