@@ -65,6 +65,11 @@ namespace AppFeatures
         /// <param name="flightLogInfo">FlightLogInfo object</param>
         private void AddFlightLogInfoItemToLog(FlightLogInfo flightLogInfo)
         {
+            if (flightLogInfo == null)
+            {
+                throw new ArgumentNullException("flightLogInfo", "flightLogInfo cannot be null.");
+            }
+
             FlightLogInfoItems.Add(flightLogInfo);
 
             XMLSerializer.Serialize<List<FlightLogInfo>>(XmlDataSourceFilePath, FlightLogInfoItems);
