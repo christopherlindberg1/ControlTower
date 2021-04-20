@@ -31,7 +31,7 @@ namespace AppFeatures
             {
                 if (_flightLogInfoItems == null)
                 {
-                    _flightLogInfoItems = GetFlightLogInfoItems();
+                    _flightLogInfoItems = GetFlightLogInfoItemsFromStorage();
                 }
 
                 return _flightLogInfoItems;
@@ -54,7 +54,7 @@ namespace AppFeatures
         /// Gets the entire flight log.
         /// </summary>
         /// <returns>List with FlightLogInfo items</returns>
-        public List<FlightLogInfo> GetFlightLogInfoItems()
+        private List<FlightLogInfo> GetFlightLogInfoItemsFromStorage()
         {
             return XMLSerializer.Deserialize<List<FlightLogInfo>>(XmlDataSourceFilePath);
         }
@@ -63,14 +63,14 @@ namespace AppFeatures
         /// Gets all records that were added to the flight log the past 7 dats.
         /// </summary>
         /// <returns>List with all flight log entries for the past week</returns>
-        public List<FlightLogInfo> GetLastWeeksFlightLogData()
-        {
-            string searchTerm = "";
-            DateTime startDate = DateTime.Now.AddDays(-6).Date;
-            DateTime endDate = DateTime.Now;
+        //public List<FlightLogInfo> GetLastWeeksFlightLogData()
+        //{
+        //    string searchTerm = "";
+        //    DateTime startDate = DateTime.Now.AddDays(-6).Date;
+        //    DateTime endDate = DateTime.Now;
 
-            return FilterFlightLog(searchTerm, startDate, endDate);
-        }
+        //    return FilterFlightLog(searchTerm, startDate, endDate);
+        //}
 
         /// <summary>
         /// Adds a FlightLogItem to the log file.
