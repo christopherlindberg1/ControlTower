@@ -14,10 +14,8 @@ namespace DataAccess.Tests.Utility
     public class XMLSerializerTests
     {
         [Fact]
-        public void Deserialize_GetCollectionOfItems_ShouldWork()
+        public void Deserialize_ValidFilePathWithMatchingDataType_Works()
         {
-            // Arrange
-
             // Act
             List<FlightLogInfo> flightLog = 
                 XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FilePathForXmlTestFileWithData);
@@ -33,6 +31,25 @@ namespace DataAccess.Tests.Utility
             Assert.Equal("DLH 812", flightLog[3].FlightCode);
             Assert.Equal("Landed", flightLog[3].Status);
             Assert.Equal(new DateTime(2021, 4, 15, 17, 8, 17), flightLog[3].DateTime);
+        }
+
+        [Fact]
+        public void Deserialize_ValidFilePathWithMismatchingDataType_Fails()
+        {
+            // Assert
+            Assert.Throws<InvalidOperationException>(
+                () => XMLSerializer.Deserialize<FlightLogInfo>(FilePaths.FilePathForXmlTestFileWithData));
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("   ")]
+        [InlineData(null)]
+        public void Deserialize_InvalidFilePath_ThrowsArgumentNullException(string filePath)
+        {
+            // Assert
+            Assert.Throws<ArgumentNullException>(
+                () => XMLSerializer.Deserialize<List<FlightLogInfo>>(filePath));
         }
 
         [Fact]
@@ -62,6 +79,17 @@ namespace DataAccess.Tests.Utility
             Assert.Equal(flightLogToIsert[0].FlightCode, flightLogFromFile[0].FlightCode);
             Assert.Equal(flightLogToIsert[0].Status, flightLogFromFile[0].Status);
             Assert.Equal(flightLogToIsert[0].DateTime, flightLogFromFile[0].DateTime);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("   ")]
+        [InlineData(null)]
+        public void Serialize_InvalidFilePath_ShouldThrowArgumentNullException(string filePath)
+        {
+            // Assert
+            Assert.Throws<ArgumentNullException>(
+                () => XMLSerializer.Deserialize<List<FlightLogInfo>>(filePath));
         }
     }
 }
