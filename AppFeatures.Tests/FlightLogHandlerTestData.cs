@@ -165,13 +165,42 @@ namespace AppFeatures.Tests
 
         public static IEnumerable<object[]> ArgumentsForFilteringWithSearchTermAndDateTimes()
         {
-            // Filters for 'SAS' in the entire time interval. Expetcs 3 entries.
+            // Filters for 'SAS' in the entire time interval. Expects 3 entries.
             yield return new object[]
             {
                 "SAS",
                 new DateTime(2020, 1, 1),
                 new DateTime(2021, 4, 20),
                 3
+            };
+
+            // Filters for 'S' in the entire time interval. Expects 3 entries.
+            yield return new object[]
+            {
+                "S",
+                new DateTime(2020, 1, 1),
+                new DateTime(2021, 4, 20),
+                4
+            };
+
+            // Filters for 'SAS' in a specific time interval. Should exclude 1
+            // entry with SAS. Expects 2 entries.
+            yield return new object[]
+            {
+                "SAS",
+                new DateTime(2020, 1, 1),
+                new DateTime(2021, 4, 19),
+                2
+            };
+
+            // Filters for 'DHL' in a specific time interval. Shoudl exclude 2
+            // entries with DLH. Expects 0 entries.
+            yield return new object[]
+            {
+                "DLH",
+                new DateTime(2020, 1, 1),
+                new DateTime(2020, 12, 31),
+                0
             };
         }
     }
