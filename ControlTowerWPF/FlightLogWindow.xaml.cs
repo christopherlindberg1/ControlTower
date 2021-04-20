@@ -42,7 +42,7 @@ namespace ControlTowerWPF
         /// List with FlightLogInfo objects that is used to store the flight log data
         /// that gets fetched from the storage.
         /// </summary>
-        private List<FlightLogInfo> FlightLogInfoItems { get; set; }
+        private List<FlightLogInfo> FilteredFlightLogInfoItems { get; set; }
 
         public DateTime? CurrentStartDate { get; set; }
         public DateTime? CurrentEndDate { get; set; }
@@ -79,9 +79,10 @@ namespace ControlTowerWPF
             DateTime startDate = DateTime.Now.AddDays(-6).Date;
             DateTime endDate = DateTime.Now;
 
-            FlightLogInfoItems = FlightLogger.FilterFlightLog(searchTerm, startDate, endDate);
+            FilteredFlightLogInfoItems = FlightLogHandler.FilterFlightLog(
+                FlightLogger.FlightLogInfoItems, searchTerm, startDate, endDate);
             
-            listViewLogLines.ItemsSource = FlightLogInfoItems;
+            listViewLogLines.ItemsSource = FilteredFlightLogInfoItems;
         }
 
         /// <summary>
@@ -90,7 +91,7 @@ namespace ControlTowerWPF
         private void InitializeGUI()
         {
             InitializeDatePickers();
-            SetNrOfLogLines(FlightLogInfoItems.Count);
+            SetNrOfLogLines(FilteredFlightLogInfoItems.Count);
         }
 
         /// <summary>
@@ -158,9 +159,6 @@ namespace ControlTowerWPF
         /// </summary>
         private void FilterFlights_Handler()
         {
-            //DateTime? currentStartDate = DatePickerStartDate.SelectedDate;
-            //DateTime? currentEndDate = DatePickerEndDate.SelectedDate;
-
             if (ValidateInput() == false)
             {
                 MessageBox.Show(
@@ -179,7 +177,8 @@ namespace ControlTowerWPF
             DateTime? startDate = DatePickerStartDate.SelectedDate;
             DateTime? endDate = DatePickerEndDate.SelectedDate;
 
-            List<FlightLogInfo> list = FlightLogger.FilterFlightLog(searchTerm, startDate, endDate);
+            List<FlightLogInfo> list = FlightLogHandler.FilterFlightLog(
+                FlightLogger.FlightLogInfoItems, searchTerm, startDate, endDate);
 
             listViewLogLines.ItemsSource = list;
 
