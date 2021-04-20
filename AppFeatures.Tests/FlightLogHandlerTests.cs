@@ -123,6 +123,17 @@ namespace AppFeatures.Tests
             foreach (FlightLogInfo item in filteredFlightLog)
             {
                 Assert.Contains(searchTerm.ToLower(), item.FlightCode.ToLower());
+
+                // Fix bug here
+                if (startDate != null)
+                {
+                    Assert.True(item.DateTime >= startDate);
+                }
+
+                if (endDate != null)
+                {
+                    Assert.True(item.DateTime <= endDate);
+                }
             }
         }
     }
