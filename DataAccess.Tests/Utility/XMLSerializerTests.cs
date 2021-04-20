@@ -18,7 +18,7 @@ namespace DataAccess.Tests.Utility
         {
             // Act
             List<FlightLogInfo> flightLog = 
-                XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FilePathForXmlTestFileWithData);
+                XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePathsForTesting.PathForXmlFileWithData);
 
             // Assert
             // Checking that we get the correct amount of objects
@@ -34,11 +34,11 @@ namespace DataAccess.Tests.Utility
         }
 
         [Fact]
-        public void Deserialize_ValidFilePathWithMismatchingDataType_Fails()
+        public void Deserialize_ValidFilePathWithMismatchingDataType_ThrowsInvalidOperationException()
         {
             // Assert
             Assert.Throws<InvalidOperationException>(
-                () => XMLSerializer.Deserialize<FlightLogInfo>(FilePaths.FilePathForXmlTestFileWithData));
+                () => XMLSerializer.Deserialize<FlightLogInfo>(FilePathsForTesting.PathForXmlFileWithData));
         }
 
         [Theory]
@@ -68,10 +68,10 @@ namespace DataAccess.Tests.Utility
 
             // Act
             XMLSerializer.Serialize<List<FlightLogInfo>>(
-                FilePaths.FilePathForXmlTestFileWithoutData, flightLogToIsert);
+                FilePathsForTesting.PathForXmlFileUsedForInsert, flightLogToIsert);
 
             List<FlightLogInfo> flightLogFromFile =
-                XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePaths.FilePathForXmlTestFileWithoutData);
+                XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePathsForTesting.PathForXmlFileUsedForInsert);
 
             // Assert
             Assert.Single(flightLogToIsert);
