@@ -71,7 +71,11 @@ namespace ControlTowerWPF
         /// </summary>
         private void InitializeData()
         {
-            FlightLogInfoItems = FlightLogger.GetLastWeeksFlightLogData();
+            string searchTerm = "";
+            DateTime startDate = DateTime.Now.AddDays(-6).Date;
+            DateTime endDate = DateTime.Now;
+
+            FlightLogInfoItems = FlightLogger.FilterFlightLog(searchTerm, startDate, endDate);
             
             listViewLogLines.ItemsSource = FlightLogInfoItems;
         }
