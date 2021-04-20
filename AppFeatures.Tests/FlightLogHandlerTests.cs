@@ -65,7 +65,12 @@ namespace AppFeatures.Tests
             // Assert
             Assert.Equal(expectedAmount, filteredFlightLog.Count);
 
-            // Also check that each item is in fact matching
+            // Checking that every item has a FlightCode matching the search term
+            foreach (FlightLogInfo item in filteredFlightLog)
+            {
+                Assert.Contains(searchTerm.ToLower(), item.FlightCode.ToLower());
+            }
+
         }
     }
 }
