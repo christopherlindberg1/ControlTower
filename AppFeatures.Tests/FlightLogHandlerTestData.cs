@@ -133,6 +133,25 @@ namespace AppFeatures.Tests
                 new DateTime(2021, 4, 20, 0, 0, 0),
                 2
             };
+            
+            // Start date is null, end date is declared. Should include every entry
+            // up to, and including, the end date. Expects 4 entries.
+            yield return new object[]
+            {
+                null,
+                new DateTime(2021, 2, 2),
+                4
+            };
+
+            // Start date is declared, end date is null. Should include every entry
+            // from the start date up to, and including, the rest of the last
+            // entry in the log. Expects 4 entries.
+            yield return new object[]
+            {
+                new DateTime(2021, 2, 2),
+                null,
+                4
+            };
         }
     }
 }
