@@ -33,7 +33,7 @@ namespace ControlTowerWPF
         // ===================== Properties ===================== //
 
         public FlightLogger FlightLogger { get => _flightLogger; }
-        
+
         public FlightLogHandler FlightLogHandler { get => _flightLogHandler; }
 
         private ErrorMessageHandler ErrorMessageHandler { get => _errorMessageHandler; }
