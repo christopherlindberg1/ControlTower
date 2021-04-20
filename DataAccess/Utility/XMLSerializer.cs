@@ -21,6 +21,11 @@ namespace DataAccess.Utility
         /// <param name="obj">Object to serialize</param>
         public static void Serialize<T>(string filePath, T obj)
         {
+            if (String.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentNullException("filePath", "filePath cannot be null.");
+            }
+
             XmlSerializer serializer = new XmlSerializer(typeof(T));
 
             using (StreamWriter streamWriter = new StreamWriter(filePath))
@@ -45,6 +50,11 @@ namespace DataAccess.Utility
         /// <returns>Returns an object containing data that was deserialized from a file.</returns>
         public static T Deserialize<T>(string filePath)
         {
+            if (String.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentNullException("filePath", "filePath cannot be null.");
+            }
+
             XmlSerializer serializer = new XmlSerializer(typeof(T));
 
             using (StreamReader streamReader = new StreamReader(filePath))
