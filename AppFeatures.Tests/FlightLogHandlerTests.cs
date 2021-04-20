@@ -11,26 +11,31 @@ namespace AppFeatures.Tests
 {
     public class FlightLogHandlerTests
     {
-        public class Utility
-        {
-            public static int CountFlightLogEntriesWithMatchingFlightCode(
-                List<FlightLogInfo> flightLogInfoItems,
-                string flightCode)
-            {
-                int counter = 0;
+        //public class Utility
+        //{
+        //    public static int CountFlightLogEntriesWithMatchingFlightCode(
+        //        List<FlightLogInfo> flightLogInfoItems,
+        //        string flightCode)
+        //    {
+        //        int counter = 0;
 
-                foreach (FlightLogInfo item in flightLogInfoItems)
-                {
-                    if (item.FlightCode.ToLower().Contains(flightCode.ToLower()))
-                    {
-                        counter++;
-                    }
-                }
+        //        foreach (FlightLogInfo item in flightLogInfoItems)
+        //        {
+        //            if (item.FlightCode.ToLower().Contains(flightCode.ToLower()))
+        //            {
+        //                counter++;
+        //            }
+        //        }
 
-                return counter;
-            }
-        }
+        //        return counter;
+        //    }
+        //}
 
+        /// <summary>
+        /// Testing FlightLogHandler.FilterFlightLog() with an empty string as
+        /// the search term as well as null as the start- and end date.
+        /// The filter method not filter out any entries.
+        /// </summary>
         [Fact]
         public void FilterFlightLog_NoSearchParameters_ReturnsFullList()
         {
@@ -47,6 +52,14 @@ namespace AppFeatures.Tests
             Assert.Equal(flightLog.Count, filteredFlightLog.Count);
         }
 
+        /// <summary>
+        /// Testsing FlightLogHandler.FilterFlightLog() with different
+        /// search terms for the flightCode parameter in the filter method.
+        /// startDate and endDate is set to null in all cases in order to not filter
+        /// for a specific time span.
+        /// </summary>
+        /// <param name="searchTerm">The search term we want to see if it is contained in the flight code.</param>
+        /// <param name="expectedAmount">The amount of entries that has a flight code containing the search term.</param>
         [Theory]
         [InlineData("SAS", 3)]
         [InlineData("sas", 3)]
@@ -78,13 +91,13 @@ namespace AppFeatures.Tests
         }
 
         /// <summary>
-        /// Tests FlightLogHandler.FilterFlightLog(). This test method test different
+        /// Testing FlightLogHandler.FilterFlightLog() with different
         /// conbinations of start- and end dates for the time interval. An empty string
         /// is used in all tests, which is why it is not passed in as an argument.
         /// </summary>
-        /// <param name="startDate">Start date for the time interval</param>
-        /// <param name="endDate">end date for the time interval</param>
-        /// <param name="expectedAmount">The amount of entries that are in the interval</param>
+        /// <param name="startDate">Start date for the time interval.</param>
+        /// <param name="endDate">end date for the time interval.</param>
+        /// <param name="expectedAmount">The amount of entries that are in the interval.</param>
         [Theory]
         [MemberData(
             nameof(FlightLogHandlerTestData.ArgumentsForFilteringWithDateTimes),
@@ -97,8 +110,6 @@ namespace AppFeatures.Tests
             // Arrange
             FlightLogHandler flightLogHandler = new FlightLogHandler();
             List<FlightLogInfo> flightLog = FlightLogHandlerTestData.SampleFlightLog;
-            int nrOfItemsWithMatchingFlightCode =
-                Utility.CountFlightLogEntriesWithMatchingFlightCode(flightLog, "");
 
             // Act
             List<FlightLogInfo> filteredFlightLog = flightLogHandler.FilterFlightLog(
@@ -106,6 +117,34 @@ namespace AppFeatures.Tests
 
             // Assert
             Assert.Equal(expectedAmount, filteredFlightLog.Count);
+        }
+
+        [Theory]
+        [MemberData(
+            nameof(FlightLogHandlerTestData.ArgumentsForFilteringWithSearchTermAndDateTimes),
+            MemberType = typeof(FlightLogHandlerTestData))]
+        public void FilterFlightLog_ProvidingSearchTermAndDateTimes_FiltersOutMismatches(
+            string searchTerm,
+            DateTime? startDate,
+            DateTime? endDate,
+            int expectedAmount)
+        {
+            // Arrange
+            FlightLogHandler flightLogHandler = new FlightLogHandler();
+            List<FlightLogInfo> flightLog = FlightLogHandlerTestData.SampleFlightLog;
+
+            // Act
+            List<FlightLogInfo> filteredFlightLog = flightLogHandler.FilterFlightLog(
+                flightLog, searchTerm, startDate, endDate);
+
+            // Assert
+            Assert.Equal(expectedAmount, filteredFlightLog.Count);
+
+            // Checking that every item has a FlightCode matching the search term
+            foreach (FlightLogInfo item in filteredFlightLog)
+            {
+                Assert.Contains(searchTerm.ToLower(), item.FlightCode.ToLower());
+            }
         }
     }
 }
