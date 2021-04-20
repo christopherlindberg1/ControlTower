@@ -63,11 +63,84 @@ namespace AppFeatures.Tests
 
         public static IEnumerable<object[]> ArgumentsForFilteringWithDateTimes()
         {
+            // Covers the entire time interval, expects entire log (6 entries).
             yield return new object[]
             {
-                new DateTime(2020, 1, 1 ),
+                new DateTime(2020, 1, 1),
                 new DateTime(2021, 4, 20),
                 6
+            };
+
+            // Start- and end date before first entry, expects 0 entries.
+            yield return new object[]
+            {
+                new DateTime(2019, 12, 31),
+                new DateTime(2019, 12, 31),
+                0
+            };
+
+            // Time span covers the first date a flight was logged, expects 2 entries.
+            yield return new object[]
+            {
+                new DateTime(2019, 12, 31),
+                new DateTime(2020, 1, 1),
+                2
+            };
+
+            // Time span starts and ends on the first date a flight was logged,
+            // expects 2 entries.
+            yield return new object[]
+            {
+                new DateTime(2020, 1, 1),
+                new DateTime(2020, 1, 1),
+                2
+            };
+
+            // Time span starts and ends when a flight in the middle
+            // of the log was logged. Expects 2 entries.
+            yield return new object[]
+            {
+                new DateTime(2021, 2, 2),
+                new DateTime(2021, 2, 2),
+                2
+            };
+
+            // Time span stops right before more flights were logged,
+            // expects 2 entries.
+            yield return new object[]
+            {
+                new DateTime(2021, 2, 2),
+                new DateTime(2021, 4, 19),
+                2
+            };
+
+            // Time span stops at the last logged time. Expects to include the last
+            // entries, expects 4 entries.
+            yield return new object[]
+            {
+                new DateTime(2021, 2, 2),
+                new DateTime(2021, 4, 20),
+                4
+            };
+
+            // Start date includes time of day that is after a flight was logged.
+            // This flight should be included anyway since it should include all 
+            // logs on a particular date, and not look at the time.
+            yield return new object[]
+            {
+                new DateTime(2020, 1, 1, 23, 59, 59),
+                new DateTime(2020, 1, 1, 23, 59, 59),
+                2
+            };
+
+            // End date includes time of day that is before a flight was logged.
+            // This flight should be included anyway since it should include all 
+            // logs on a particular date, and not look at the time.
+            yield return new object[]
+            {
+                new DateTime(2021, 4, 20, 0, 0, 0),
+                new DateTime(2021, 4, 20, 0, 0, 0),
+                2
             };
         }
     }
