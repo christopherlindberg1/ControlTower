@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AppFeatures\AppFeatures.csproj" />
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\DataAccess.Tests\DataAccess.Tests.csproj" />
   </ItemGroup>
 
 </Project>
