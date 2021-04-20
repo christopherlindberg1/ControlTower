@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess
+namespace DataAccess.Tests
 {
     /// <summary>
     /// Class containing file paths that used when testing the app.
