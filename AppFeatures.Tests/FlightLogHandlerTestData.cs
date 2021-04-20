@@ -24,7 +24,36 @@ namespace AppFeatures.Tests
                 Status = "Took off",
                 DateTime = new DateTime(2020, 1, 1, 12, 45, 45)
             },
-            // Add more items...
+            new FlightLogInfo
+            {
+                FlightCode = "SAS 794",
+                Status = "Landed",
+                DateTime = new DateTime(2020, 1, 1, 16, 45, 45)
+            },
+            new FlightLogInfo
+            {
+                FlightCode = "DLH 512",
+                Status = "Took off",
+                DateTime = new DateTime(2021, 2, 2, 10, 30, 15)
+            },
+            new FlightLogInfo
+            {
+                FlightCode = "DLH 512",
+                Status = "Landed",
+                DateTime = new DateTime(2021, 2, 2, 12, 55, 7)
+            },
+            new FlightLogInfo
+            {
+                FlightCode = "SAS 111",
+                Status = "Took off",
+                DateTime = new DateTime(2021, 4, 20, 8, 7, 0)
+            },
+            new FlightLogInfo
+            {
+                FlightCode = "RYS 895",
+                Status = "Took off",
+                DateTime = new DateTime(2020, 4, 20, 11, 0, 6)
+            },
         };
 
         public static List<FlightLogInfo> SampleFlightLog { get => _sampleFlightLog; }
