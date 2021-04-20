@@ -1,5 +1,6 @@
 ﻿using AppFeatures.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,12 +53,22 @@ namespace AppFeatures.Tests
             {
                 FlightCode = "RYS 895",
                 Status = "Took off",
-                DateTime = new DateTime(2020, 4, 20, 11, 0, 6)
+                DateTime = new DateTime(2021, 4, 20, 11, 0, 6)
             },
         };
 
         public static List<FlightLogInfo> SampleFlightLog { get => _sampleFlightLog; }
 
         public static FlightLogInfo SampleFlightLogInfoItem { get => _sampleFlightLogInfoItem; }
+
+        public static IEnumerable<object[]> ArgumentsForFilteringWithDateTimes()
+        {
+            yield return new object[]
+            {
+                new DateTime(2020, 1, 1 ),
+                new DateTime(2021, 4, 20),
+                6
+            };
+        }
     }
 }
