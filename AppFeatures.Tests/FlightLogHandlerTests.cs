@@ -11,26 +11,6 @@ namespace AppFeatures.Tests
 {
     public class FlightLogHandlerTests
     {
-        //public class Utility
-        //{
-        //    public static int CountFlightLogEntriesWithMatchingFlightCode(
-        //        List<FlightLogInfo> flightLogInfoItems,
-        //        string flightCode)
-        //    {
-        //        int counter = 0;
-
-        //        foreach (FlightLogInfo item in flightLogInfoItems)
-        //        {
-        //            if (item.FlightCode.ToLower().Contains(flightCode.ToLower()))
-        //            {
-        //                counter++;
-        //            }
-        //        }
-
-        //        return counter;
-        //    }
-        //}
-
         /// <summary>
         /// Testing FlightLogHandler.FilterFlightLog() with an empty string as
         /// the search term as well as null as the start- and end date.
