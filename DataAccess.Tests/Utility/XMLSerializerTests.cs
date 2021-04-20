@@ -97,7 +97,7 @@ namespace DataAccess.Tests.Utility
         {
             // Assert
             Assert.Throws<InvalidOperationException>(
-                () => XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePathsForTesting.PathForXmlFileUsedForInsert));
+                () => XMLSerializer.Deserialize<FlightLogInfo>(FilePathsForTesting.PathForXmlFileUsedForInsert));
         }
     }
 }
