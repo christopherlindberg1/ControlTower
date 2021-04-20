@@ -77,6 +77,14 @@ namespace AppFeatures.Tests
             }
         }
 
+        /// <summary>
+        /// Tests FlightLogHandler.FilterFlightLog(). This test method test different
+        /// conbinations of start- and end dates for the time interval. An empty string
+        /// is used in all tests, which is why it is not passed in as an argument.
+        /// </summary>
+        /// <param name="startDate">Start date for the time interval</param>
+        /// <param name="endDate">end date for the time interval</param>
+        /// <param name="expectedAmount">The amount of entries that are in the interval</param>
         [Theory]
         [MemberData(
             nameof(FlightLogHandlerTestData.ArgumentsForFilteringWithDateTimes),
