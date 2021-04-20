@@ -91,5 +91,13 @@ namespace DataAccess.Tests.Utility
             Assert.Throws<ArgumentNullException>(
                 () => XMLSerializer.Deserialize<List<FlightLogInfo>>(filePath));
         }
+
+        [Fact]
+        public void Serialize_ValidFilePathWithMismatchingDataType_ThrowsInvalidOperationException()
+        {
+            // Assert
+            Assert.Throws<InvalidOperationException>(
+                () => XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePathsForTesting.PathForXmlFileUsedForInsert));
+        }
     }
 }
