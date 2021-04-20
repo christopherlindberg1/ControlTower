@@ -22,7 +22,6 @@ namespace AppFeatures.Tests
             // Arrange
             FlightLogHandler flightLogHandler = new FlightLogHandler();
             List<FlightLogInfo> flightLog = FlightLogHandlerTestData.SampleFlightLog;
-            int nrOfItemsInTotal = flightLog.Count;
 
             // Act
             List<FlightLogInfo> filteredFlightLog = flightLogHandler.FilterFlightLog(
