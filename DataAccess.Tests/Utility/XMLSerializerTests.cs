@@ -53,7 +53,7 @@ namespace DataAccess.Tests.Utility
         }
 
         [Fact]
-        public void Serialize_SaveCollectionOfItems_ShouldWork()
+        public void Serialize_SaveCollectionOfItems_Works()
         {
             // Arrange
             List<FlightLogInfo> flightLogToIsert = new List<FlightLogInfo>
@@ -85,7 +85,7 @@ namespace DataAccess.Tests.Utility
         [InlineData("")]
         [InlineData("   ")]
         [InlineData(null)]
-        public void Serialize_InvalidFilePath_ShouldThrowArgumentNullException(string filePath)
+        public void Serialize_InvalidFilePath_ThrowsArgumentNullException(string filePath)
         {
             // Assert
             Assert.Throws<ArgumentNullException>(
