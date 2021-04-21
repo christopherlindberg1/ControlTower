@@ -24,35 +24,57 @@ namespace AppFeatures.Tests
                 DateTime? endDate)
             {
                 IEnumerable<FlightLogInfo> query =
-                    from item in flightLog
-                    where item.FlightCode.ToLower().Contains(searchTerm.ToLower())
-                    select item;
+                    GetQueryForFilteringBySearchTerm(flightLog, "");
 
                 if (startDate != null)
                 {
-                    // Update the date to only have the Date property to remove the time
-                    DateTime date = (DateTime)startDate;
-                    date = date.Date;
-
-                    query = from item in query
-                            where item.DateTime >= date
-                            select item;
+                    query = GetQueryForFilteringByStartDate(query, (DateTime)startDate);
                 }
 
                 if (endDate != null)
                 {
-                    DateTime date = (DateTime)endDate;
-                    date = date.Date; // Sets time to 00:00:00
-                    TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
-                    date += timeToAdd;
-
-                    query =
-                        from flightLogItem in query
-                        where (flightLogItem.DateTime <= date)
-                        select flightLogItem;
+                    query = GetQueryForFilteringByEndDate(query, (DateTime)endDate);
                 }
 
                 return query.ToList().Count;
+            }
+
+            private static IEnumerable<FlightLogInfo> GetQueryForFilteringBySearchTerm(
+                IEnumerable<FlightLogInfo> itemToQuery,
+                string searchTerm)
+            {
+                itemToQuery = from item in itemToQuery
+                              where item.FlightCode.ToLower().Contains(searchTerm.ToLower())
+                              select item;
+
+                return itemToQuery;
+            }
+
+            private static IEnumerable<FlightLogInfo> GetQueryForFilteringByStartDate(
+                IEnumerable<FlightLogInfo> itemToQuery,
+                DateTime startDate)
+            {
+
+                itemToQuery = from item in itemToQuery
+                              where item.DateTime >= startDate.Date
+                              select item;
+
+                return itemToQuery;
+            }
+
+            private static IEnumerable<FlightLogInfo> GetQueryForFilteringByEndDate(
+                IEnumerable<FlightLogInfo> itemToQuery,
+                DateTime endDate)
+            {
+                endDate = endDate.Date;
+                TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
+                endDate += timeToAdd;
+
+                itemToQuery = from item in itemToQuery
+                              where item.DateTime <= endDate
+                              select item;
+
+                return itemToQuery;
             }
         }
 
