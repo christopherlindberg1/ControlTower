@@ -83,7 +83,7 @@ namespace AppFeatures.Tests
 
             /// <summary>
             /// Gets LINQ query for filtering a given collection or existing query
-            /// by a end date.
+            /// by an end date.
             /// </summary>
             /// <param name="itemToQuery">IEnumberable of type FlightLogInfo to filter.</param>
             /// <param name="endDate">End date of the time interval to include.</param>
