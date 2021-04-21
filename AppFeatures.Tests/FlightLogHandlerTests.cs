@@ -17,13 +17,15 @@ namespace AppFeatures.Tests
         /// </summary>
         public class Utility
         {
-            public static int CountItemsWithinTimeInterval(
+            public static int CountItemsMatchingSearchParameters(
                 List<FlightLogInfo> flightLog,
+                string searchTerm,
                 DateTime? startDate,
                 DateTime? endDate)
             {
                 IEnumerable<FlightLogInfo> query =
                     from item in flightLog
+                    where item.FlightCode.ToLower().Contains(searchTerm.ToLower())
                     select item;
 
                 if (startDate != null)
@@ -132,8 +134,8 @@ namespace AppFeatures.Tests
             // Arrange
             FlightLogHandler flightLogHandler = new FlightLogHandler();
             List<FlightLogInfo> flightLog = FlightLogHandlerTestData.SampleFlightLog;
-            int nrOfItemsInTimeInterval = Utility.CountItemsWithinTimeInterval(
-                flightLog, startDate, endDate);
+            int nrOfItemsInTimeInterval = Utility.CountItemsMatchingSearchParameters(
+                flightLog, "", startDate, endDate);
 
             // Act
             List<FlightLogInfo> filteredFlightLog = flightLogHandler.FilterFlightLog(
