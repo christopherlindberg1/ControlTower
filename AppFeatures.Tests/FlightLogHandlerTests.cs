@@ -11,9 +11,45 @@ namespace AppFeatures.Tests
 {
     public class FlightLogHandlerTests
     {
+        /// <summary>
+        /// Class providing utility methods for the data being tested
+        /// in FlightLogHandlerTests.
+        /// </summary>
         public class Utility
         {
+            public static int CountItemsWithinTimeInterval(
+                List<FlightLogInfo> flightLog,
+                DateTime? startDate,
+                DateTime? endDate)
+            {
+                IEnumerable<FlightLogInfo> query =
+                    from item in flightLog
+                    where item.FlightCode.ToLower().Contains("")
+                    select item;
 
+                if (startDate != null)
+                {
+                    // Update the date to only have the Date property to remove the time
+                    DateTime date = (DateTime)startDate;
+                    date = date.Date;
+
+                    query = from item in query
+                            where item.DateTime >= date
+                            select item;
+                }
+
+                if (endDate != null)
+                {
+                    TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
+                    endDate += timeToAdd;
+
+                    query =
+                        from flightLogItem in query
+                        where (flightLogItem.DateTime <= endDate)
+                        select flightLogItem;
+                }
+
+            }
         }
 
         /// <summary>
