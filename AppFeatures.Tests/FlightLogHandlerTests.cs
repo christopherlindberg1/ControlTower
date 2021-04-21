@@ -24,7 +24,7 @@ namespace AppFeatures.Tests
                 DateTime? endDate)
             {
                 IEnumerable<FlightLogInfo> query =
-                    GetQueryForFilteringBySearchTerm(flightLog, "");
+                    GetQueryForFilteringBySearchTerm(flightLog, searchTerm);
 
                 if (startDate != null)
                 {
@@ -156,7 +156,7 @@ namespace AppFeatures.Tests
             // Arrange
             FlightLogHandler flightLogHandler = new FlightLogHandler();
             List<FlightLogInfo> flightLog = FlightLogHandlerTestData.SampleFlightLog;
-            int nrOfItemsInTimeInterval = Utility.CountItemsMatchingSearchParameters(
+            int nrOfItemsMatchingSearchParameters = Utility.CountItemsMatchingSearchParameters(
                 flightLog, "", startDate, endDate);
 
             // Act
@@ -165,46 +165,32 @@ namespace AppFeatures.Tests
 
             // Assert
             Assert.Equal(expectedAmount, filteredFlightLog.Count);
-            Assert.Equal(nrOfItemsInTimeInterval, filteredFlightLog.Count);
+            Assert.Equal(nrOfItemsMatchingSearchParameters, filteredFlightLog.Count);
         }
 
-        //[Theory]
-        //[MemberData(
-        //    nameof(FlightLogHandlerTestData.ArgumentsForFilteringWithSearchTermAndDateTimes),
-        //    MemberType = typeof(FlightLogHandlerTestData))]
-        //public void FilterFlightLog_ProvidingSearchTermAndDateTimes_FiltersOutMismatches(
-        //    string searchTerm,
-        //    DateTime? startDate,
-        //    DateTime? endDate,
-        //    int expectedAmount)
-        //{
-        //    // Arrange
-        //    FlightLogHandler flightLogHandler = new FlightLogHandler();
-        //    List<FlightLogInfo> flightLog = FlightLogHandlerTestData.SampleFlightLog;
+        [Theory]
+        [MemberData(
+            nameof(FlightLogHandlerTestData.ArgumentsForFilteringWithSearchTermAndDateTimes),
+            MemberType = typeof(FlightLogHandlerTestData))]
+        public void FilterFlightLog_ProvidingSearchTermAndDateTimes_FiltersOutMismatches(
+            string searchTerm,
+            DateTime? startDate,
+            DateTime? endDate,
+            int expectedAmount)
+        {
+            // Arrange
+            FlightLogHandler flightLogHandler = new FlightLogHandler();
+            List<FlightLogInfo> flightLog = FlightLogHandlerTestData.SampleFlightLog;
+            int nrOfItemsMatchingSearchParameters = Utility.CountItemsMatchingSearchParameters(
+                flightLog, searchTerm, startDate, endDate);
 
-        //    // Act
-        //    List<FlightLogInfo> filteredFlightLog = flightLogHandler.FilterFlightLog(
-        //        flightLog, searchTerm, startDate, endDate);
+            // Act
+            List<FlightLogInfo> filteredFlightLog = flightLogHandler.FilterFlightLog(
+                flightLog, searchTerm, startDate, endDate);
 
-        //    // Assert
-        //    Assert.Equal(expectedAmount, filteredFlightLog.Count);
-
-        //    // Checking that every item has a FlightCode matching the search term
-        //    foreach (FlightLogInfo item in filteredFlightLog)
-        //    {
-        //        Assert.Contains(searchTerm.ToLower(), item.FlightCode.ToLower());
-
-        //        // Fix bug here
-        //        if (startDate != null)
-        //        {
-        //            Assert.True(item.DateTime >= startDate);
-        //        }
-
-        //        if (endDate != null)
-        //        {
-        //            Assert.True(item.DateTime <= endDate);
-        //        }
-        //    }
-        //}
+            // Assert
+            //Assert.Equal(expectedAmount, filteredFlightLog.Count);
+            Assert.Equal(nrOfItemsMatchingSearchParameters, filteredFlightLog.Count);
+        }
     }
 }
