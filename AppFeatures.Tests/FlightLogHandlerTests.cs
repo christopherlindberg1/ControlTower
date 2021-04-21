@@ -11,6 +11,11 @@ namespace AppFeatures.Tests
 {
     public class FlightLogHandlerTests
     {
+        public class Utility
+        {
+
+        }
+
         /// <summary>
         /// Testing FlightLogHandler.FilterFlightLog() with an empty string as
         /// the search term as well as null as the start- and end date.
@@ -96,6 +101,11 @@ namespace AppFeatures.Tests
 
             // Assert
             Assert.Equal(expectedAmount, filteredFlightLog.Count);
+
+            foreach (FlightLogInfo item in filteredFlightLog)
+            {
+
+            }
         }
 
         [Theory]
