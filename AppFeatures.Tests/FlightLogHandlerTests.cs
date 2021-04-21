@@ -17,6 +17,15 @@ namespace AppFeatures.Tests
         /// </summary>
         public class Utility
         {
+            /// <summary>
+            /// Counts the number of items in a collection that left when having
+            /// filtered the collection based on the provided filter arguments.
+            /// </summary>
+            /// <param name="flightLog">List with FlightLogInfo objects.</param>
+            /// <param name="searchTerm">Search term to check for in each FlightCode.</param>
+            /// <param name="startDate">Start date of the time interval to look in.</param>
+            /// <param name="endDate">End date of the time interval to look in.</param>
+            /// <returns>The amount of items that are left after having filtered The list.</returns>
             public static int CountItemsMatchingSearchParameters(
                 List<FlightLogInfo> flightLog,
                 string searchTerm,
@@ -39,29 +48,46 @@ namespace AppFeatures.Tests
                 return query.ToList().Count;
             }
 
+            /// <summary>
+            /// Gets LINQ query for filtering a given collection or existing query
+            /// by a searchTerm.
+            /// </summary>
+            /// <param name="itemToQuery">IEnumberable of type FlightLogInfo to filter.</param>
+            /// <param name="searchTerm">Search term to check for in each FlightCode.</param>
+            /// <returns>LINQ query with an added segment that filters by searchTerm.</returns>
             private static IEnumerable<FlightLogInfo> GetQueryForFilteringBySearchTerm(
                 IEnumerable<FlightLogInfo> itemToQuery,
                 string searchTerm)
             {
-                itemToQuery = from item in itemToQuery
-                              where item.FlightCode.ToLower().Contains(searchTerm.ToLower())
-                              select item;
-
-                return itemToQuery;
+                return from item in itemToQuery
+                       where item.FlightCode.ToLower().Contains(searchTerm.ToLower())
+                       select item;
             }
 
+            /// <summary>
+            /// Gets LINQ query for filtering a given collection or existing query
+            /// by a start date.
+            /// </summary>
+            /// <param name="itemToQuery">IEnumberable of type FlightLogInfo to filter.</param>
+            /// <param name="startDate">Start date of the time interval to include.</param>
+            /// <returns>LINQ query with an added segment that filters by startDate.</returns>
             private static IEnumerable<FlightLogInfo> GetQueryForFilteringByStartDate(
                 IEnumerable<FlightLogInfo> itemToQuery,
                 DateTime startDate)
             {
 
-                itemToQuery = from item in itemToQuery
-                              where item.DateTime >= startDate.Date
-                              select item;
-
-                return itemToQuery;
+                return from item in itemToQuery
+                       where item.DateTime >= startDate.Date
+                       select item;
             }
 
+            /// <summary>
+            /// Gets LINQ query for filtering a given collection or existing query
+            /// by a end date.
+            /// </summary>
+            /// <param name="itemToQuery">IEnumberable of type FlightLogInfo to filter.</param>
+            /// <param name="endDate">End date of the time interval to include.</param>
+            /// <returns>LINQ query with an added segment that filters by endDate.</returns>
             private static IEnumerable<FlightLogInfo> GetQueryForFilteringByEndDate(
                 IEnumerable<FlightLogInfo> itemToQuery,
                 DateTime endDate)
@@ -70,11 +96,9 @@ namespace AppFeatures.Tests
                 TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
                 endDate += timeToAdd;
 
-                itemToQuery = from item in itemToQuery
-                              where item.DateTime <= endDate
-                              select item;
-
-                return itemToQuery;
+                return from item in itemToQuery
+                       where item.DateTime <= endDate
+                       select item;
             }
         }
 
@@ -116,11 +140,15 @@ namespace AppFeatures.Tests
         [InlineData("1", 3)]
         [InlineData("11", 1)]
         [InlineData(" 11", 1)]
-        public void FilterFlightLog_OnlyProvidingSearchTerm_FiltersOutMismatches(string searchTerm, int expectedAmount)
+        public void FilterFlightLog_OnlyProvidingSearchTerm_FiltersOutMismatches(
+            string searchTerm,
+            int expectedAmount)
         {
             // Arrange
             FlightLogHandler flightLogHandler = new FlightLogHandler();
             List<FlightLogInfo> flightLog = FlightLogHandlerTestData.SampleFlightLog;
+            int nrOfItemsMatchingSearchParameters = Utility.CountItemsMatchingSearchParameters(
+                flightLog, searchTerm, null, null);
 
             // Act
             List<FlightLogInfo> filteredFlightLog = flightLogHandler.FilterFlightLog(
@@ -128,12 +156,7 @@ namespace AppFeatures.Tests
 
             // Assert
             Assert.Equal(expectedAmount, filteredFlightLog.Count);
-
-            // Checking that every item has a FlightCode matching the search term
-            foreach (FlightLogInfo item in filteredFlightLog)
-            {
-                Assert.Contains(searchTerm.ToLower(), item.FlightCode.ToLower());
-            }
+            Assert.Equal(nrOfItemsMatchingSearchParameters, filteredFlightLog.Count);
         }
 
         /// <summary>
@@ -189,7 +212,7 @@ namespace AppFeatures.Tests
                 flightLog, searchTerm, startDate, endDate);
 
             // Assert
-            //Assert.Equal(expectedAmount, filteredFlightLog.Count);
+            Assert.Equal(expectedAmount, filteredFlightLog.Count);
             Assert.Equal(nrOfItemsMatchingSearchParameters, filteredFlightLog.Count);
         }
     }
