@@ -51,15 +51,16 @@ namespace AppFeatures
 
             if (endDate != null)
             {
-                // Since default time is 00:00:00 I'll add 23:59:59:999 to endDate so that
-                // all flights on this date gets included in the search,
-                // regardless of what time of day the event happened.
+                // Set time to 00:00:00 and then add 23:59:59:999 in order to cover
+                // all entries on that date.
+                DateTime date = (DateTime)endDate;
+                date = date.Date; // Sets time to 00:00:00
                 TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
-                endDate += timeToAdd;
+                date += timeToAdd;
 
                 query =
                     from flightLogItem in query
-                    where (flightLogItem.DateTime <= endDate)
+                    where (flightLogItem.DateTime <= date)
                     select flightLogItem;
             }
 
