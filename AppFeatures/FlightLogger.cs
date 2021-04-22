@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess;
 using DataAccess.Utility;
 
 namespace AppFeatures
@@ -16,6 +17,7 @@ namespace AppFeatures
     public partial class FlightLogger
     {
         private readonly string _xmlDataSourceFilePath;
+        private readonly ITextFileFlightLogger _textFileFlightLogger;
         private List<FlightLogInfo> _flightLogInfoItems;
 
 
@@ -24,6 +26,8 @@ namespace AppFeatures
         // ===================== Properties ===================== //
 
         public string XmlDataSourceFilePath { get => _xmlDataSourceFilePath; }
+
+        public ITextFileFlightLogger TextFileFlightLogger { get => _textFileFlightLogger; }
 
         public List<FlightLogInfo> FlightLogInfoItems
         {
@@ -48,6 +52,11 @@ namespace AppFeatures
         public FlightLogger(string storageFilePath)
         {
             _xmlDataSourceFilePath = storageFilePath;
+        }
+
+        public FlightLogger(ITextFileFlightLogger logger)
+        {
+            _textFileFlightLogger = logger;
         }
 
         /// <summary>
