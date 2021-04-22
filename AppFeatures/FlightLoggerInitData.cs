@@ -1,5 +1,5 @@
-﻿using AppFeatures.Models;
-using DataAccess;
+﻿using DataAccess;
+using DataAccess.Models;
 using DataAccess.Utility;
 using System;
 using System.Collections.Generic;

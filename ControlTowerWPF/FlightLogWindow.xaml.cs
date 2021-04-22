@@ -12,8 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AppFeatures;
-using AppFeatures.Models;
 using DataAccess;
+using DataAccess.Models;
 using DataAccess.Utility;
 
 namespace ControlTowerWPF

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using DataAccess;
 using DataAccess.Utility;
 using Xunit;
-using AppFeatures.Models;
+using DataAccess.Models;
 
 namespace DataAccess.Tests.Utility
 {

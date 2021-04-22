@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppFeatures;
-using AppFeatures.Models;
+using DataAccess.Models;
 using Xunit;
 
 namespace AppFeatures.Tests
