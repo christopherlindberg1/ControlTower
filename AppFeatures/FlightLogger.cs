@@ -15,7 +15,6 @@ namespace AppFeatures
     /// </summary>
     public partial class FlightLogger
     {
-        private readonly string _xmlDataSourceFilePath;
         private readonly ITextFileFlightLogger _textFileFlightLogger;
         private List<FlightLogInfo> _flightLogInfoItems;
 
@@ -23,8 +22,6 @@ namespace AppFeatures
 
 
         // ===================== Properties ===================== //
-
-        public string XmlDataSourceFilePath { get => _xmlDataSourceFilePath; }
 
         public ITextFileFlightLogger TextFileFlightLogger { get => _textFileFlightLogger; }
 
@@ -34,7 +31,7 @@ namespace AppFeatures
             {
                 if (_flightLogInfoItems == null)
                 {
-                    _flightLogInfoItems = GetFlightLogInfoItemsFromStorage();
+                    _flightLogInfoItems = TextFileFlightLogger.GetLog();
                 }
 
                 return _flightLogInfoItems;
@@ -48,28 +45,27 @@ namespace AppFeatures
 
         // ===================== Methods ===================== //
 
-        //public FlightLogger(string storageFilePath)
-        //{
-        //    _xmlDataSourceFilePath = storageFilePath;
-        //}
-
         public FlightLogger(ITextFileFlightLogger logger)
         {
             _textFileFlightLogger = logger;
         }
 
         /// <summary>
-        /// Gets the entire flight log.
+        /// Adds a FlightLogItem to the list and log file.
         /// </summary>
-        /// <returns>List with FlightLogInfo items</returns>
-        private List<FlightLogInfo> GetFlightLogInfoItemsFromStorage()
+        /// <param name="flightLogInfo">FlightLogInfo object</param>
+        private void AddFlightLogInfoItemToList(FlightLogInfo flightLogInfo)
         {
-            return TextFileFlightLogger.GetLog();
-            //return XMLSerializer.Deserialize<List<FlightLogInfo>>(XmlDataSourceFilePath);
+            if (flightLogInfo == null)
+            {
+                throw new ArgumentNullException("flightLogInfo", "flightLogInfo cannot be null.");
+            }
+
+            FlightLogInfoItems.Add(flightLogInfo);
         }
 
         /// <summary>
-        /// Adds a FlightLogItem to the log file.
+        /// Adds a FlightLogItem to the list and log file.
         /// </summary>
         /// <param name="flightLogInfo">FlightLogInfo object</param>
         private void AddFlightLogInfoItemToLog(FlightLogInfo flightLogInfo)
@@ -79,9 +75,7 @@ namespace AppFeatures
                 throw new ArgumentNullException("flightLogInfo", "flightLogInfo cannot be null.");
             }
 
-            FlightLogInfoItems.Add(flightLogInfo);
-
-            XMLSerializer.Serialize<List<FlightLogInfo>>(XmlDataSourceFilePath, FlightLogInfoItems);
+            TextFileFlightLogger.SaveEntryInLog(flightLogInfo);
         }
 
         /// <summary>
@@ -98,6 +92,7 @@ namespace AppFeatures
                 DateTime = e.DateTime
             };
 
+            AddFlightLogInfoItemToList(flightLogInfo);
             AddFlightLogInfoItemToLog(flightLogInfo);
         }
 
@@ -114,7 +109,8 @@ namespace AppFeatures
                 Status = e.Status,
                 DateTime = e.DateTime
             };
-
+            
+            AddFlightLogInfoItemToList(flightLogInfo);
             AddFlightLogInfoItemToLog(flightLogInfo);
         }
     }
