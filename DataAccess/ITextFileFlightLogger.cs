@@ -10,8 +10,10 @@ namespace DataAccess
 {
     interface ITextFileFlightLogger
     {
-        List<FlightLogInfo> GetLog(string filePath);
+        string FilePath { get; }
 
-        void SaveEntryInLog(string filePath, FlightLogInfo objectToSave);
+        List<FlightLogInfo> GetLog();
+
+        void SaveEntryInLog(FlightLogInfo flightLogEntry);
     }
 }
