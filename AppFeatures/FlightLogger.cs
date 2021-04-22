@@ -51,7 +51,7 @@ namespace AppFeatures
         }
 
         /// <summary>
-        /// Adds a FlightLogItem to the list and log file.
+        /// Adds a FlightLogItem to the list with FlightLogInfo objects.
         /// </summary>
         /// <param name="flightLogInfo">FlightLogInfo object</param>
         private void AddFlightLogInfoItemToList(FlightLogInfo flightLogInfo)
@@ -65,7 +65,7 @@ namespace AppFeatures
         }
 
         /// <summary>
-        /// Adds a FlightLogItem to the list and log file.
+        /// Adds a FlightLogItem to the log file.
         /// </summary>
         /// <param name="flightLogInfo">FlightLogInfo object</param>
         private void AddFlightLogInfoItemToLog(FlightLogInfo flightLogInfo)
