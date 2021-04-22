@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    interface ITextFileFlightLogger
+    public interface ITextFileFlightLogger
     {
         string FilePath { get; }
 
