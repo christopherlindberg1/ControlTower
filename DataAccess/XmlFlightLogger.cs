@@ -12,19 +12,29 @@ namespace DataAccess
     {
         private readonly string _filePath;
         private readonly List<FlightLogInfo> _flightLog;
-        
-        public XmlFlightLogger(string filePath)
-        {
-            _filePath = filePath;
-        }
 
-        public string FilePath { get; }
+
+
+
+        // ===================== Properties ===================== //
+
+        public string FilePath { get => _filePath; }
 
         public List<FlightLogInfo> FlightLog
         {
             get => _flightLog ?? GetLog();
         }
 
+
+
+
+        // ===================== Methods ===================== //
+
+        public XmlFlightLogger(string filePath)
+        {
+            _filePath = filePath;
+        }
+        
         public List<FlightLogInfo> GetLog()
         {
             return XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePath);
