@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using DataAccess;
-using AppFeatures.Models;
+using DataAccess.Models;
 using System.Text.RegularExpressions;
 
 namespace ControlTowerWPF
