@@ -48,10 +48,10 @@ namespace AppFeatures
 
         // ===================== Methods ===================== //
 
-        public FlightLogger(string storageFilePath)
-        {
-            _xmlDataSourceFilePath = storageFilePath;
-        }
+        //public FlightLogger(string storageFilePath)
+        //{
+        //    _xmlDataSourceFilePath = storageFilePath;
+        //}
 
         public FlightLogger(ITextFileFlightLogger logger)
         {
@@ -64,7 +64,8 @@ namespace AppFeatures
         /// <returns>List with FlightLogInfo items</returns>
         private List<FlightLogInfo> GetFlightLogInfoItemsFromStorage()
         {
-            return XMLSerializer.Deserialize<List<FlightLogInfo>>(XmlDataSourceFilePath);
+            return TextFileFlightLogger.GetLog();
+            //return XMLSerializer.Deserialize<List<FlightLogInfo>>(XmlDataSourceFilePath);
         }
 
         /// <summary>
