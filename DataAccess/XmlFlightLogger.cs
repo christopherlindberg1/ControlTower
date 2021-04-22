@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using DataAccess.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,27 @@ namespace DataAccess
 {
     public class XmlFlightLogger : ITextFileFlightLogger
     {
-        public List<FlightLogInfo> GetLog(string filePath)
+        private readonly string _filePath;
+        
+        public XmlFlightLogger(string filePath)
         {
-            throw new NotImplementedException();
+            _filePath = filePath;
         }
 
-        public void SaveEntryInLog(string filePath, FlightLogInfo objectToSave)
+        public string FilePath { get; }
+
+        public List<FlightLogInfo> GetLog()
         {
-            throw new NotImplementedException();
+            return XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePath);
+        }
+
+        public void SaveEntryInLog(FlightLogInfo flightLogEntry)
+        {
+            List<FlightLogInfo> flightLog = GetLog();
+
+            flightLog.Add(flightLogEntry);
+
+            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePath, flightLog);
         }
     }
 }
