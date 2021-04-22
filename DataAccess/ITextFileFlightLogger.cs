@@ -12,6 +12,8 @@ namespace DataAccess
     {
         string FilePath { get; }
 
+        List<FlightLogInfo> FlightLog { get; }
+
         List<FlightLogInfo> GetLog();
 
         void SaveEntryInLog(FlightLogInfo flightLogEntry);
