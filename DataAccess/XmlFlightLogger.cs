@@ -11,6 +11,7 @@ namespace DataAccess
     public class XmlFlightLogger : ITextFileFlightLogger
     {
         private readonly string _filePath;
+        private readonly List<FlightLogInfo> _flightLog;
         
         public XmlFlightLogger(string filePath)
         {
@@ -19,6 +20,11 @@ namespace DataAccess
 
         public string FilePath { get; }
 
+        public List<FlightLogInfo> FlightLog
+        {
+            get => _flightLog ?? GetLog();
+        }
+
         public List<FlightLogInfo> GetLog()
         {
             return XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePath);
@@ -26,11 +32,9 @@ namespace DataAccess
 
         public void SaveEntryInLog(FlightLogInfo flightLogEntry)
         {
-            List<FlightLogInfo> flightLog = GetLog();
+            FlightLog.Add(flightLogEntry);
 
-            flightLog.Add(flightLogEntry);
-
-            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePath, flightLog);
+            XMLSerializer.Serialize<List<FlightLogInfo>>(FilePath, FlightLog);
         }
     }
 }
