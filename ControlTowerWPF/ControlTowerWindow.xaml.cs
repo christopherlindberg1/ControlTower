@@ -25,7 +25,7 @@ namespace ControlTowerWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly FlightLogHandler _flightLogHandler;
+        private readonly IFlightLogHandler _flightLogHandler;
         private readonly IFlightLogUtility _flightLogUtility;
         private readonly ErrorMessageHandler _errorMessageHandler = new ErrorMessageHandler();
 
@@ -34,7 +34,7 @@ namespace ControlTowerWPF
 
         // ===================== Properties ===================== //
 
-        public FlightLogHandler FlightLogHandler { get => _flightLogHandler; }
+        public IFlightLogHandler FlightLogHandler { get => _flightLogHandler; }
 
         public IFlightLogUtility FlightLogUtility { get => _flightLogUtility; }
 
@@ -47,7 +47,7 @@ namespace ControlTowerWPF
 
         // ===================== Methods ===================== //
 
-        public MainWindow(FlightLogHandler flightLogHandler, IFlightLogUtility flightLogUtility)
+        public MainWindow(IFlightLogHandler flightLogHandler, IFlightLogUtility flightLogUtility)
         {
             InitializeComponent();
 
