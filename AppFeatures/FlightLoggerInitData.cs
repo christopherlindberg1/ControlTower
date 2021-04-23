@@ -14,7 +14,7 @@ namespace AppFeatures
     /// used when testing the application. These methods can be used when a developer
     /// wants to add more sample data.
     /// </summary>
-    public partial class FlightLogger
+    public partial class FlightLogHandler
     {
         /// <summary>
         /// Used to add bulk data to the log file so I can verifying that the app can

@@ -25,8 +25,8 @@ namespace ControlTowerWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly FlightLogger _flightLogger;
-        private readonly IFlightLogHandler _flightLogHandler;
+        private readonly FlightLogHandler _flightLogHandler;
+        private readonly IFlightLogUtility _flightLogUtility;
         private readonly ErrorMessageHandler _errorMessageHandler = new ErrorMessageHandler();
 
 
@@ -34,9 +34,9 @@ namespace ControlTowerWPF
 
         // ===================== Properties ===================== //
 
-        public FlightLogger FlightLogger { get => _flightLogger; }
+        public FlightLogHandler FlightLogHandler { get => _flightLogHandler; }
 
-        public IFlightLogHandler FlightLogHandler { get => _flightLogHandler; }
+        public IFlightLogUtility FlightLogUtility { get => _flightLogUtility; }
 
         private ErrorMessageHandler ErrorMessageHandler { get => _errorMessageHandler; }
 
@@ -47,12 +47,12 @@ namespace ControlTowerWPF
 
         // ===================== Methods ===================== //
 
-        public MainWindow(FlightLogger flightLogger, IFlightLogHandler flightLogHandler)
+        public MainWindow(FlightLogHandler flightLogHandler, IFlightLogUtility flightLogUtility)
         {
             InitializeComponent();
 
-            _flightLogger = flightLogger;
             _flightLogHandler = flightLogHandler;
+            _flightLogUtility = flightLogUtility;
         }
 
         public bool ValidateInput()
@@ -100,8 +100,8 @@ namespace ControlTowerWPF
             window.Landed += OnLanded;
 
             // FlightLogger subscribing to events in the FlightWindow instance
-            window.TakenOff += FlightLogger.OnTakeOff;
-            window.Landed += FlightLogger.OnLanded;
+            window.TakenOff += FlightLogHandler.OnTakeOff;
+            window.Landed += FlightLogHandler.OnLanded;
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace ControlTowerWPF
 
         private void OpenFlightLogWindow_Handler()
         {
-            FlightLogWindow = new FlightLogWindow(FlightLogger, FlightLogHandler);
+            FlightLogWindow = new FlightLogWindow(FlightLogHandler, FlightLogUtility);
             FlightLogWindow.Show();
         }
 

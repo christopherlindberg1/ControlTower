@@ -23,8 +23,8 @@ namespace ControlTowerWPF
     /// </summary>
     public partial class FlightLogWindow : Window
     {
-        private readonly FlightLogger _flightLogger;
-        private readonly IFlightLogHandler _flightLogHandler;
+        private readonly FlightLogHandler _flightLogHandler;
+        private readonly IFlightLogUtility _flightLogUtility;
         private readonly ErrorMessageHandler _errorMessageHandler = new ErrorMessageHandler();
 
 
@@ -32,9 +32,9 @@ namespace ControlTowerWPF
 
         // ===================== Properties ===================== //
 
-        public FlightLogger FlightLogger { get => _flightLogger; }
+        public FlightLogHandler FlightLogHandler { get => _flightLogHandler; }
 
-        public IFlightLogHandler FlightLogHandler { get => _flightLogHandler; }
+        public IFlightLogUtility FlightLogUtility { get => _flightLogUtility; }
 
         private ErrorMessageHandler ErrorMessageHandler { get => _errorMessageHandler; }
 
@@ -53,12 +53,12 @@ namespace ControlTowerWPF
 
         // ===================== Methods ===================== //
 
-        public FlightLogWindow(FlightLogger flightLogger, IFlightLogHandler flightLogHandler)
+        public FlightLogWindow(FlightLogHandler flightLogHandler, IFlightLogUtility flightLogUtility)
         {
             InitializeComponent();
 
-            _flightLogger = flightLogger;
             _flightLogHandler = flightLogHandler;
+            _flightLogUtility = flightLogUtility;
 
             InitializeWindow();
         }
@@ -79,8 +79,8 @@ namespace ControlTowerWPF
             DateTime startDate = DateTime.Now.AddDays(-6).Date;
             DateTime endDate = DateTime.Now;
 
-            FilteredFlightLogInfoItems = FlightLogHandler.FilterFlightLog(
-                FlightLogger.FlightLogInfoItems, searchTerm, startDate, endDate);
+            FilteredFlightLogInfoItems = FlightLogUtility.FilterFlightLog(
+                FlightLogHandler.FlightLogInfoItems, searchTerm, startDate, endDate);
             
             listViewLogLines.ItemsSource = FilteredFlightLogInfoItems;
         }
@@ -115,7 +115,7 @@ namespace ControlTowerWPF
         /// </summary>
         private void SetNrOfLogLines(int nrOfLines)
         {
-            if (FlightLogger.TotalNumberOfFlightLogRecords == 0)
+            if (FlightLogHandler.TotalNumberOfFlightLogRecords == 0)
             {
                 textBlockNumberOfLogLines.Text = "There are no flight logs yet";
             }
@@ -177,8 +177,8 @@ namespace ControlTowerWPF
             DateTime? startDate = DatePickerStartDate.SelectedDate;
             DateTime? endDate = DatePickerEndDate.SelectedDate;
 
-            List<FlightLogInfo> list = FlightLogHandler.FilterFlightLog(
-                FlightLogger.FlightLogInfoItems, searchTerm, startDate, endDate);
+            List<FlightLogInfo> list = FlightLogUtility.FilterFlightLog(
+                FlightLogHandler.FlightLogInfoItems, searchTerm, startDate, endDate);
 
             listViewLogLines.ItemsSource = list;
 

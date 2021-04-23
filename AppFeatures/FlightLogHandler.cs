@@ -1,94 +1,117 @@
-﻿using DataAccess.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess;
+using DataAccess.Models;
+using DataAccess.Utility;
 
 namespace AppFeatures
 {
     /// <summary>
-    /// Class used to manipulate flight log data held in RAM.
-    /// Performs operations such as filtering the log.
+    /// Class used for logging different actions related to flights in some type
+    /// of a permanent storage.
     /// </summary>
-    public class FlightLogHandler : IFlightLogHandler
+    public partial class FlightLogHandler
     {
-        /// <summary>
-        /// Filters data in the flight log based on a search term
-        /// and a date interval
-        /// </summary>
-        /// <param name="searchTerm">Search term for the flight code.</param>
-        /// <param name="startDate">Start date for the date interval.</param>
-        /// <param name="endDate">End date for the date interval.</param>
-        /// <returns>List with all flight log entries matching the method arguments.</returns>
-        public List<FlightLogInfo> FilterFlightLog(
-            List<FlightLogInfo> flightLogInfoItems,
-            string searchTerm,
-            DateTime? startDate,
-            DateTime? endDate)
+        private readonly ITextFileFlightLogger _textFileFlightLogger;
+        private List<FlightLogInfo> _flightLogInfoItems;
+
+
+
+
+        // ===================== Properties ===================== //
+
+        public ITextFileFlightLogger TextFileFlightLogger { get => _textFileFlightLogger; }
+
+        public List<FlightLogInfo> FlightLogInfoItems
         {
-            if (searchTerm == null)
+            get
             {
-                throw new ArgumentNullException("searchTerm", "searchTerm cannot be null.");
+                if (_flightLogInfoItems == null)
+                {
+                    _flightLogInfoItems = TextFileFlightLogger.GetLog();
+                }
+
+                return _flightLogInfoItems;
             }
+        }
 
-            string searchTermLower = searchTerm.ToLower();
+        public int TotalNumberOfFlightLogRecords { get => _flightLogInfoItems.Count; }
 
-            IEnumerable<FlightLogInfo> query =
-                GetLinqQueryForFilteringFlightsByFlightCode(flightLogInfoItems, searchTermLower);
 
-            if (startDate != null)
-            {
-                // Update the date to only have the Date property to remove the time
-                DateTime date = (DateTime)startDate;
-                date = date.Date;
 
-                query =
-                    from flightLogItem in query
-                    where (flightLogItem.DateTime >= date)
-                    select flightLogItem;
-            }
 
-            if (endDate != null)
-            {
-                // Set time to 00:00:00 and then add 23:59:59:999 in order to cover
-                // all entries on that date.
-                DateTime date = (DateTime)endDate;
-                date = date.Date; // Sets time to 00:00:00
-                TimeSpan timeToAdd = new TimeSpan(0, 23, 59, 59, 999);
-                date += timeToAdd;
+        // ===================== Methods ===================== //
 
-                query =
-                    from flightLogItem in query
-                    where (flightLogItem.DateTime <= date)
-                    select flightLogItem;
-            }
-
-            return query.OrderByDescending(x => x.DateTime).ToList();
+        public FlightLogHandler(ITextFileFlightLogger logger)
+        {
+            _textFileFlightLogger = logger;
         }
 
         /// <summary>
-        /// Gets a search query for filtering the flight log by flight code.
+        /// Adds a FlightLogItem to the list with FlightLogInfo objects.
         /// </summary>
-        /// <param name="searchTerm">Search term for the flight code.</param>
-        /// <returns>A query that will filter the flight log based on the search term.</returns>
-        private IEnumerable<FlightLogInfo> GetLinqQueryForFilteringFlightsByFlightCode(
-            List<FlightLogInfo> flightLogInfoItems,
-            string searchTerm)
+        /// <param name="flightLogInfo">FlightLogInfo object</param>
+        private void AddFlightLogInfoItemToList(FlightLogInfo flightLogInfo)
         {
-            if (searchTerm == null)
+            if (flightLogInfo == null)
             {
-                throw new ArgumentNullException("searchTerm", "searchTerm cannot be null.");
+                throw new ArgumentNullException("flightLogInfo", "flightLogInfo cannot be null.");
             }
 
-            string searchTermLower = searchTerm.ToLower();
+            FlightLogInfoItems.Add(flightLogInfo);
+        }
 
-            IEnumerable<FlightLogInfo> query =
-                from flightLigItem in flightLogInfoItems
-                where (flightLigItem.FlightCode.ToLower().Contains(searchTermLower))
-                select flightLigItem;
+        /// <summary>
+        /// Adds a FlightLogItem to the log file.
+        /// </summary>
+        /// <param name="flightLogInfo">FlightLogInfo object</param>
+        private void AddFlightLogInfoItemToLog(FlightLogInfo flightLogInfo)
+        {
+            if (flightLogInfo == null)
+            {
+                throw new ArgumentNullException("flightLogInfo", "flightLogInfo cannot be null.");
+            }
 
-            return query;
+            TextFileFlightLogger.SaveEntryInLog(flightLogInfo);
+        }
+
+        /// <summary>
+        /// Event handler/listener for when an airplane has taken off.
+        /// </summary>
+        /// <param name="source">Object that triggered the event</param>
+        /// <param name="e">TakeOffEventArgs object containing event data</param>
+        public void OnTakeOff(object source, TakeOffEventArgs e)
+        {
+            FlightLogInfo flightLogInfo = new FlightLogInfo()
+            {
+                FlightCode = e.FlightCode,
+                Status = e.Status,
+                DateTime = e.DateTime
+            };
+
+            AddFlightLogInfoItemToList(flightLogInfo);
+            AddFlightLogInfoItemToLog(flightLogInfo);
+        }
+
+        /// <summary>
+        /// Event handler/listener for when an airplane has landed
+        /// </summary>
+        /// <param name="source">Object that triggered the event</param>
+        /// <param name="e">LandEventArgs object containing event data</param>
+        public void OnLanded(object source, LandEventArgs e)
+        {
+            FlightLogInfo flightLogInfo = new FlightLogInfo()
+            {
+                FlightCode = e.FlightCode,
+                Status = e.Status,
+                DateTime = e.DateTime
+            };
+            
+            AddFlightLogInfoItemToList(flightLogInfo);
+            AddFlightLogInfoItemToLog(flightLogInfo);
         }
     }
 }
