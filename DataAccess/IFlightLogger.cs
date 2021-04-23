@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
+    /// <summary>
+    /// Interface specifying which members any type of flight logger should have.
+    /// </summary>
     public interface IFlightLogger
     {
         List<FlightLogInfo> GetLog();
