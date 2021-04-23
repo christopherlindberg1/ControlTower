@@ -45,6 +45,7 @@
     <Compile Include="FlightLogger.cs" />
     <Compile Include="FlightLoggerInitData.cs" />
     <Compile Include="FlightLogHandler.cs" />
+    <Compile Include="IFlightLogHandler.cs" />
     <Compile Include="LandEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TakeOffEventArgs.cs" />
