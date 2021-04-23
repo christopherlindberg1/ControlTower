@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public interface ITextFileFlightLogger
+    public interface ITextFileFlightLogger : IFlightLogger
     {
         string FilePath { get; }
-
-        List<FlightLogInfo> GetLog();
-
-        void SaveEntryInLog(FlightLogInfo flightLogEntry);
     }
 }
