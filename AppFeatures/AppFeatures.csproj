@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="ChangeRouteEventArgs.cs" />
     <Compile Include="FlightLogHandler.cs" />
-    <Compile Include="FlightLoggerInitData.cs" />
     <Compile Include="FlightLogUtility.cs" />
     <Compile Include="IFlightLogUtility.cs" />
     <Compile Include="LandEventArgs.cs" />
