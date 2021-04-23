@@ -9,7 +9,7 @@ First version (MVP):
 * Learn the publisher-subscriber pattern and work with delegates and events.
 
 Second version:
-* Set up and use Dependency Injection instead of hard coding dependencies in classes.
+* Implement the SOLID design principles.
 * Perform data access and other time consuming operations asyncronously in order to not lock the UI thread.
 * Write unit tests for most/all code.
 
