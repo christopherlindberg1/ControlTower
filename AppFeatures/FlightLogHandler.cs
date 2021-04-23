@@ -23,7 +23,7 @@ namespace AppFeatures
 
         // ===================== Properties ===================== //
 
-        public IFlightLogger TextFileFlightLogger { get => _textFileFlightLogger; }
+        public IFlightLogger FlightLogger { get => _textFileFlightLogger; }
 
         public List<FlightLogInfo> FlightLogInfoItems
         {
@@ -31,7 +31,7 @@ namespace AppFeatures
             {
                 if (_flightLogInfoItems == null)
                 {
-                    _flightLogInfoItems = TextFileFlightLogger.GetLog();
+                    _flightLogInfoItems = FlightLogger.GetLog();
                 }
 
                 return _flightLogInfoItems;
@@ -75,7 +75,7 @@ namespace AppFeatures
                 throw new ArgumentNullException("flightLogInfo", "flightLogInfo cannot be null.");
             }
 
-            TextFileFlightLogger.SaveEntryInLog(flightLogInfo);
+            FlightLogger.SaveEntryInLog(flightLogInfo);
         }
 
         /// <summary>
