@@ -13,7 +13,7 @@ namespace AppFeatures
     /// Class used for logging different actions related to flights in some type
     /// of a permanent storage.
     /// </summary>
-    public partial class FlightLogHandler
+    public class FlightLogHandler
     {
         private readonly ITextFileFlightLogger _textFileFlightLogger;
         private List<FlightLogInfo> _flightLogInfoItems;
