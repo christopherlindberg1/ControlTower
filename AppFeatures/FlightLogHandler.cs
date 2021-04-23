@@ -11,7 +11,7 @@ namespace AppFeatures
     /// Class used to manipulate flight log data held in RAM.
     /// Performs operations such as filtering the log.
     /// </summary>
-    public class FlightLogHandler
+    public class FlightLogHandler : IFlightLogHandler
     {
         /// <summary>
         /// Filters data in the flight log based on a search term
