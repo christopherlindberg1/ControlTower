@@ -36,7 +36,13 @@ namespace ControlTowerWPF
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            MainWindow mainWindow = _serviceProvider.GetService<MainWindow>();
+            //MainWindow mainWindow = _serviceProvider.GetService<MainWindow>();
+            IFlightLogHandler flightLogHandler = new FlightLogHandler(
+                new XmlFlightLogger(FilePaths.FlightLogFilePath));
+
+            IFlightLogUtility flightLogUtility = new FlightLogUtility();
+
+            MainWindow mainWindow = new MainWindow(flightLogHandler, flightLogUtility);
             mainWindow.Show();
         }
     }
