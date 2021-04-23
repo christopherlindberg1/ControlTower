@@ -15,7 +15,7 @@ namespace AppFeatures
     /// </summary>
     public class FlightLogHandler
     {
-        private readonly ITextFileFlightLogger _textFileFlightLogger;
+        private readonly IFlightLogger _textFileFlightLogger;
         private List<FlightLogInfo> _flightLogInfoItems;
 
 
@@ -23,7 +23,7 @@ namespace AppFeatures
 
         // ===================== Properties ===================== //
 
-        public ITextFileFlightLogger TextFileFlightLogger { get => _textFileFlightLogger; }
+        public IFlightLogger TextFileFlightLogger { get => _textFileFlightLogger; }
 
         public List<FlightLogInfo> FlightLogInfoItems
         {
@@ -45,7 +45,7 @@ namespace AppFeatures
 
         // ===================== Methods ===================== //
 
-        public FlightLogHandler(ITextFileFlightLogger logger)
+        public FlightLogHandler(IFlightLogger logger)
         {
             _textFileFlightLogger = logger;
         }
