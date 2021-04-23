@@ -27,11 +27,19 @@ namespace DataAccess
             _filePath = filePath;
         }
         
+        /// <summary>
+        /// Gets the entire flight log stored in an XML-file
+        /// </summary>
+        /// <returns>List with FlightLigInfo objects</returns>
         public List<FlightLogInfo> GetLog()
         {
             return XMLSerializer.Deserialize<List<FlightLogInfo>>(FilePath);
         }
 
+        /// <summary>
+        /// Adds a FlightLogInfo object to the collection stored in an XML-file.
+        /// </summary>
+        /// <param name="flightLogEntry">Object containing information about an action</param>
         public void SaveEntryInLog(FlightLogInfo flightLogEntry)
         {
             List<FlightLogInfo> flightLog = GetLog();
