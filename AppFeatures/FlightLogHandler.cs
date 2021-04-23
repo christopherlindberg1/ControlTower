@@ -13,7 +13,7 @@ namespace AppFeatures
     /// Class used for logging different actions related to flights in some type
     /// of a permanent storage.
     /// </summary>
-    public class FlightLogHandler
+    public class FlightLogHandler : IFlightLogHandler
     {
         private readonly IFlightLogger _textFileFlightLogger;
         private List<FlightLogInfo> _flightLogInfoItems;
@@ -54,7 +54,7 @@ namespace AppFeatures
         /// Adds a FlightLogItem to the list with FlightLogInfo objects.
         /// </summary>
         /// <param name="flightLogInfo">FlightLogInfo object</param>
-        private void AddFlightLogInfoItemToList(FlightLogInfo flightLogInfo)
+        public void AddFlightLogInfoItemToList(FlightLogInfo flightLogInfo)
         {
             if (flightLogInfo == null)
             {
@@ -68,7 +68,7 @@ namespace AppFeatures
         /// Adds a FlightLogItem to the log file.
         /// </summary>
         /// <param name="flightLogInfo">FlightLogInfo object</param>
-        private void AddFlightLogInfoItemToLog(FlightLogInfo flightLogInfo)
+        public void AddFlightLogInfoItemToLog(FlightLogInfo flightLogInfo)
         {
             if (flightLogInfo == null)
             {
