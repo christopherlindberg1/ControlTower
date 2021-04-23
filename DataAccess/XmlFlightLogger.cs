@@ -14,9 +14,11 @@ namespace DataAccess
 
 
 
+
         // ===================== Properties ===================== //
 
         public string FilePath { get => _filePath; }
+
 
 
 
