@@ -14,9 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using DataAccess;
 using DataAccess.Models;
-using System.Text.RegularExpressions;
+using AppFeatures.FlightActionsEventArgs;
 
 namespace ControlTowerWPF
 {
@@ -25,7 +24,7 @@ namespace ControlTowerWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IFlightLogHandler _flightLogHandler;
+        private readonly FlightLogHandler _flightLogHandler;
         private readonly IFlightLogUtility _flightLogUtility;
         private readonly ErrorMessageHandler _errorMessageHandler = new ErrorMessageHandler();
 
@@ -34,7 +33,7 @@ namespace ControlTowerWPF
 
         // ===================== Properties ===================== //
 
-        public IFlightLogHandler FlightLogHandler { get => _flightLogHandler; }
+        public FlightLogHandler FlightLogHandler { get => _flightLogHandler; }
 
         public IFlightLogUtility FlightLogUtility { get => _flightLogUtility; }
 
@@ -47,7 +46,7 @@ namespace ControlTowerWPF
 
         // ===================== Methods ===================== //
 
-        public MainWindow(IFlightLogHandler flightLogHandler, IFlightLogUtility flightLogUtility)
+        public MainWindow(FlightLogHandler flightLogHandler, IFlightLogUtility flightLogUtility)
         {
             InitializeComponent();
 

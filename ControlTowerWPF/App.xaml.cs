@@ -28,6 +28,7 @@ namespace ControlTowerWPF
         private void ConfigureServices(ServiceCollection services)
         {
             services.AddSingleton<MainWindow>();
+            //services.AddSingleton<IFlightLogHandler, FlightLogHandler>();
             services.AddSingleton(new FlightLogHandler(
                 new XmlFlightLogger(FilePaths.FlightLogFilePath)));
             services.AddSingleton<IFlightLogUtility, FlightLogUtility>();
