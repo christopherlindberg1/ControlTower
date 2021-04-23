@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FilePaths.cs" />
+    <Compile Include="IFlightLogger.cs" />
     <Compile Include="ITextFileFlightLogger.cs" />
     <Compile Include="Models\FlightInfo.cs" />
     <Compile Include="Models\FlightLogInfo.cs" />
