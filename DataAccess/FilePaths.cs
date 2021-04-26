@@ -21,6 +21,15 @@ namespace DataAccess
             }
         }
 
+        public static string ImagesRootFilder
+        {
+            get
+            {
+                return Path.GetFullPath(
+                    Path.Combine(SolutionRootFolder, @".\ControlTowerWPF\Images\"));
+            }
+        }
+
         public static string DataStorageRootFolderPath
         {
             get
