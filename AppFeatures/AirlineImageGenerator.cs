@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppFeatures
 {
-    public class AirlineImageGenerator
+    public class AirlineImageGenerator : IAirlineImageGenerator
     {
         public Uri GetImageUri(string flightCode)
         {
