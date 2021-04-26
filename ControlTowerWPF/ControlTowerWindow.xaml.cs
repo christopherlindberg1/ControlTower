@@ -26,6 +26,7 @@ namespace ControlTowerWPF
     {
         private readonly IFlightLogHandler _flightLogHandler;
         private readonly IFlightLogUtility _flightLogUtility;
+        private readonly IAirlineImageGenerator _airlineImageGenerator;
         private readonly ErrorMessageHandler _errorMessageHandler = new ErrorMessageHandler();
 
 
@@ -37,6 +38,8 @@ namespace ControlTowerWPF
 
         public IFlightLogUtility FlightLogUtility { get => _flightLogUtility; }
 
+        public IAirlineImageGenerator AirlineImageGenerator { get => _airlineImageGenerator; }
+
         private ErrorMessageHandler ErrorMessageHandler { get => _errorMessageHandler; }
 
         public FlightLogWindow FlightLogWindow { get; set; }
@@ -46,12 +49,16 @@ namespace ControlTowerWPF
 
         // ===================== Methods ===================== //
 
-        public MainWindow(IFlightLogHandler flightLogHandler, IFlightLogUtility flightLogUtility)
+        public MainWindow(
+            IFlightLogHandler flightLogHandler,
+            IFlightLogUtility flightLogUtility,
+            IAirlineImageGenerator airlineImageGenerator)
         {
             InitializeComponent();
 
             _flightLogHandler = flightLogHandler;
             _flightLogUtility = flightLogUtility;
+            _airlineImageGenerator = airlineImageGenerator;
         }
 
         public bool ValidateInput()
@@ -90,7 +97,7 @@ namespace ControlTowerWPF
             
             AddAirplaneToGuiWhenSent(flightCode);
 
-            FlightWindow window = new FlightWindow(flightCode);
+            FlightWindow window = new FlightWindow(flightCode, AirlineImageGenerator);
             window.Show();
 
             // This object (MainWindow) is subscribing to events in a FlightWindow instance
