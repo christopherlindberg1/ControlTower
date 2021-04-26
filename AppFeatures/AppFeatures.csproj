@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirlineImageGenerator.cs" />
     <Compile Include="FlightActionsEventArgs\ChangeRouteEventArgs.cs" />
     <Compile Include="FlightLogHandler.cs" />
     <Compile Include="FlightLogUtility.cs" />
+    <Compile Include="IAirlineImageGenerator.cs" />
     <Compile Include="IFlightLogHandler.cs" />
     <Compile Include="IFlightLogUtility.cs" />
     <Compile Include="FlightActionsEventArgs\LandEventArgs.cs" />
