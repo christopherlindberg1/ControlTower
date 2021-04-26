@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AppFeatures;
 using AppFeatures.FlightActionsEventArgs;
 
 namespace ControlTowerWPF
@@ -22,6 +23,7 @@ namespace ControlTowerWPF
     public partial class FlightWindow : Window
     {
         private string _flightCode;
+        private readonly IAirlineImageGenerator _airlineImageGenerator;
 
         public delegate void TakeOffEventHandler(object source, TakeOffEventArgs e);
         public event TakeOffEventHandler TakenOff;
@@ -37,28 +39,21 @@ namespace ControlTowerWPF
 
         // ===================== Properties ===================== //
 
-        private string FlightCode
-        {
-            get => _flightCode;
+        private string FlightCode { get => _flightCode; }
 
-            set => _flightCode = value;
-        }
+        private IAirlineImageGenerator AirlineImageGenerator { get => _airlineImageGenerator; }
 
 
 
 
         // ===================== Methods ===================== //
 
-        public FlightWindow()
-            : this(null)
-        {
-        }
-
-        public FlightWindow(string flightCode)
+        public FlightWindow(string flightCode, IAirlineImageGenerator airlineImageGenerator)
         {
             InitializeComponent();
 
-            FlightCode = flightCode;
+            _flightCode = flightCode;
+            _airlineImageGenerator = airlineImageGenerator;
 
             InitializeWindow();
         }
