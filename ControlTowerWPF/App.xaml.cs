@@ -33,6 +33,7 @@ namespace ControlTowerWPF
             services.AddSingleton<MainWindow>();
             services.AddSingleton(flightLogHandler);
             services.AddSingleton<IFlightLogUtility, FlightLogUtility>();
+            services.AddSingleton<IAirlineImageGenerator, AirlineImageGenerator>();
         }
 
         private void OnStartup(object sender, StartupEventArgs e)
